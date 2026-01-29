@@ -774,7 +774,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: a6c857c842a465740957e5cb2af80263, type: 2}
   parent: {fileID: 1086855719}
-  _cellInteract: {fileID: 1319415791}
+  cellInteract: {fileID: 0}
 --- !u!1 &1319415787
 GameObject:
   m_ObjectHideFlags: 0
@@ -1035,7 +1035,6 @@ MonoBehaviour:
   itemPrefab: {fileID: 158569655516023945, guid: f8340a9f0e0f7b74a944665404e69a38, type: 3}
   boxCollider: {fileID: 1335329217}
   targetDrop: {fileID: 164313626}
-  _size: {x: 0, y: 0}
 --- !u!1 &1368977919
 GameObject:
   m_ObjectHideFlags: 0
@@ -1339,9 +1338,10 @@ MonoBehaviour:
   buildTower:
     tower: {fileID: 1335329220}
     speed: 0.3
-  tower:
+  towerBuild:
     tower: {fileID: 1335329220}
     speed: 0.3
+  tower: {fileID: 1335329220}
   s:
     textManage: {fileID: 1499228316}
     delay: 0.4

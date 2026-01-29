@@ -16,8 +16,8 @@ namespace Code
         [SerializeField] private SelectBreak dragBreak;
         [SerializeField] private BreakTower buildTower;
 
-        [SerializeField] private BuildTower tower;
-
+        [SerializeField] private BuildTower towerBuild;
+        
         private void Awake()
         {
             handlerClick.ServerDrag.Add(dragBreak);
@@ -26,7 +26,7 @@ namespace Code
             handlerClick.ServerUp.Add(buildTower);
 
 
-            cellInteract.ServerUp.Add(tower);
+            cellInteract.ServerUp.Add(towerBuild);
 
 
             createCells.ServerUp.Add(cellInteract);

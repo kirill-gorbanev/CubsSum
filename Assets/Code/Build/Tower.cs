@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Code.InputSearch;
+using Code.Saves;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -18,24 +19,37 @@ namespace Code.Build
         public List<DragBreak> Items { get; } = new();
         public Vector3 Up { get; private set; }
 
+        private Vector3 _lastPos;
+
         private void Start()
         {
             Size = itemPrefab.GetComponent<SpriteRenderer>().bounds.size;
         }
 
-        public Transform Build(Up own)
+        public Transform Build(Up own) => Build(new TowerData()
+            { point = _lastPos = own.point, color = own.transform.GetComponent<Image>().color });
+
+        private Transform Build(TowerData own)
         {
             if (transform.childCount > 0)
-                Up += new Vector3(Random.Range(-Size.x, Size.x) * 0.5f, Size.y);
+                own.point = Up + new Vector3(Random.Range(-Size.x, Size.x) * 0.5f, Size.y);
             else
-                Up = own.point;
+                own.point = own.point;
 
-            var p = Instantiate(itemPrefab, own.point, Quaternion.identity, transform);
+            return BuildSort(own);
+        }
+
+        private Transform BuildSort(TowerData own)
+        {
+            Up = own.point;
+
+            var p = Instantiate(itemPrefab, _lastPos, Quaternion.identity, transform);
             Items.Add(p);
 
-            var c = own.transform.GetComponent<Image>().color;
+            var c = own.color;
             var s = p.GetComponent<SpriteRenderer>();
             s.color = c;
+            p.color = c;
 
             FitBoxCollider2DToChildren();
 
@@ -74,6 +88,32 @@ namespace Code.Build
                 boxCollider.enabled = true;
 
             return blockSizeY;
+        }
+
+        public void Load(TowerSave saveManagerSaveTower)
+        {
+            var i = saveManagerSaveTower.Items;
+            if (i == null || i.Length <= 0)
+                return;
+            foreach (var item in i)
+            {
+                var p = BuildSort(item);
+                p.transform.position = item.point;
+            }
+        }
+
+        private SaveManager _saveManager = new();
+
+        private void OnEnable()
+        {
+            _saveManager.LoadFromFile();
+            Load(_saveManager.SaveTower);
+        }
+
+        private void OnDestroy()
+        {
+            _saveManager.SaveTower.Save(Items.ToArray());
+            _saveManager.SaveToFile();
         }
     }
 }
