@@ -4857,6 +4857,7 @@ MonoBehaviour:
   call:
     m_PersistentCalls:
       m_Calls: []
+  w: 10
 --- !u!1 &646151626 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1684934527256959382, guid: bed348c1be16d994e9e26e615014b115, type: 3}
@@ -6498,6 +6499,7 @@ MonoBehaviour:
   call:
     m_PersistentCalls:
       m_Calls: []
+  w: 10
 --- !u!43 &1016502150
 Mesh:
   m_ObjectHideFlags: 0
@@ -8301,6 +8303,7 @@ MonoBehaviour:
   call:
     m_PersistentCalls:
       m_Calls: []
+  w: 10
 --- !u!43 &1529901471
 Mesh:
   m_ObjectHideFlags: 0
@@ -12082,7 +12085,7 @@ MonoBehaviour:
   mechanisms:
   - {fileID: 985365668}
   accessNodes: {fileID: 172262131696159727}
-  isActive: 1
+  isActive: 0
 --- !u!43 &2081704155
 Mesh:
   m_ObjectHideFlags: 0
@@ -12520,6 +12523,7 @@ MonoBehaviour:
   call:
     m_PersistentCalls:
       m_Calls: []
+  w: 10
 --- !u!4 &172262131696159726 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7235660252047346055, guid: 3ac9501c7655dbf4496b16a1dcd37c86, type: 3}
@@ -13145,6 +13149,7 @@ MonoBehaviour:
   call:
     m_PersistentCalls:
       m_Calls: []
+  w: 10
 --- !u!1001 &6358683487873226456
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13307,6 +13312,7 @@ MonoBehaviour:
   call:
     m_PersistentCalls:
       m_Calls: []
+  w: 10
 --- !u!1001 &7352625392772072041
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14863,19 +14869,6 @@ MonoBehaviour:
   - {fileID: 1638457230}
   - {fileID: 556875078}
   - {fileID: 2075846753}
---- !u!114 &8543746004074730136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1873912340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc20c93f80084207b1b603191c9a568c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  center: {fileID: 8543746004074730135}
 --- !u!1001 &8917480979900558861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14975,9 +14968,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 959330548311915676, guid: 07e2f3d1b9ca84c47aabbb28f30f3458, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8543746004074730135}
-    - targetCorrespondingSourceObject: {fileID: 959330548311915676, guid: 07e2f3d1b9ca84c47aabbb28f30f3458, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8543746004074730136}
     - targetCorrespondingSourceObject: {fileID: 4102416603848013404, guid: 07e2f3d1b9ca84c47aabbb28f30f3458, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}

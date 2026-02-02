@@ -5,6 +5,7 @@ namespace Code
 {
     public class ActuatingMechanism : MonoBehaviour
     {
-        public UnityEvent call;
+        public UnityEvent<bool> call;
+        public int w;
     }
 }

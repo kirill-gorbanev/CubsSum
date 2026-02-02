@@ -10,9 +10,9 @@ namespace Code
         [SerializeField] private AccessNode accessNodes;
 
         public bool isActive;
-        
+
         public AccessNode NextNode => accessNodes;
-        
+
         public virtual IEnumerator<AccessNode> GetEnumerator()
         {
             var current = this;
@@ -28,12 +28,16 @@ namespace Code
             return GetEnumerator();
         }
 
-        public void Mech()
+        public ActuatingMechanism[] Mech()
         {
             foreach (var m in mechanisms)
             {
                 Debug.Log(m);
+                Debug.Log(m.w);
+                m.call.Invoke(isActive);
             }
+
+            return mechanisms;
         }
     }
 }

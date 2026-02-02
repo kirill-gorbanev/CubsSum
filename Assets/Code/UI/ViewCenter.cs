@@ -1,14 +1,62 @@
+using System;
+using System.Collections;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Code.UI
 {
     public class ViewCenter : MonoBehaviour
     {
-        [SerializeField] private Center center;
+        [SerializeField] private AdditiveSceneLoader loader;
+        [SerializeField] private TMP_Text textWC;
+        [SerializeField] private TMP_Text textWT;
+        [SerializeField] private Toggle btPrefab;
+        [SerializeField] private Transform parent;
 
-        private void Start()
+        private void Awake()
         {
-            AccessNodeTraversal.TraverseAll(center);
+            loader.     OnLoad += Load;
+        }
+
+        private void Load()
+        {
+            foreach (var ac in loader.AllAccessNodes)
+            {
+                var p = Instantiate(btPrefab, parent);
+                p.isOn = ac.isActive;
+                p.onValueChanged.AddListener(e =>
+                {
+                    ac.isActive = e;
+                    Execute();
+                });
+                p.GetComponentInChildren<TMP_Text>().text = ac.name;
+            }
+
+            loader.Center.VoltManage.wCurrentAction += e => textWC.text = e.ToString();
+            loader.Center.VoltManage.wTotalAction += e => textWT.text = e.ToString();
+        }
+
+        private void Execute()
+        {
+            _isActive = false;
+            loader.Center.VoltManage.ResetVoltCurrent();
+
+            AccessNodeTraversal.TraverseAll(loader.Center);
+
+            _isActive = true;
+            StartCoroutine(GetAccessNodes());
+        }
+
+        private bool _isActive;
+
+        private IEnumerator GetAccessNodes()
+        {
+            while (_isActive)
+            {
+                yield return new WaitForSeconds(10); // - seconds == hour 
+                loader.Center.VoltManage.AddVoltOnCurrent();
+            }
         }
     }
 
@@ -19,12 +67,12 @@ namespace Code.UI
         {
             foreach (AccessNode startNode in center.GetNodes())
             {
-                TraverseChain(startNode);
+                TraverseChain(center, startNode);
             }
         }
 
 
-        private static void TraverseChain(AccessNode node)
+        private static void TraverseChain(Center center, AccessNode node)
         {
             if (node == null || !node.isActive)
                 return;
@@ -36,19 +84,21 @@ namespace Code.UI
                     if (member != null)
                     {
                         Debug.Log($"Processing group member: {member.name}");
-                        member.Mech();
-                        TraverseChain(member);
+                        var m = member.Mech();
+                        center.VoltManage.AddVoltCurrent(m);
+                        TraverseChain(center, member);
                     }
                 }
             }
             else
             {
                 Debug.Log($"Processing node: {node.name}");
-                node.Mech();
+                var m = node.Mech();
+                center.VoltManage.AddVoltCurrent(m);
             }
 
 
-            TraverseChain(node.NextNode);
+            TraverseChain(center, node.NextNode);
         }
     }
 }
