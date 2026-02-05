@@ -10,22 +10,23 @@ namespace Code.UI
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            Content.Rotate();
+            Content?.Rotate();
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            Content.Drag();
+            Content?.Drag();
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            Content.Move();
+            Content?.Move();
         }
 
-        public void OnEndDrag(PointerEventData eventData)
+        public virtual void OnEndDrag(PointerEventData eventData)
         {
-            var b = Content.FindCellReset(this);
+            var b = Content?.FindCellReset(this, eventData.pointerEnter) ?? false;
+            
             if (b)
                 Destroy(gameObject);
         }

@@ -1,3 +1,4 @@
+using Code.Grid;
 using UnityEngine;
 
 namespace Code.UI
@@ -7,6 +8,7 @@ namespace Code.UI
         [SerializeField] private ItemConfig config;
         [SerializeField] private Transform parent;
         [SerializeField] public Prefab items;
+        public Spawner spawner;
 
         private void Start()
         {
@@ -17,6 +19,8 @@ namespace Code.UI
                v.size= v.transform.localScale = config.size;
                 v.transform.position += fr.offset;
                 p.Content = v;
+                v.spawner = spawner;
+                
             }
         }
     }

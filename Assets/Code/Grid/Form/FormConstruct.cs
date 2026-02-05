@@ -5,43 +5,15 @@ namespace Code.Grid.Form
 {
     public class FormConstruct : MonoBehaviour
     {
-        [SerializeField] private Transform[] grid;
+        [SerializeField] public Transform[] grid;
         [SerializeField] public Vector3 offset;
         [HideInInspector] public Vector3 size;
 
-        private Vector2[] _gridPos;
+        public Spawner spawner;
 
         private void Start()
         {
             _last = offset;
-            Select();
-        }
-
-        private void OnValidate()
-        {
-            Select();
-        }
-
-        private void Select()
-        {
-            var s = grid.Length;
-            _gridPos = new Vector2[s];
-            for (int i = 0; i < s; i++)
-            {
-                var g = grid[i];
-                _gridPos[i] = g.position - transform.position;
-            }
-        }
-
-        private void OnDrawGizmos()
-        {
-            if (_gridPos == null)
-                return;
-            Gizmos.color = Color.yellow;
-            foreach (var p in _gridPos)
-            {
-                Gizmos.DrawCube(p, Vector3.one / 3);
-            }
         }
 
         private Vector3 _last;
@@ -56,8 +28,6 @@ namespace Code.Grid.Form
 
             transform.position += rotatedDirection;
             _last = rotatedDirection;
-
-            Select();
         }
 
         public void Move()
@@ -72,18 +42,38 @@ namespace Code.Grid.Form
             transform.Rotate(0, 0, -90);
         }
 
-        public bool FindCellReset(Prefab prefab)
+        public bool FindCellReset(Prefab prefab, GameObject eventDataPointerEnter)
         {
-            transform.parent = prefab.transform;
+            if (eventDataPointerEnter != null && eventDataPointerEnter.TryGetComponent(out CollectItem coll) &&
+                coll.Content == null)
+            {
+                coll.Content = this;
+                Reset(coll.transform);
+                return true;
+            }
+
+
+            var rez = spawner.Connect(this);
+            if (rez == null)
+            {
+                Reset(prefab.transform);
+                return false;
+            }
+
+            spawner.SetPos(rez, transform);
+            return true;
+        }
+
+        private void Reset(Transform tr)
+        {
+            transform.parent = tr;
             transform.localScale = size;
 
             Quaternion rotation = transform.rotation;
             Vector3 rotatedDirection = rotation * offset;
 
-            transform.position = prefab.transform.position + rotatedDirection;
+            transform.position = tr.position + rotatedDirection;
             _last = rotatedDirection;
-
-            return false;
         }
     }
 }
