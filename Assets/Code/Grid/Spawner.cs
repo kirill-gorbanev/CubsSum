@@ -16,7 +16,7 @@ namespace Code.Grid
 
         private bool[,] cellsActive;
 
-        public event Action<Vector2Int> OnNewSpawn;
+        public event Action<Vector2Int, Vector2> OnNewSpawn;
 
         private void Start()
         {
@@ -75,6 +75,7 @@ namespace Code.Grid
                     return null;
 
                 rez[i++] = d;
+                OnNewSpawn?.Invoke(d, (Vector2)transform.position + new Vector2(d.x, d.y) * size);
             }
 
             construct.transform.position = (Vector2)transform.position + new Vector2(m.x, m.y) * size;
@@ -82,12 +83,11 @@ namespace Code.Grid
             return rez;
         }
 
-        public void SetPos(Vector2Int[] poss, Transform tr)
+        public void SetPos(Vector2Int[] poss)
         {
             foreach (var d in poss)
             {
                 cellsActive[d.x, d.y] = true;
-                OnNewSpawn?.Invoke(d);
             }
         }
 

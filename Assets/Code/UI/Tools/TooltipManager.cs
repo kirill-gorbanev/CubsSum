@@ -9,18 +9,17 @@ namespace Code.UI.Tools
         [SerializeField] private RectTransform parent;
 
         [SerializeField] private Spawner spawner;
-        [SerializeField] private Vector2 offset;
 
         private void Awake()
         {
             spawner.OnNewSpawn += Spawn;
         }
 
-        private void Spawn(Vector2Int pos)
+        private void Spawn(Vector2Int id,Vector2 pos)
         {
             var p = Instantiate(tooltipPrefab, parent);
             
-            Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, pos+ offset);
+            Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, pos);
 
             if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(
                     parent, screenPoint, Camera.main, out Vector2 localPoint))
