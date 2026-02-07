@@ -38,7 +38,7 @@ namespace Code.Grid.Form
         public void Drag()
         {
             transform.parent = null;
-            transform.localScale = Vector3.one;
+            transform.localScale = spawner.size;
             transform.Rotate(0, 0, -90);
         }
 
