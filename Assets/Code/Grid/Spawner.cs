@@ -1,3 +1,4 @@
+using System;
 using Code.Grid.Form;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ namespace Code.Grid
 
         private bool[,] cellsActive;
 
+        public event Action<Vector2Int> OnNewSpawn;
+
         private void Start()
         {
             cellsActive = new bool[grid.x, grid.y];
@@ -25,6 +28,7 @@ namespace Code.Grid
                 {
                     var sr = Instantiate(spriteRenderer, (Vector2)transform.position + new Vector2(i, j) * size,
                         Quaternion.identity);
+                    sr.name = i + "-" + j;
                     if ((j + (i % 2 == 0 ? 1 : 0)) % 2 == 0)
                         sr.color = a;
                     else
@@ -42,12 +46,9 @@ namespace Code.Grid
             {
                 for (int j = 0; j < grid.y; j++)
                 {
-                    Gizmos.DrawCube((Vector2)transform.position + new Vector2(i, j) * size, Vector2.one / 2f);
+                    Gizmos.color = cellsActive[i, j] ? Color.green : Color.gray;
 
-                    if (cellsActive[i, j])
-                        Gizmos.color = Color.green;
-                    else
-                        Gizmos.color = Color.gray;
+                    Gizmos.DrawCube((Vector2)transform.position + new Vector2(i, j) * size, Vector2.one / 2f);
                 }
             }
         }
@@ -64,7 +65,7 @@ namespace Code.Grid
                 int cellX = Mathf.FloorToInt(gp.x / size.x);
                 int cellY = Mathf.FloorToInt(gp.y / size.y);
 
-                var d = new Vector2Int(cellX, cellY-1) + m;
+                var d = new Vector2Int(cellX, cellY) + m;
                 Debug.Log(d);
 
                 if (d.x < 0 || d.x >= grid.x || d.y < 0 || d.y >= grid.y)
@@ -84,7 +85,10 @@ namespace Code.Grid
         public void SetPos(Vector2Int[] poss, Transform tr)
         {
             foreach (var d in poss)
+            {
                 cellsActive[d.x, d.y] = true;
+                OnNewSpawn?.Invoke(d);
+            }
         }
 
         public Vector2Int GetGridCellUnderMouse()
