@@ -16,7 +16,14 @@ namespace Code.Grid
 
         private bool[,] cellsActive;
 
-        public event Action<Vector2Int, Vector2> OnNewSpawn;
+        public event Action<ItemInfo> OnNewSpawn;
+
+        public struct ItemInfo
+        {
+            public Vector2Int id;
+            public Vector2 pos;
+            public bool isMain; // <- isGroup
+        }
 
         private void Start()
         {
@@ -53,10 +60,10 @@ namespace Code.Grid
             }
         }
 
-        public Vector2Int[] Connect(FormConstruct construct)
+        public ItemInfo[] Connect(FormConstruct construct)
         {
             var m = GetGridCellUnderMouse();
-            Vector2Int[] rez = new Vector2Int[construct.grid.Length];
+            ItemInfo[] rez = new ItemInfo[construct.grid.Length];
             int i = 0;
             foreach (var grs in construct.grid)
             {
@@ -74,20 +81,18 @@ namespace Code.Grid
                 if (cellsActive[d.x, d.y])
                     return null;
 
-                rez[i++] = d;
-                OnNewSpawn?.Invoke(d, (Vector2)transform.position + new Vector2(d.x, d.y) * size);
+                rez[i++] = new ItemInfo { id = d, pos = (Vector2)transform.position + new Vector2(d.x, d.y) * size, isMain = true };
             }
-
-            construct.transform.position = (Vector2)transform.position + new Vector2(m.x, m.y) * size;
 
             return rez;
         }
 
-        public void SetPos(Vector2Int[] poss)
+        public void SetPos(ItemInfo[] poss)
         {
             foreach (var d in poss)
             {
-                cellsActive[d.x, d.y] = true;
+                cellsActive[d.id.x, d.id.y] = true;
+                OnNewSpawn?.Invoke(d);
             }
         }
 

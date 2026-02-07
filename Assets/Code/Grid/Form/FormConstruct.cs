@@ -60,9 +60,11 @@ namespace Code.Grid.Form
                 return false;
             }
 
+            transform.position = rez[0].pos;
+
             spawner.SetPos(rez);
-            
-            
+
+
             return true;
         }
 
