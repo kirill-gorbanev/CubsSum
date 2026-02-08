@@ -15,9 +15,14 @@ namespace Code.UI
         public Spawner spawner;
 
         private int _id;
+        private FormsType _last;
+        private FormConstruct _lastForm;
 
         private void Start()
         {
+            _lastForm = config.forms[_id];
+            _last = config.GetForm(_lastForm.Count);
+
             Next();
 
             current.OnDropItem += Next;
@@ -28,14 +33,15 @@ namespace Code.UI
             if (_id >= config.forms.Length)
                 return;
 
-            var ss = config.forms[_id].variablesType;
-            Load(config.forms[_id].form, ss[Random.Range(0, ss.Length - 1)], current);
-            
+            Load(_lastForm, _last, current);
             Del(next);
+            
             if (_id + 1 < config.forms.Length)
             {
-                var s = config.forms[_id + 1].variablesType;
-                Load(config.forms[_id + 1].form, s[Random.Range(0, s.Length - 1)], next);
+                _lastForm = config.forms[_id + 1];
+                _last = config.GetForm(_lastForm.Count);
+
+                Load(_lastForm, _last, next);
             }
 
             _id++;
@@ -58,9 +64,9 @@ namespace Code.UI
             v.size = v.transform.localScale = config.size;
             v.transform.position += fr.offset;
             v.spawner = spawner;
-            
+            v.IsGroup = formsType.isGroup;
             v.LoadView(config.GetCells(formsType));
-            
+
             return v;
         }
     }

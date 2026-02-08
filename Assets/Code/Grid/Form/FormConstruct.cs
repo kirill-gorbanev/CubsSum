@@ -9,6 +9,7 @@ namespace Code.Grid.Form
         [SerializeField] public Transform[] grid;
         [SerializeField] public Vector3 offset;
 
+        public bool IsGroup { get; set; }
         public Vector3 size { get; set; }
         public Spawner spawner { get; set; }
 
@@ -33,8 +34,8 @@ namespace Code.Grid.Form
             {
                 var v = views[i];
                 cells[i].id = v.id;
-                
-                var p = Instantiate(v.prefab, grid[i].position, Quaternion.identity, grid[i]);
+
+                Instantiate(v.prefab, grid[i].position, Quaternion.identity, grid[i]);
             }
         }
 

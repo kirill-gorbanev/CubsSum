@@ -18,6 +18,7 @@ namespace Code.Grid
 
         [SerializeField] private Button nextAge;
         [SerializeField] private ItemConfig itemConfig;
+        [SerializeField] private TypeCell idAlls;
 
         private GridItem[,] cellsActive;
 
@@ -49,11 +50,19 @@ namespace Code.Grid
                         if (!c.active)
                         {
                             c.active = true;
-                            c.typeCell.id = 1;
-                         var p=   Instantiate(itemConfig.GetCells(1).prefab,
-                                (Vector2)transform.position + new Vector2(i, j) * size,
-                                Quaternion.identity);
-                         p.transform.localScale = size;
+                            c.typeCell = idAlls;
+                            
+                            var p = Instantiate(itemConfig.GetCells(idAlls.id).prefab, (Vector2)transform.position + new Vector2(i, j) * size, Quaternion.identity);
+                            p.transform.localScale = size;
+                            
+                            OnNewSpawn?.Invoke(
+                                new ItemInfo
+                                {
+                                    id = new Vector2Int(i, j),
+                                    pos = (Vector2)transform.position + new Vector2(i, j) * size,
+                                    isMain = true,
+                                    typeCell = idAlls
+                                });
                         }
                     }
                 }
@@ -124,13 +133,15 @@ namespace Code.Grid
                 if (cellsActive[d.x, d.y].active)
                     return null;
 
+
                 rez[i] = new ItemInfo
                 {
                     id = d,
                     pos = (Vector2)transform.position + new Vector2(d.x, d.y) * size,
-                    isMain = true,
+                    isMain = !construct.IsGroup || i == 0,
                     typeCell = construct.cells[i]
                 };
+
 
                 i++;
             }

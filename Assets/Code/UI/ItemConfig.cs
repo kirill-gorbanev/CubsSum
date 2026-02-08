@@ -8,10 +8,12 @@ namespace Code.UI
     [CreateAssetMenu]
     public class ItemConfig : ScriptableObject
     {
-        [SerializeField] public Config[] forms;
+        [SerializeField] public FormConstruct[] forms;
         [SerializeField] public Vector3 size;
 
         [SerializeField] public ViewCell[] hasCell;
+
+        public FormsType[] variablesType;
 
         public ViewCell[] GetCells(FormsType types)
         {
@@ -22,9 +24,16 @@ namespace Code.UI
 
             return cells;
         }
+
         public ViewCell GetCells(int id)
         {
-            return  hasCell.First(e => e.id == id);
+            return hasCell.First(e => e.id == id);
+        }
+
+        public FormsType GetForm(int countCells)
+        {
+            var s = variablesType.Where(e => e.cells.Length == countCells).ToList();
+            return s[UnityEngine.Random.Range(0, s.Count)];
         }
     }
 
@@ -32,12 +41,6 @@ namespace Code.UI
     public struct FormsType
     {
         public TypeCell[] cells;
-    }
-
-    [Serializable]
-    public struct Config
-    {
-        public FormConstruct form;
-        public FormsType[] variablesType;
+        public bool isGroup;
     }
 }
