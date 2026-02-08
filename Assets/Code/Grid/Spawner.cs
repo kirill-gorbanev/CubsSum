@@ -1,6 +1,8 @@
 using System;
 using Code.Grid.Form;
+using Code.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Code.Grid
 {
@@ -14,20 +16,55 @@ namespace Code.Grid
 
         [SerializeField] private Camera mainCamera;
 
-        private bool[,] cellsActive;
+        [SerializeField] private Button nextAge;
+        [SerializeField] private ItemConfig itemConfig;
+
+        private GridItem[,] cellsActive;
 
         public event Action<ItemInfo> OnNewSpawn;
+
+        public struct GridItem
+        {
+            public bool active;
+            public TypeCell typeCell;
+        }
 
         public struct ItemInfo
         {
             public Vector2Int id;
             public Vector2 pos;
-            public bool isMain; // <- isGroup
+            public bool isMain;
+            public TypeCell typeCell;
+        }
+
+        private void Awake()
+        {
+            nextAge.onClick.AddListener(() =>
+            {
+                for (int i = 0; i < grid.x; i++)
+                {
+                    for (int j = 0; j < grid.y; j++)
+                    {
+                        var c = cellsActive[i, j];
+                        if (!c.active)
+                        {
+                            c.active = true;
+                            c.typeCell.id = 1;
+                         var p=   Instantiate(itemConfig.GetCells(1).prefab,
+                                (Vector2)transform.position + new Vector2(i, j) * size,
+                                Quaternion.identity);
+                         p.transform.localScale = size;
+                        }
+                    }
+                }
+
+                nextAge.enabled = false;
+            });
         }
 
         private void Start()
         {
-            cellsActive = new bool[grid.x, grid.y];
+            cellsActive = new GridItem[grid.x, grid.y];
 
             for (int i = 0; i < grid.x; i++)
             {
@@ -51,7 +88,7 @@ namespace Code.Grid
             {
                 for (int i = 0; i < grid.x; i++)
                 for (int j = 0; j < grid.y; j++)
-                    Gizmos.DrawCube((Vector2)transform.position + new Vector2(i, j) * size, size- Vector2.one * 0.05f);
+                    Gizmos.DrawCube((Vector2)transform.position + new Vector2(i, j) * size, size - Vector2.one * 0.05f);
 
                 return;
             }
@@ -60,7 +97,7 @@ namespace Code.Grid
             {
                 for (int j = 0; j < grid.y; j++)
                 {
-                    Gizmos.color = cellsActive[i, j] ? Color.green : Color.gray;
+                    Gizmos.color = cellsActive[i, j].active ? Color.green : Color.gray;
                     Gizmos.DrawCube((Vector2)transform.position + new Vector2(i, j) * size, size);
                 }
             }
@@ -84,11 +121,18 @@ namespace Code.Grid
                 if (d.x < 0 || d.x >= grid.x || d.y < 0 || d.y >= grid.y)
                     return null;
 
-                if (cellsActive[d.x, d.y])
+                if (cellsActive[d.x, d.y].active)
                     return null;
 
-                rez[i++] = new ItemInfo
-                    { id = d, pos = (Vector2)transform.position + new Vector2(d.x, d.y) * size, isMain = true };
+                rez[i] = new ItemInfo
+                {
+                    id = d,
+                    pos = (Vector2)transform.position + new Vector2(d.x, d.y) * size,
+                    isMain = true,
+                    typeCell = construct.cells[i]
+                };
+
+                i++;
             }
 
             return rez;
@@ -98,7 +142,12 @@ namespace Code.Grid
         {
             foreach (var d in poss)
             {
-                cellsActive[d.id.x, d.id.y] = true;
+                cellsActive[d.id.x, d.id.y] = new GridItem
+                {
+                    active = true,
+                    typeCell = d.typeCell
+                };
+
                 OnNewSpawn?.Invoke(d);
             }
         }

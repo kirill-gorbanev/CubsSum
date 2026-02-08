@@ -1,3 +1,4 @@
+using System;
 using Code.UI;
 using UnityEngine;
 
@@ -7,9 +8,13 @@ namespace Code.Grid.Form
     {
         [SerializeField] public Transform[] grid;
         [SerializeField] public Vector3 offset;
-        [HideInInspector] public Vector3 size;
 
-        public Spawner spawner;
+        public Vector3 size { get; set; }
+        public Spawner spawner { get; set; }
+
+        public TypeCell[] cells { get; private set; }
+
+        public int Count => grid.Length;
 
         private void Start()
         {
@@ -17,6 +22,21 @@ namespace Code.Grid.Form
         }
 
         private Vector3 _last;
+
+        public void LoadView(ViewCell[] views)
+        {
+            if (views.Length != Count)
+                return;
+
+            cells = new TypeCell[Count];
+            for (int i = 0; i < Count; i++)
+            {
+                var v = views[i];
+                cells[i].id = v.id;
+                
+                var p = Instantiate(v.prefab, grid[i].position, Quaternion.identity, grid[i]);
+            }
+        }
 
         public void Rotate()
         {
@@ -79,5 +99,18 @@ namespace Code.Grid.Form
             transform.position = tr.position + rotatedDirection;
             _last = rotatedDirection;
         }
+    }
+
+    [Serializable]
+    public struct TypeCell
+    {
+        public int id;
+    }
+
+    [Serializable]
+    public struct ViewCell
+    {
+        public int id;
+        public GameObject prefab;
     }
 }

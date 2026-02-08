@@ -1,3 +1,4 @@
+using System.Linq;
 using Code.Grid;
 using Code.Grid.Form;
 using UnityEngine;
@@ -27,11 +28,14 @@ namespace Code.UI
             if (_id >= config.forms.Length)
                 return;
 
-            Load(config.forms[_id], current);
+            var ss = config.forms[_id].variablesType;
+            Load(config.forms[_id].form, ss[Random.Range(0, ss.Length - 1)], current);
+            
             Del(next);
             if (_id + 1 < config.forms.Length)
             {
-                Load(config.forms[_id + 1], next);
+                var s = config.forms[_id + 1].variablesType;
+                Load(config.forms[_id + 1].form, s[Random.Range(0, s.Length - 1)], next);
             }
 
             _id++;
@@ -43,18 +47,20 @@ namespace Code.UI
                 Destroy(parent.GetChild(i).gameObject);
         }
 
-        private void Load(FormConstruct fr, Prefab p)
+        private void Load(FormConstruct fr, FormsType formsType, Prefab p)
         {
-            p.Content = Load(fr, p.transform);
+            p.Content = Load(fr, formsType, p.transform);
         }
 
-        private FormConstruct Load(FormConstruct fr, Transform p)
+        private FormConstruct Load(FormConstruct fr, FormsType formsType, Transform p)
         {
             var v = Instantiate(fr, p.transform);
             v.size = v.transform.localScale = config.size;
             v.transform.position += fr.offset;
             v.spawner = spawner;
-
+            
+            v.LoadView(config.GetCells(formsType));
+            
             return v;
         }
     }
