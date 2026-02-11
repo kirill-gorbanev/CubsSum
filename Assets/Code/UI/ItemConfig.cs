@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Code.Grid.Form;
 using UnityEngine;
@@ -12,8 +13,14 @@ namespace Code.UI
         [SerializeField] public Vector3 size;
 
         [SerializeField] public ViewCell[] hasCell;
+        [SerializeField] public Cont[] conts;
 
         public FormsType[] variablesType;
+
+        private Dictionary<TypeCell, List<TypeCell>> _gridCont;
+
+        public Dictionary<TypeCell, List<TypeCell>> GridCont =>
+            _gridCont ?? (_gridCont = conts.ToDictionary(e => e.key, e => e.value));
 
         public ViewCell[] GetCells(FormsType types)
         {
@@ -35,6 +42,13 @@ namespace Code.UI
             var s = variablesType.Where(e => e.cells.Length == countCells).ToList();
             return s[UnityEngine.Random.Range(0, s.Count)];
         }
+    }
+
+    [Serializable]
+    public struct Cont
+    {
+        public TypeCell key;
+        public List<TypeCell> value;
     }
 
     [Serializable]

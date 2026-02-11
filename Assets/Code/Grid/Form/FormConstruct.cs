@@ -6,8 +6,16 @@ namespace Code.Grid.Form
 {
     public class FormConstruct : MonoBehaviour
     {
-        [SerializeField] public Transform[] grid;
+        [SerializeField] public Grid[] grid;
         [SerializeField] public Vector3 offset;
+
+        [Serializable]
+        public struct Grid
+        {
+            [SerializeField] public Transform cell;
+            [SerializeField] public Transform[] detect;
+            [SerializeField] public SpriteRenderer[] sr;
+        }
 
         public bool IsGroup { get; set; }
         public Vector3 size { get; set; }
@@ -24,6 +32,20 @@ namespace Code.Grid.Form
 
         private Vector3 _last;
 
+        private void OnDrawGizmos()
+        {
+            return;
+            foreach (var cell in grid)
+            {
+                Gizmos.color = Color.white;
+                Gizmos.DrawCube(cell.cell.position, Vector3.one);
+
+                Gizmos.color = Color.green;
+                foreach (var ss in cell.detect)
+                    Gizmos.DrawCube(ss.position, Vector3.one);
+            }
+        }
+
         public void LoadView(ViewCell[] views)
         {
             if (views.Length != Count)
@@ -35,7 +57,7 @@ namespace Code.Grid.Form
                 var v = views[i];
                 cells[i].id = v.id;
 
-                Instantiate(v.prefab, grid[i].position, Quaternion.identity, grid[i]);
+                Instantiate(v.prefab, grid[i].cell.position, Quaternion.identity, grid[i].cell);
             }
         }
 
@@ -54,6 +76,7 @@ namespace Code.Grid.Form
         public void Move()
         {
             transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            spawner.Detect(this);
         }
 
         public void Drag()
@@ -61,10 +84,21 @@ namespace Code.Grid.Form
             transform.parent = null;
             transform.localScale = spawner.size;
             transform.Rotate(0, 0, -90);
+            
+            foreach (var cell in grid)
+            foreach (var ss in cell.sr)
+            {
+                ss.color = Color.black;
+                ss.gameObject.SetActive(true);
+            }
         }
 
         public bool FindCellReset(Prefab prefab, GameObject eventDataPointerEnter)
         {
+            foreach (var cell in grid)
+            foreach (var ss in cell.sr)
+                ss.gameObject.SetActive(false);
+            
             if (eventDataPointerEnter != null && eventDataPointerEnter.TryGetComponent(out CollectItem coll) &&
                 coll.Content == null)
             {
@@ -87,6 +121,11 @@ namespace Code.Grid.Form
 
 
             return true;
+        }
+
+        public void Preview(int idCell, int id, bool active)
+        {
+            grid[idCell].sr[id].color = active ? Color.green : Color.black;
         }
 
         private void Reset(Transform tr)

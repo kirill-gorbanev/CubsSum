@@ -51,10 +51,11 @@ namespace Code.Grid
                         {
                             c.active = true;
                             c.typeCell = idAlls;
-                            
-                            var p = Instantiate(itemConfig.GetCells(idAlls.id).prefab, (Vector2)transform.position + new Vector2(i, j) * size, Quaternion.identity);
+
+                            var p = Instantiate(itemConfig.GetCells(idAlls.id).prefab,
+                                (Vector2)transform.position + new Vector2(i, j) * size, Quaternion.identity);
                             p.transform.localScale = size;
-                            
+
                             OnNewSpawn?.Invoke(
                                 new ItemInfo
                                 {
@@ -119,25 +120,15 @@ namespace Code.Grid
             int i = 0;
             foreach (var grs in construct.grid)
             {
-                var gp = grs.position - construct.transform.position + (Vector3)size / 2f;
+                var d = GetPos(construct.transform, grs.cell.position, m);
 
-                int cellX = Mathf.FloorToInt(gp.x / size.x);
-                int cellY = Mathf.FloorToInt(gp.y / size.y);
-
-                var d = new Vector2Int(cellX, cellY) + m;
-                Debug.Log(d);
-
-                if (d.x < 0 || d.x >= grid.x || d.y < 0 || d.y >= grid.y)
+                if (d == null || cellsActive[d.Value.x, d.Value.y].active)
                     return null;
-
-                if (cellsActive[d.x, d.y].active)
-                    return null;
-
 
                 rez[i] = new ItemInfo
                 {
-                    id = d,
-                    pos = (Vector2)transform.position + new Vector2(d.x, d.y) * size,
+                    id = d.Value,
+                    pos = (Vector2)transform.position + new Vector2(d.Value.x, d.Value.y) * size,
                     isMain = !construct.IsGroup || i == 0,
                     typeCell = construct.cells[i]
                 };
@@ -147,6 +138,48 @@ namespace Code.Grid
             }
 
             return rez;
+        }
+
+        public void Detect(FormConstruct construct)
+        {
+            var m = GetGridCellUnderMouse();
+            int i = 0;
+            foreach (var grs in construct.grid)
+            {
+                int j = 0;
+                foreach (var item in grs.detect)
+                {
+                    var d = GetPos(construct.transform, item.position, m);
+                    if (d != null)
+                    {
+                        var v = cellsActive[d.Value.x, d.Value.y];
+                        var s = v.active && itemConfig.GridCont[construct.cells[i]].Contains(v.typeCell);
+
+
+                        construct.Preview(i, j, s);
+                    }
+
+                    j++;
+                }
+
+                i++;
+            }
+        }
+
+        private Vector2Int? GetPos(Transform construct, Vector3 pos, Vector2Int m)
+        {
+            var gp = pos - construct.transform.position + (Vector3)size / 2f;
+
+            int cellX = Mathf.FloorToInt(gp.x / size.x);
+            int cellY = Mathf.FloorToInt(gp.y / size.y);
+
+            var d = new Vector2Int(cellX, cellY) + m;
+            Debug.Log(d);
+
+            if (d.x < 0 || d.x >= grid.x || d.y < 0 || d.y >= grid.y)
+                return null;
+
+            return d;
         }
 
         public void SetPos(ItemInfo[] poss)
