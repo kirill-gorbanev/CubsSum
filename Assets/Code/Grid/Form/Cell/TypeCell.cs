@@ -11,6 +11,7 @@ public class TypeCell : SerializedScriptableObject
     public List<Compatible> compatible;
     public Vector2 range;
     public Color view;
+    public string info;
 }
 
 [Serializable]

@@ -1,6 +1,7 @@
 using System.Linq;
 using Code.Grid;
 using Code.Grid.Form;
+using TMPro;
 using UnityEngine;
 
 namespace Code.UI
@@ -11,6 +12,7 @@ namespace Code.UI
 
         [SerializeField] public Prefab current;
         [SerializeField] public Transform next;
+        [SerializeField] public TMP_Text infoTx;
 
         public Spawner spawner;
 
@@ -35,16 +37,28 @@ namespace Code.UI
 
             Load(_lastForm, _last, current);
             Del(next);
+            ViewTx();
 
-            if (_id + 1 < config.forms.Length)
+            _id++;
+            if (_id < config.forms.Length)
             {
-                _lastForm = config.forms[_id + 1];
+                _lastForm = config.forms[_id];
                 _last = config.GetForm(_lastForm.Count);
 
                 Load(_lastForm, _last, next);
             }
+        }
 
-            _id++;
+        private void ViewTx()
+        {
+            if (_last.isGroup)
+                infoTx.text = _last.cells.First().info;
+            else
+            {
+                infoTx.text = "";
+                foreach (var cell in _last.cells)
+                    infoTx.text += cell.info;
+            }
         }
 
         private void Del(Transform parent)
@@ -67,8 +81,7 @@ namespace Code.UI
             v.IsGroup = formsType.isGroup;
 
 
-            var c = config.variablesType.Where(e=>e.cells.Length == fr.grid.Length).ToArray();
-            v.LoadView(c[Random.Range(0, c.Length)].cells);
+            v.LoadView(formsType.cells);
 
             return v;
         }
