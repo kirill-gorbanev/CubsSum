@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Code.Grid.Form;
 using Code.UI;
 using UnityEngine;
@@ -52,9 +53,10 @@ namespace Code.Grid
                             c.active = true;
                             c.typeCell = idAlls;
 
-                            var p = Instantiate(itemConfig.GetCells(idAlls.id).prefab,
+                            var p = Instantiate(spriteRenderer,
                                 (Vector2)transform.position + new Vector2(i, j) * size, Quaternion.identity);
                             p.transform.localScale = size;
+                            p.color = idAlls.view;
 
                             OnNewSpawn?.Invoke(
                                 new ItemInfo
@@ -153,8 +155,7 @@ namespace Code.Grid
                     if (d != null)
                     {
                         var v = cellsActive[d.Value.x, d.Value.y];
-                        var s = v.active && itemConfig.GridCont[construct.cells[i]].Contains(v.typeCell);
-
+                        var s = v.active && itemConfig.GridCont[construct.cells[i]].Any(e => e.id == v.typeCell);
 
                         construct.Preview(i, j, s);
                     }
@@ -174,7 +175,6 @@ namespace Code.Grid
             int cellY = Mathf.FloorToInt(gp.y / size.y);
 
             var d = new Vector2Int(cellX, cellY) + m;
-            Debug.Log(d);
 
             if (d.x < 0 || d.x >= grid.x || d.y < 0 || d.y >= grid.y)
                 return null;

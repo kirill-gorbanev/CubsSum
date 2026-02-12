@@ -35,7 +35,7 @@ namespace Code.UI
 
             Load(_lastForm, _last, current);
             Del(next);
-            
+
             if (_id + 1 < config.forms.Length)
             {
                 _lastForm = config.forms[_id + 1];
@@ -65,7 +65,10 @@ namespace Code.UI
             v.transform.position += fr.offset;
             v.spawner = spawner;
             v.IsGroup = formsType.isGroup;
-            v.LoadView(config.GetCells(formsType));
+
+
+            var c = config.variablesType.Where(e=>e.cells.Length == fr.grid.Length).ToArray();
+            v.LoadView(c[Random.Range(0, c.Length)].cells);
 
             return v;
         }

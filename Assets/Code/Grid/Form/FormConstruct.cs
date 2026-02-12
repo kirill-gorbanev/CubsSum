@@ -10,11 +10,11 @@ namespace Code.Grid.Form
         [SerializeField] public Vector3 offset;
 
         [Serializable]
-        public struct Grid
+        public class Grid
         {
             [SerializeField] public Transform cell;
             [SerializeField] public Transform[] detect;
-            [SerializeField] public SpriteRenderer[] sr;
+            [HideInInspector] public SpriteRenderer[] detectSR;
         }
 
         public bool IsGroup { get; set; }
@@ -32,32 +32,15 @@ namespace Code.Grid.Form
 
         private Vector3 _last;
 
-        private void OnDrawGizmos()
+        public void LoadView(TypeCell[] views)
         {
-            return;
-            foreach (var cell in grid)
+            cells = views;
+            int i = 0;
+            foreach (var tt in cells)
             {
-                Gizmos.color = Color.white;
-                Gizmos.DrawCube(cell.cell.position, Vector3.one);
-
-                Gizmos.color = Color.green;
-                foreach (var ss in cell.detect)
-                    Gizmos.DrawCube(ss.position, Vector3.one);
-            }
-        }
-
-        public void LoadView(ViewCell[] views)
-        {
-            if (views.Length != Count)
-                return;
-
-            cells = new TypeCell[Count];
-            for (int i = 0; i < Count; i++)
-            {
-                var v = views[i];
-                cells[i].id = v.id;
-
-                Instantiate(v.prefab, grid[i].cell.position, Quaternion.identity, grid[i].cell);
+                grid[i].cell.GetComponent<SpriteRenderer>().color = tt.view;
+                
+                i++;
             }
         }
 
@@ -84,21 +67,28 @@ namespace Code.Grid.Form
             transform.parent = null;
             transform.localScale = spawner.size;
             transform.Rotate(0, 0, -90);
-            
+
             foreach (var cell in grid)
-            foreach (var ss in cell.sr)
             {
-                ss.color = Color.black;
-                ss.gameObject.SetActive(true);
+                int i = 0;
+                cell.detectSR = new SpriteRenderer[cell.detect.Length];
+                foreach (var ss in cell.detect)
+                {
+                    cell.detectSR[i] = ss.GetComponent<SpriteRenderer>();
+                    cell.detectSR[i].color = Color.black;
+                    ss.gameObject.SetActive(true);
+
+                    i++;
+                }
             }
         }
 
         public bool FindCellReset(Prefab prefab, GameObject eventDataPointerEnter)
         {
             foreach (var cell in grid)
-            foreach (var ss in cell.sr)
+            foreach (var ss in cell.detect)
                 ss.gameObject.SetActive(false);
-            
+
             if (eventDataPointerEnter != null && eventDataPointerEnter.TryGetComponent(out CollectItem coll) &&
                 coll.Content == null)
             {
@@ -125,7 +115,7 @@ namespace Code.Grid.Form
 
         public void Preview(int idCell, int id, bool active)
         {
-            grid[idCell].sr[id].color = active ? Color.green : Color.black;
+            grid[idCell].detectSR[id].color = active ? Color.green : Color.black;
         }
 
         private void Reset(Transform tr)
@@ -142,15 +132,9 @@ namespace Code.Grid.Form
     }
 
     [Serializable]
-    public struct TypeCell
+    public struct TypeRes
     {
         public int id;
-    }
-
-    [Serializable]
-    public struct ViewCell
-    {
-        public int id;
-        public GameObject prefab;
+        public Vector2 rangeValue;
     }
 }
