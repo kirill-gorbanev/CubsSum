@@ -18,13 +18,40 @@ public class TypeCell : SerializedScriptableObject
 public struct Compatible
 {
     public TypeCell id;
-  [SerializeReference]  public IConnectCells connect;
+    [SerializeReference] public IConnectCells connect;
 }
 
 public interface IConnectCells
 {
-    
+    public float GetValue(float baseValue);
 }
 
 
-public struct Sum : IConnectCells{}
+public struct Mult : IConnectCells
+{
+    public Vector2 rangeSynMod;
+
+    public float GetValue(float baseValue) => baseValue * UnityEngine.Random.Range(rangeSynMod.x, rangeSynMod.y);
+}
+
+public struct Sum : IConnectCells
+{
+    public Vector2 rangeSynMod;
+
+    public float GetValue(float baseValue) => baseValue + UnityEngine.Random.Range(rangeSynMod.x, rangeSynMod.y);
+}
+
+public struct Min : IConnectCells
+{
+    public Vector2 rangeSynMod;
+
+    public float GetValue(float baseValue) => baseValue - UnityEngine.Random.Range(rangeSynMod.x, rangeSynMod.y);
+}
+
+public struct PumpMod : IConnectCells
+{
+    public Vector2 rangeSynMod;
+    public Vector2 pumpEnergy;
+
+    public float GetValue(float baseValue) => baseValue +( UnityEngine.Random.Range(rangeSynMod.x, rangeSynMod.y) *UnityEngine.Random.Range(pumpEnergy.x, pumpEnergy.y) ) ;
+}

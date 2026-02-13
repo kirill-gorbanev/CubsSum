@@ -24,10 +24,38 @@ MonoBehaviour:
   res:
     id: 0
     rangeValue: {x: 0, y: 0}
-  compatible: []
+  compatible:
+  - id: {fileID: 11400000, guid: 5d62784bf3c634049956694289230361, type: 2}
+    connect:
+      rid: 7555688085293105192
+  - id: {fileID: 11400000, guid: 996143de0e8f9354ca26f0e59a9ba7d3, type: 2}
+    connect:
+      rid: 7555688085293105190
+  - id: {fileID: 11400000, guid: c427314684390a54c9d2dd8c0b3b31e3, type: 2}
+    connect:
+      rid: 7555688085293105188
+  - id: {fileID: 11400000, guid: 29ec7784764d77144ad583fcf752691d, type: 2}
+    connect:
+      rid: 7555688085293105186
   range: {x: 1, y: 1}
   view: {r: 0.89433956, g: 0.89433956, b: 0.89433956, a: 1}
   info: SolarPanel
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7555688085293105186
+      type: {class: Min, ns: , asm: Assembly-CSharp}
+      data:
+        rangeSynMod: {x: 1, y: 1}
+    - rid: 7555688085293105188
+      type: {class: Min, ns: , asm: Assembly-CSharp}
+      data:
+        rangeSynMod: {x: 1, y: 1}
+    - rid: 7555688085293105190
+      type: {class: Sum, ns: , asm: Assembly-CSharp}
+      data:
+        rangeSynMod: {x: 1, y: 1}
+    - rid: 7555688085293105192
+      type: {class: Sum, ns: , asm: Assembly-CSharp}
+      data:
+        rangeSynMod: {x: 1, y: 1}

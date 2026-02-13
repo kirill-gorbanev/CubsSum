@@ -24,10 +24,31 @@ MonoBehaviour:
   res:
     id: 0
     rangeValue: {x: 0, y: 0}
-  compatible: []
+  compatible:
+  - id: {fileID: 11400000}
+    connect:
+      rid: 7555688085293105160
+  - id: {fileID: 11400000, guid: c2c2496530a95b54fb7d390aa4fcd6ff, type: 2}
+    connect:
+      rid: 7555688085293105163
+  - id: {fileID: 11400000, guid: 996143de0e8f9354ca26f0e59a9ba7d3, type: 2}
+    connect:
+      rid: 7555688085293105167
   range: {x: 1, y: 1}
   view: {r: 0.054395914, g: 1, b: 0, a: 1}
   info: Forest
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7555688085293105160
+      type: {class: Sum, ns: , asm: Assembly-CSharp}
+      data:
+        rangeSynMod: {x: 1, y: 1}
+    - rid: 7555688085293105163
+      type: {class: Sum, ns: , asm: Assembly-CSharp}
+      data:
+        rangeSynMod: {x: 1, y: 1}
+    - rid: 7555688085293105167
+      type: {class: Min, ns: , asm: Assembly-CSharp}
+      data:
+        rangeSynMod: {x: 1, y: 1}

@@ -25,39 +25,31 @@ MonoBehaviour:
     id: 0
     rangeValue: {x: 0, y: 0}
   compatible:
-  - id: {fileID: 11400000, guid: 29ec7784764d77144ad583fcf752691d, type: 2}
-    connect:
-      rid: 7555688062206607360
   - id: {fileID: 11400000, guid: c427314684390a54c9d2dd8c0b3b31e3, type: 2}
     connect:
-      rid: 7555688062206607361
+      rid: 7555688085293105155
   - id: {fileID: 11400000, guid: 996143de0e8f9354ca26f0e59a9ba7d3, type: 2}
     connect:
-      rid: 7555688062206607362
+      rid: 7555688085293105157
   - id: {fileID: 11400000, guid: 711ce57f82b56374aa4ce874d1645f98, type: 2}
     connect:
-      rid: 7555688062206607363
-  - id: {fileID: 11400000, guid: 9e9becf787fc91944915e201bd599724, type: 2}
-    connect:
-      rid: 7555688062206607364
+      rid: 7555688085293105197
   range: {x: 1, y: 1}
   view: {r: 0.20943397, g: 0.59951216, b: 1, a: 1}
   info: River
   references:
     version: 2
     RefIds:
-    - rid: 7555688062206607360
-      type: {class: Sum, ns: , asm: Assembly-CSharp}
-      data: 
-    - rid: 7555688062206607361
-      type: {class: Sum, ns: , asm: Assembly-CSharp}
-      data: 
-    - rid: 7555688062206607362
-      type: {class: Sum, ns: , asm: Assembly-CSharp}
-      data: 
-    - rid: 7555688062206607363
-      type: {class: Sum, ns: , asm: Assembly-CSharp}
-      data: 
-    - rid: 7555688062206607364
-      type: {class: Sum, ns: , asm: Assembly-CSharp}
-      data: 
+    - rid: 7555688085293105155
+      type: {class: Mult, ns: , asm: Assembly-CSharp}
+      data:
+        rangeSynMod: {x: 1, y: 1}
+    - rid: 7555688085293105157
+      type: {class: Min, ns: , asm: Assembly-CSharp}
+      data:
+        rangeSynMod: {x: 1, y: 1}
+    - rid: 7555688085293105197
+      type: {class: PumpMod, ns: , asm: Assembly-CSharp}
+      data:
+        rangeSynMod: {x: 1, y: 1}
+        pumpEnergy: {x: 1, y: 1}
