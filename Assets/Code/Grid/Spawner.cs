@@ -30,7 +30,6 @@ namespace Code.Grid
         {
             public bool active;
             public TypeCell typeCell;
-            public float value;
         }
 
         public struct ItemInfo
@@ -39,7 +38,6 @@ namespace Code.Grid
             public Vector2 pos;
             public bool isMain;
             public TypeCell typeCell;
-            public float value;
         }
 
         private void Awake()

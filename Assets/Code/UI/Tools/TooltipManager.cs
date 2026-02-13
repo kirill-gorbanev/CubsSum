@@ -1,5 +1,5 @@
+using System.Collections.Generic;
 using Code.Grid;
-using TMPro;
 using UnityEngine;
 
 namespace Code.UI.Tools
@@ -11,6 +11,8 @@ namespace Code.UI.Tools
 
         [SerializeField] private Spawner spawner;
 
+        public Dictionary<Vector2Int, GameObject> tooltips = new();
+
         private void Awake()
         {
             spawner.OnNewSpawn += Spawn;
@@ -18,12 +20,11 @@ namespace Code.UI.Tools
 
         private void Spawn(Spawner.ItemInfo info)
         {
-            if(!info.isMain)
+            if (!info.isMain)
                 return;
-            
+
             var p = Instantiate(tooltipPrefab, parent);
-            p.GetComponentInChildren<TMP_Text>().text = info.value.ToString();
-            
+            tooltips.Add(info.id, p);
             Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, info.pos);
 
             if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(
@@ -32,7 +33,7 @@ namespace Code.UI.Tools
 
 
             var rectTransform = p.GetComponent<RectTransform>();
-            rectTransform.anchoredPosition = localPoint ;
+            rectTransform.anchoredPosition = localPoint;
         }
     }
 }

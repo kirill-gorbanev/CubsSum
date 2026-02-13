@@ -1,3 +1,5 @@
+using Code.UI.Tools;
+using TMPro;
 using UnityEngine;
 
 namespace Code.Grid.Sumator
@@ -5,6 +7,7 @@ namespace Code.Grid.Sumator
     public class Energy : MonoBehaviour
     {
         [SerializeField] private Spawner spawner;
+        [SerializeField] private TooltipManager tooltipManager;
 
         [SerializeField] private TypeCell[] typesFind;
 
@@ -16,7 +19,7 @@ namespace Code.Grid.Sumator
         private void FindEnergy()
         {
             var r = 0f;
-            
+
             var g = spawner.grid;
             for (int i = 0; i < g.x; i++)
             {
@@ -28,14 +31,14 @@ namespace Code.Grid.Sumator
                     {
                         if (c.typeCell == cell)
                         {
-                            r += c.value;
+                            r += c.typeCell.Range;
                             break;
                         }
                     }
+
+                    tooltipManager.tooltips[new Vector2Int(i, j)].GetComponentInChildren<TMP_Text>().text = r.ToString();
                 }
             }
-            
-            
         }
     }
 }
