@@ -9,7 +9,7 @@ namespace Code.Grid
 {
     public class Spawner : MonoBehaviour
     {
-        [SerializeField] private Vector2Int grid;
+        [SerializeField] public Vector2Int grid;
         [SerializeField] public Vector2 size;
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Color a;
@@ -21,14 +21,16 @@ namespace Code.Grid
         [SerializeField] private ItemConfig itemConfig;
         [SerializeField] private TypeCell idAlls;
 
-        private GridItem[,] cellsActive;
+        public GridItem[,] CellsActive { get; private set; }
 
         public event Action<ItemInfo> OnNewSpawn;
+        public event Action OnLoad;
 
         public struct GridItem
         {
             public bool active;
             public TypeCell typeCell;
+            public float value;
         }
 
         public struct ItemInfo
@@ -37,6 +39,7 @@ namespace Code.Grid
             public Vector2 pos;
             public bool isMain;
             public TypeCell typeCell;
+            public float value;
         }
 
         private void Awake()
@@ -47,7 +50,7 @@ namespace Code.Grid
                 {
                     for (int j = 0; j < grid.y; j++)
                     {
-                        var c = cellsActive[i, j];
+                        var c = CellsActive[i, j];
                         if (!c.active)
                         {
                             c.active = true;
@@ -69,14 +72,14 @@ namespace Code.Grid
                         }
                     }
                 }
-
+                OnLoad?.Invoke();
                 nextAge.enabled = false;
             });
         }
 
         private void Start()
         {
-            cellsActive = new GridItem[grid.x, grid.y];
+            CellsActive = new GridItem[grid.x, grid.y];
 
             for (int i = 0; i < grid.x; i++)
             {
@@ -96,7 +99,7 @@ namespace Code.Grid
 
         private void OnDrawGizmos()
         {
-            if (cellsActive == null)
+            if (CellsActive == null)
             {
                 for (int i = 0; i < grid.x; i++)
                 for (int j = 0; j < grid.y; j++)
@@ -109,7 +112,7 @@ namespace Code.Grid
             {
                 for (int j = 0; j < grid.y; j++)
                 {
-                    Gizmos.color = cellsActive[i, j].active ? Color.green : Color.gray;
+                    Gizmos.color = CellsActive[i, j].active ? Color.green : Color.gray;
                     Gizmos.DrawCube((Vector2)transform.position + new Vector2(i, j) * size, size);
                 }
             }
@@ -124,7 +127,7 @@ namespace Code.Grid
             {
                 var d = GetPos(construct.transform, grs.cell.position, m);
 
-                if (d == null || cellsActive[d.Value.x, d.Value.y].active)
+                if (d == null || CellsActive[d.Value.x, d.Value.y].active)
                     return null;
 
                 rez[i] = new ItemInfo
@@ -149,12 +152,12 @@ namespace Code.Grid
             foreach (var grs in construct.grid)
             {
                 int j = 0;
-                foreach (var item in grs.detect)
+                foreach (var item in grs.detectSR)
                 {
-                    var d = GetPos(construct.transform, item.position, m);
+                    var d = GetPos(construct.transform, item.transform.position, m);
                     if (d != null)
                     {
-                        var v = cellsActive[d.Value.x, d.Value.y];
+                        var v = CellsActive[d.Value.x, d.Value.y];
                         var s = v.active && itemConfig.GridCont[construct.cells[i]].Any(e => e.id == v.typeCell);
 
                         construct.Preview(i, j, s);
@@ -186,7 +189,7 @@ namespace Code.Grid
         {
             foreach (var d in poss)
             {
-                cellsActive[d.id.x, d.id.y] = new GridItem
+                CellsActive[d.id.x, d.id.y] = new GridItem
                 {
                     active = true,
                     typeCell = d.typeCell

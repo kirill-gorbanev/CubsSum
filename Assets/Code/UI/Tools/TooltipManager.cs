@@ -1,4 +1,5 @@
 using Code.Grid;
+using TMPro;
 using UnityEngine;
 
 namespace Code.UI.Tools
@@ -21,6 +22,7 @@ namespace Code.UI.Tools
                 return;
             
             var p = Instantiate(tooltipPrefab, parent);
+            p.GetComponentInChildren<TMP_Text>().text = info.value.ToString();
             
             Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, info.pos);
 

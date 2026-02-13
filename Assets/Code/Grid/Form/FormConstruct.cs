@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Code.UI;
 using UnityEngine;
 
@@ -8,13 +9,13 @@ namespace Code.Grid.Form
     {
         [SerializeField] public Grid[] grid;
         [SerializeField] public Vector3 offset;
+        [SerializeField] public SpriteRenderer previewPr;
 
         [Serializable]
         public class Grid
         {
             [SerializeField] public Transform cell;
-            [SerializeField] public Transform[] detect;
-            [HideInInspector] public SpriteRenderer[] detectSR;
+            [HideInInspector] public List<SpriteRenderer> detectSR = new();
         }
 
         public bool IsGroup { get; set; }
@@ -37,11 +38,7 @@ namespace Code.Grid.Form
             cells = views;
             int i = 0;
             foreach (var tt in cells)
-            {
-                grid[i].cell.GetComponent<SpriteRenderer>().color = tt.view;
-                
-                i++;
-            }
+                grid[i++].cell.GetComponent<SpriteRenderer>().color = tt.view;
         }
 
         public void Rotate()
@@ -68,17 +65,20 @@ namespace Code.Grid.Form
             transform.localScale = spawner.size;
             transform.Rotate(0, 0, -90);
 
-            foreach (var cell in grid)
+            for (int i = 0; i < cells.Length; i++)
             {
-                int i = 0;
-                cell.detectSR = new SpriteRenderer[cell.detect.Length];
-                foreach (var ss in cell.detect)
-                {
-                    cell.detectSR[i] = ss.GetComponent<SpriteRenderer>();
-                    cell.detectSR[i].color = Color.black;
-                    ss.gameObject.SetActive(true);
+                var cell = cells[i];
 
-                    i++;
+                foreach (var point in cell.pointers.pointsDetect)
+                {
+                    var p = grid[i].cell.position + new Vector3(point.position.x * spawner.size.x,point.position.y* spawner.size.y);
+                    
+                    var ss = Instantiate(previewPr, p, Quaternion.identity, grid[i].cell.transform);
+
+                    grid[i].detectSR.Add(ss);
+
+                    ss.color = Color.black;
+                    ss.gameObject.SetActive(true);
                 }
             }
         }
@@ -86,7 +86,7 @@ namespace Code.Grid.Form
         public bool FindCellReset(Prefab prefab, GameObject eventDataPointerEnter)
         {
             foreach (var cell in grid)
-            foreach (var ss in cell.detect)
+            foreach (var ss in cell.detectSR)
                 ss.gameObject.SetActive(false);
 
             if (eventDataPointerEnter != null && eventDataPointerEnter.TryGetComponent(out CollectItem coll) &&
