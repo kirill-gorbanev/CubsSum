@@ -1,3 +1,5 @@
+using System.Linq;
+using Code.UI;
 using Code.UI.Tools;
 using TMPro;
 using UnityEngine;
@@ -7,20 +9,25 @@ namespace Code.Grid.Sumator
     public class Energy : MonoBehaviour
     {
         [SerializeField] private Spawner spawner;
+        [SerializeField] private ItemConfig currentItem;
         [SerializeField] private TooltipManager tooltipManager;
         [SerializeField] private TMP_Text energyText;
 
-        [SerializeField] private TypeCell[] typesFind;
+        [SerializeField] private TypeRes energyType;
+        
+        private TypeCell[] _typesFind;
+
+        private float _energy;
 
         private void Start()
         {
+            _typesFind = currentItem.cells.Where(e => e.res == energyType).ToArray();
+            
             spawner.OnLoad += FindEnergy;
         }
 
         private void FindEnergy()
         {
-            var r = 0f;
-            
             var g = spawner.grid;
             for (int i = 0; i < g.x; i++)
             {
@@ -29,7 +36,7 @@ namespace Code.Grid.Sumator
                     var c = spawner.CellsActive[i, j];
 
                     var valR = c.typeCell.res.Range;
-                    Debug.Log("main "+c.typeCell + " " + new Vector2Int(i, j));
+                    Debug.Log("main " + c.typeCell + " " + new Vector2Int(i, j));
                     foreach (var point in c.typeCell.pointers.pointsDetect)
                     {
                         var d = new Vector2Int((int)point.localPosition.x + i, (int)point.localPosition.y + j);
@@ -41,21 +48,24 @@ namespace Code.Grid.Sumator
                             if (comp.id == ce.typeCell)
                             {
                                 valR = comp.connect.GetValue(valR);
-                                Debug.Log("mainA "+c.typeCell + "add "+ce.typeCell + " " + d);
+                                Debug.Log("mainA " + c.typeCell + "add " + ce.typeCell + " " + d);
                             }
                         }
                     }
 
-                    if (tooltipManager.tooltips.TryGetValue(new Vector2Int(i, j), out var tooltip)) 
+                    if (tooltipManager.tooltips.TryGetValue(new Vector2Int(i, j), out var tooltip))
+                    {
+                        tooltip.gameObject.SetActive(c.typeCell.res == energyType);
                         tooltip.GetComponentInChildren<TMP_Text>().text = valR.ToString();
+                    }
 
-                    foreach (TypeCell cell in typesFind)
+                    foreach (TypeCell cell in _typesFind)
                         if (c.typeCell == cell)
-                            r += valR;
+                            _energy += valR;
                 }
             }
 
-            energyText.text = r.ToString();
+            energyText.text = _energy.ToString();
         }
     }
 }

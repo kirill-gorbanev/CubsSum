@@ -135,12 +135,4 @@ namespace Code.Grid.Form
             _last = rotatedDirection;
         }
     }
-
-    [Serializable]
-    public struct TypeRes
-    {
-        public int id;
-        public Vector2 rangeValue;
-        public float Range => UnityEngine.Random.Range(rangeValue.x, rangeValue.y);
-    }
 }

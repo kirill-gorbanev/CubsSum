@@ -135,7 +135,7 @@ namespace Code.Grid
                 {
                     id = d.Value,
                     pos = (Vector2)transform.position + new Vector2(d.Value.x, d.Value.y) * size,
-                    isMain = !construct.IsGroup || i == 0,
+                    isMain =true,// !construct.IsGroup || i == 0,
                     typeCell = construct.cells[i]
                 };
 

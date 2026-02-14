@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Code.Grid.Form;
 using Code.Grid.Form.Cell;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -9,6 +8,7 @@ using UnityEngine;
 public class TypeCell : SerializedScriptableObject
 {
     public TypeRes res;
+    public TypeRes[] use;
     public List<Compatible> compatible;
     public Color view;
     public string info;
