@@ -8,6 +8,7 @@ namespace Code.Grid.Sumator
     {
         [SerializeField] private Spawner spawner;
         [SerializeField] private TooltipManager tooltipManager;
+        [SerializeField] private TMP_Text energyText;
 
         [SerializeField] private TypeCell[] typesFind;
 
@@ -19,7 +20,7 @@ namespace Code.Grid.Sumator
         private void FindEnergy()
         {
             var r = 0f;
-
+            
             var g = spawner.grid;
             for (int i = 0; i < g.x; i++)
             {
@@ -27,18 +28,34 @@ namespace Code.Grid.Sumator
                 {
                     var c = spawner.CellsActive[i, j];
 
-                    foreach (TypeCell cell in typesFind)
+                    var valR = c.typeCell.res.Range;
+                    Debug.Log("main "+c.typeCell + " " + new Vector2Int(i, j));
+                    foreach (var point in c.typeCell.pointers.pointsDetect)
                     {
-                        if (c.typeCell == cell)
+                        var d = new Vector2Int((int)point.localPosition.x + i, (int)point.localPosition.y + j);
+                        if (d.x < 0 || d.x >= g.x || d.y < 0 || d.y >= g.y)
+                            continue;
+                        var ce = spawner.CellsActive[d.x, d.y];
+                        foreach (var comp in c.typeCell.compatible)
                         {
-                            r += c.typeCell.Range;
-                            break;
+                            if (comp.id == ce.typeCell)
+                            {
+                                valR = comp.connect.GetValue(valR);
+                                Debug.Log("mainA "+c.typeCell + "add "+ce.typeCell + " " + d);
+                            }
                         }
                     }
 
-                    tooltipManager.tooltips[new Vector2Int(i, j)].GetComponentInChildren<TMP_Text>().text = r.ToString();
+                    if (tooltipManager.tooltips.TryGetValue(new Vector2Int(i, j), out var tooltip)) 
+                        tooltip.GetComponentInChildren<TMP_Text>().text = valR.ToString();
+
+                    foreach (TypeCell cell in typesFind)
+                        if (c.typeCell == cell)
+                            r += valR;
                 }
             }
+
+            energyText.text = r.ToString();
         }
     }
 }

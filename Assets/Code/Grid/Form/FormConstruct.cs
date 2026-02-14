@@ -66,16 +66,17 @@ namespace Code.Grid.Form
             transform.localScale = spawner.size;
             transform.Rotate(0, 0, -90);
 
-            foreach (var g in grid)   
-                _pointersHas.Add(g.cell.position );
-            
+            foreach (var g in grid)
+                _pointersHas.Add(g.cell.position);
+
             for (int i = 0; i < cells.Length; i++)
             {
                 var cell = cells[i];
                 foreach (var point in cell.pointers.pointsDetect)
                 {
-                    var p = grid[i].cell.position + new Vector3(point.position.x * spawner.size.x,point.position.y* spawner.size.y);
-                    if(!_pointersHas.Add(p))
+                    var p = grid[i].cell.position + new Vector3(point.position.x * spawner.size.x,
+                        point.position.y * spawner.size.y);
+                    if (!_pointersHas.Add(p))
                         continue;
                     var ss = Instantiate(previewPr, p, Quaternion.identity, grid[i].cell.transform);
 
@@ -140,5 +141,6 @@ namespace Code.Grid.Form
     {
         public int id;
         public Vector2 rangeValue;
+        public float Range => UnityEngine.Random.Range(rangeValue.x, rangeValue.y);
     }
 }

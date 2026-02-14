@@ -20,7 +20,8 @@ namespace Code.Grid
         [SerializeField] private Button nextAge;
         [SerializeField] private ItemConfig itemConfig;
         [SerializeField] private TypeCell idAlls;
-
+        [SerializeField] private FormConstruct prefab;
+        
         public GridItem[,] CellsActive { get; private set; }
 
         public event Action<ItemInfo> OnNewSpawn;
@@ -53,12 +54,13 @@ namespace Code.Grid
                         {
                             c.active = true;
                             c.typeCell = idAlls;
+                            CellsActive[i, j] = c;
 
-                            var p = Instantiate(spriteRenderer,
-                                (Vector2)transform.position + new Vector2(i, j) * size, Quaternion.identity);
+                            var p = Instantiate(prefab, (Vector2)transform.position + new Vector2(i, j) * size,
+                                Quaternion.identity);
                             p.transform.localScale = size;
-                            p.color = idAlls.view;
 
+                            p.LoadView(new[] { idAlls });
                             OnNewSpawn?.Invoke(
                                 new ItemInfo
                                 {
@@ -70,6 +72,7 @@ namespace Code.Grid
                         }
                     }
                 }
+
                 OnLoad?.Invoke();
                 nextAge.enabled = false;
             });
