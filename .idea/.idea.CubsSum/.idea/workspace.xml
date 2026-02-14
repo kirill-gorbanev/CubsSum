@@ -5,26 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f891c34e-5b17-4fcc-97a0-a5bf0e93d581" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Grid/Form/Resource/TypeRes.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Grid/Form/Resource/TypeRes.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Grid/Sumator/UseEnergy.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Grid/Sumator/UseEnergy.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Grid/Sumator/CellEnergy.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Grid/Sumator/CellEnergy.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CubsSum/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CubsSum/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/Build/City.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/Build/City.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/Build/Factory.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/Build/Factory.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/Desert.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/Desert.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/Forest.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/Forest.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/Mountain.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/Mountain.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/Plain.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/Plain.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/River.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/River.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/Tech/AirPurificationTower.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/Tech/AirPurificationTower.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/Tech/Pump.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/Tech/Pump.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/Tech/SolarPanel.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/Tech/SolarPanel.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/Tech/Windmill.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/Tech/Windmill.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/TypeCell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Grid/Form/Cell/TypeCell.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Grid/Form/FormConstruct.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Grid/Form/FormConstruct.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Grid/Spawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Grid/Spawner.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Grid/Sumator/Energy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Grid/Sumator/Energy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Grid/Sumator/UseEnergy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Grid/Sumator/UseEnergy.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/main.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,6 +27,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5a41d6b7189842eca409fd0b1c3e3dcf17bf78/41/54895cbc/Void.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/95971c1103884a7eb2035c95161bde2b177000/0e/f5d59af9/MonoBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/95971c1103884a7eb2035c95161bde2b177000/39/265dcedb/Component.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Grid/Form/FormConstruct.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Grid/Spawner.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/UI/CollectItem.cs" root0="FORCE_HIGHLIGHTING" />
@@ -123,7 +110,7 @@
       <workItem from="1770034628037" duration="68263000" />
       <workItem from="1770815332515" duration="12182000" />
       <workItem from="1770902745487" duration="13949000" />
-      <workItem from="1770999405801" duration="23283000" />
+      <workItem from="1770999405801" duration="33776000" />
     </task>
     <servers />
   </component>

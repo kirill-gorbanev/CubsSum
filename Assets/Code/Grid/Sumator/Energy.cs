@@ -14,15 +14,11 @@ namespace Code.Grid.Sumator
         [SerializeField] private TMP_Text energyText;
 
         [SerializeField] private TypeRes energyType;
-        
-        private TypeCell[] _typesFind;
 
         private float _energy;
 
         private void Start()
         {
-            _typesFind = currentItem.cells.Where(e => e.res == energyType).ToArray();
-            
             spawner.OnLoad += FindEnergy;
         }
 
@@ -53,15 +49,16 @@ namespace Code.Grid.Sumator
                         }
                     }
 
+                    spawner.CellsActive[i, j].value = valR;
                     if (tooltipManager.tooltips.TryGetValue(new Vector2Int(i, j), out var tooltip))
                     {
                         tooltip.gameObject.SetActive(c.typeCell.res == energyType);
                         tooltip.GetComponentInChildren<TMP_Text>().text = valR.ToString();
                     }
 
-                    foreach (TypeCell cell in _typesFind)
-                        if (c.typeCell == cell)
-                            _energy += valR;
+
+                    if (c.typeCell.res == energyType)
+                        _energy += valR;
                 }
             }
 
