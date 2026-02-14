@@ -32,6 +32,7 @@ namespace Code.Grid
             public bool active;
             public TypeCell typeCell;
             public float value;
+            public float moment;
         }
 
         public struct ItemInfo

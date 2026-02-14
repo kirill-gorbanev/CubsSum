@@ -345,6 +345,7 @@ MonoBehaviour:
   tooltipManager: {fileID: 883032894}
   energyText: {fileID: 1282987367}
   energyType: {fileID: 11400000, guid: 2652b8c11b08e2d43ba54defa741eb9b, type: 2}
+  _energy: 0
 --- !u!4 &207912484
 Transform:
   m_ObjectHideFlags: 0
@@ -1879,6 +1880,7 @@ MonoBehaviour:
   energyType: {fileID: 11400000, guid: 2652b8c11b08e2d43ba54defa741eb9b, type: 2}
   spawner: {fileID: 1741859940}
   tooltipManager: {fileID: 883032894}
+  energy: {fileID: 207912483}
   parent: {fileID: 1923882176}
   energyText: {fileID: 643485774609597116, guid: 923c5bdaaf9706a41b409e0ce9894522, type: 3}
 --- !u!114 &1923882182

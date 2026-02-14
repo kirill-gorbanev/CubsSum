@@ -1,6 +1,7 @@
 using System.Linq;
 using Code.UI;
 using Code.UI.Tools;
+using TMPro;
 using UnityEngine;
 
 namespace Code.Grid.Sumator
@@ -11,10 +12,12 @@ namespace Code.Grid.Sumator
         [SerializeField] private TypeRes energyType;
         [SerializeField] private Spawner spawner;
         [SerializeField] private TooltipManager tooltipManager;
+        [SerializeField] private Energy energy;
 
         [SerializeField] private Transform parent;
         [SerializeField] private CellEnergy energyText;
 
+        private float _cur;
 
         private void Start()
         {
@@ -38,19 +41,41 @@ namespace Code.Grid.Sumator
                         var p = new Vector2Int(i, j);
                         t.OnChange += e =>
                         {
-                            if (e)
-                            {
-                            }
-                            else
-                            {
-                            }
+                            var d = Add(p, e);
 
                             if (tooltipManager.tooltips.TryGetValue(p, out var cellTooltip))
+                            {
                                 cellTooltip.gameObject.SetActive(true);
+                                cellTooltip.GetComponentInChildren<TMP_Text>().text = d.ToString();
+                            }
                         };
                     }
                 }
             }
+        }
+
+        private float Add(Vector2Int p, bool isAdd)
+        {
+            var c = spawner.CellsActive[p.x, p.y];
+            int delta = isAdd ? 1 : -1;
+
+            // Проверяем будущее состояние ДО изменения
+            float newMoment = c.moment + delta;
+            float newCur = _cur + delta;
+
+            // Валидация границ
+            if (newCur < 0 || newCur > energy._energy ||
+                newMoment < 0 || newMoment >= energy._energy)
+            {
+                return c.moment; // Отменяем операцию, возвращаем текущее значение
+            }
+
+            // Применяем изменения
+            c.moment = newMoment;
+            spawner.CellsActive[p.x, p.y] = c;
+            _cur = newCur;
+
+            return newMoment;
         }
     }
 }

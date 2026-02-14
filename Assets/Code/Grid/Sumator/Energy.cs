@@ -1,4 +1,3 @@
-using System.Linq;
 using Code.UI;
 using Code.UI.Tools;
 using TMPro;
@@ -15,7 +14,7 @@ namespace Code.Grid.Sumator
 
         [SerializeField] private TypeRes energyType;
 
-        private float _energy;
+        public float _energy;
 
         private void Start()
         {
