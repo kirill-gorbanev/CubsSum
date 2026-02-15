@@ -322,7 +322,7 @@ GameObject:
   - component: {fileID: 207912484}
   - component: {fileID: 207912483}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: Energy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -464,6 +464,53 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3948807152104057394, guid: ceb28d1a705a9704ab736b9c7079347b, type: 3}
   m_PrefabInstance: {fileID: 248106562}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &366771037
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 366771039}
+  - component: {fileID: 366771040}
+  m_Layer: 0
+  m_Name: Water
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &366771039
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366771037}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.7006965, y: 1.5503634, z: -0.022127803}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &366771040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366771037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf729c40c4474db5a7a4a5faf866edc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawner: {fileID: 1741859940}
+  tooltipManager: {fileID: 883032894}
+  waterType: {fileID: 11400000, guid: 1e1fc882584590249beae8275d22c706, type: 2}
 --- !u!1 &370568550
 GameObject:
   m_ObjectHideFlags: 0
@@ -2067,3 +2114,4 @@ SceneRoots:
   - {fileID: 883032893}
   - {fileID: 122123475}
   - {fileID: 207912484}
+  - {fileID: 366771039}

@@ -34,7 +34,6 @@ namespace Code.UI.Tools
 
             var rectTransform = p.GetComponent<RectTransform>();
             rectTransform.anchoredPosition = localPoint;
-            p.gameObject.SetActive(false);
         }
     }
 }

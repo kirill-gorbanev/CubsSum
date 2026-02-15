@@ -25,13 +25,12 @@ namespace Code.Grid
         public GridItem[,] CellsActive { get; private set; }
 
         public event Action<ItemInfo> OnNewSpawn;
-        public event Action OnLoad;
+        public event Action<int> OnLoadStep;
 
         public struct GridItem
         {
             public bool active;
             public TypeCell typeCell;
-            public float value;
             public float moment;
         }
 
@@ -43,41 +42,49 @@ namespace Code.Grid
             public TypeCell typeCell;
         }
 
+        private int _step = 0;
+        
         private void Awake()
         {
             nextAge.onClick.AddListener(() =>
             {
-                for (int i = 0; i < grid.x; i++)
-                {
-                    for (int j = 0; j < grid.y; j++)
-                    {
-                        var c = CellsActive[i, j];
-                        if (!c.active)
-                        {
-                            c.active = true;
-                            c.typeCell = idAlls;
-                            CellsActive[i, j] = c;
-
-                            var p = Instantiate(prefab, (Vector2)transform.position + new Vector2(i, j) * size,
-                                Quaternion.identity);
-                            p.transform.localScale = size;
-
-                            p.LoadView(new[] { idAlls });
-                            OnNewSpawn?.Invoke(
-                                new ItemInfo
-                                {
-                                    id = new Vector2Int(i, j),
-                                    pos = (Vector2)transform.position + new Vector2(i, j) * size,
-                                    isMain = true,
-                                    typeCell = idAlls
-                                });
-                        }
-                    }
-                }
-
-                OnLoad?.Invoke();
-                nextAge.enabled = false;
+                OnLoadStep?.Invoke(_step);
+                _step++;
             });
+
+            OnLoadStep += e =>
+            {
+              if(e != 0)return  ;
+              
+              for (int i = 0; i < grid.x; i++)
+              {
+                  for (int j = 0; j < grid.y; j++)
+                  {
+                      var c = CellsActive[i, j];
+                      if (!c.active)
+                      {
+                          c.active = true;
+                          c.typeCell = idAlls;
+                          CellsActive[i, j] = c;
+
+                          var p = Instantiate(prefab, (Vector2)transform.position + new Vector2(i, j) * size,
+                              Quaternion.identity);
+                          p.transform.localScale = size;
+
+                          p.LoadView(new[] { idAlls });
+                          OnNewSpawn?.Invoke(
+                              new ItemInfo
+                              {
+                                  id = new Vector2Int(i, j),
+                                  pos = (Vector2)transform.position + new Vector2(i, j) * size,
+                                  isMain = true,
+                                  typeCell = idAlls
+                              });
+                      }
+                  }
+              }
+
+            };
         }
 
         private void Start()

@@ -9,6 +9,7 @@ public class TypeCell : SerializedScriptableObject
 {
     public TypeRes res;
     public TypeRes[] use;
+    public TypeRes rez;
     public List<Compatible> compatible;
     public Color view;
     public string info;

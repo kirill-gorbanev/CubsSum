@@ -21,11 +21,13 @@ namespace Code.Grid.Sumator
 
         private void Start()
         {
-            spawner.OnLoad += FindEnergy;
+            spawner.OnLoadStep += FindEnergy;
         }
 
-        private void FindEnergy()
+        private void FindEnergy(int step)
         {
+            if (step != 1) return;
+
             var g = spawner.grid;
             for (int i = 0; i < g.x; i++)
             {
@@ -59,18 +61,12 @@ namespace Code.Grid.Sumator
             var c = spawner.CellsActive[p.x, p.y];
             int delta = isAdd ? 1 : -1;
 
-            // Проверяем будущее состояние ДО изменения
             float newMoment = c.moment + delta;
             float newCur = _cur + delta;
 
-            // Валидация границ
-            if (newCur < 0 || newCur > energy._energy ||
-                newMoment < 0 || newMoment >= energy._energy)
-            {
-                return c.moment; // Отменяем операцию, возвращаем текущее значение
-            }
+            if (newCur < 0 || newCur > energy._energy || newMoment < 0 || newMoment >= energy._energy)
+                return c.moment;
 
-            // Применяем изменения
             c.moment = newMoment;
             spawner.CellsActive[p.x, p.y] = c;
             _cur = newCur;

@@ -18,11 +18,13 @@ namespace Code.Grid.Sumator
 
         private void Start()
         {
-            spawner.OnLoad += FindEnergy;
+            spawner.OnLoadStep += FindEnergy;
         }
 
-        private void FindEnergy()
+        private void FindEnergy(int step)
         {
+            if(step != 1) return;
+            
             var g = spawner.grid;
             for (int i = 0; i < g.x; i++)
             {
@@ -48,10 +50,10 @@ namespace Code.Grid.Sumator
                         }
                     }
 
-                    spawner.CellsActive[i, j].value = valR;
+                    spawner.CellsActive[i, j].moment = valR;
                     if (tooltipManager.tooltips.TryGetValue(new Vector2Int(i, j), out var tooltip))
                     {
-                        tooltip.gameObject.SetActive(c.typeCell.res == energyType);
+                       // tooltip.gameObject.SetActive(c.typeCell.res == energyType);
                         tooltip.GetComponentInChildren<TMP_Text>().text = valR.ToString();
                     }
 
