@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ZoneController : MonoBehaviour
@@ -9,21 +10,26 @@ public class ZoneController : MonoBehaviour
     [SerializeField] private float size;
     [SerializeField] private float minSize;
 
-    public int _click;
+    private float _stripLeftX;
+    private float _stripRightX;
+    private float _screenX;
+    private Vector3 _dir;
 
-    private bool isRight;
+    private bool _isRight;
 
-    private float stripLeftX;
-    private float stripRightX;
-    private float screenX;
+    public event Action<bool> OnChange;
 
     void Start()
     {
         Vector3[] corners = new Vector3[4];
         redZone.GetWorldCorners(corners);
-        stripLeftX = corners[0].x;
-        stripRightX = corners[2].x;
-        screenX = redZone.position.x;
+        _stripLeftX = corners[0].x;
+        _stripRightX = corners[2].x;
+        _screenX = redZone.position.x;
+
+        greenZone.sizeDelta = new Vector2(minSize, greenZone.sizeDelta.y);
+        _dir = greenZone.position ;
+        greenZone.position = Vector3.Lerp(_dir, redZone.position, greenZone.sizeDelta.x / (redZone.sizeDelta.x - minSize));
     }
 
 
@@ -33,27 +39,39 @@ public class ZoneController : MonoBehaviour
         {
             if (RectTransformUtility.RectangleContainsScreenPoint(greenZone, cursor.position))
             {
-                _click++;
-                greenZone.sizeDelta += Vector2.right * size;
-                
-                if (greenZone.sizeDelta.x > redZone.sizeDelta.x - minSize)
-                    greenZone.sizeDelta = new Vector2(redZone.sizeDelta.x- minSize, greenZone.sizeDelta.y);
+                Click(true);
             }
             else
             {
-                _click--;
-                greenZone.sizeDelta -= Vector2.right * size;
-                if (greenZone.sizeDelta.x < minSize)
-                    greenZone.sizeDelta = new Vector2(minSize, greenZone.sizeDelta.y);
+                Click(false);
             }
         }
 
-        if (screenX > stripRightX)
-            isRight = false;
-        else if (screenX < stripLeftX)
-            isRight = true;
+        Move();
+    }
 
-        screenX += speed * Time.deltaTime * (isRight ? 1 : -1);
-        cursor.position = new Vector2(screenX, redZone.position.y);
+    private void Click(bool isZone)
+    {
+        greenZone.sizeDelta += Vector2.right * ((isZone ? 1 : -1) * size);
+        
+        greenZone.position = Vector3.Lerp(_dir, redZone.position, greenZone.sizeDelta.x / (redZone.sizeDelta.x - minSize));
+
+        OnChange?.Invoke(isZone);
+
+        if (greenZone.sizeDelta.x > redZone.sizeDelta.x - minSize)
+            greenZone.sizeDelta = new Vector2(redZone.sizeDelta.x - minSize, greenZone.sizeDelta.y);
+        if (greenZone.sizeDelta.x < minSize)
+            greenZone.sizeDelta = new Vector2(minSize, greenZone.sizeDelta.y);
+    }
+
+    private void Move()
+    {
+        if (_screenX > _stripRightX)
+            _isRight = false;
+        else if (_screenX < _stripLeftX)
+            _isRight = true;
+
+        _screenX += speed * Time.deltaTime * (_isRight ? 1 : -1);
+        cursor.position = new Vector2(_screenX, redZone.position.y);
     }
 }
