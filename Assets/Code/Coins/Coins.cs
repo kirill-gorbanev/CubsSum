@@ -6,11 +6,12 @@ namespace Code
     {
         [SerializeField] private ZoneController zone;
 
+        public int mult = 1;
         public int coin;
 
         private void Awake()
         {
-            zone.OnChange += e => coin += e ? 1 : -1;
+            zone.OnChange += _ => coin += mult;
         }
     }
 }
