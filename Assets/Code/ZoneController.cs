@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ZoneController : MonoBehaviour
 {
@@ -40,7 +41,7 @@ public class ZoneController : MonoBehaviour
         if (_isBlock)
             return;
         
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             if (RectTransformUtility.RectangleContainsScreenPoint(greenZone, cursor.position))
             {
