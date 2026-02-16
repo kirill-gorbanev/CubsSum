@@ -13,10 +13,13 @@ namespace Code
 
         private void Start()
         {
-            counter.text = count.coin.ToString();
+            View();
             mult.text = count.mult.ToString();
-            
-            zone.OnChange += _ => counter.text = count.coin.ToString();
+        }
+
+        public void View()
+        {
+            counter.text = count.coin.ToString();
         }
     }
 }

@@ -16,6 +16,7 @@ public class ZoneController : MonoBehaviour
     private Vector3 _dir;
 
     private bool _isRight;
+    private bool _isBlock;
 
     public event Action<bool> OnChange;
 
@@ -28,13 +29,17 @@ public class ZoneController : MonoBehaviour
         _screenX = redZone.position.x;
 
         greenZone.sizeDelta = new Vector2(minSize, greenZone.sizeDelta.y);
-        _dir = greenZone.position ;
-        greenZone.position = Vector3.Lerp(_dir, redZone.position, greenZone.sizeDelta.x / (redZone.sizeDelta.x - minSize));
+        _dir = greenZone.position;
+        greenZone.position =
+            Vector3.Lerp(_dir, redZone.position, greenZone.sizeDelta.x / (redZone.sizeDelta.x - minSize));
     }
 
 
     void Update()
     {
+        if (_isBlock)
+            return;
+        
         if (Input.GetMouseButtonDown(0))
         {
             if (RectTransformUtility.RectangleContainsScreenPoint(greenZone, cursor.position))
@@ -53,8 +58,9 @@ public class ZoneController : MonoBehaviour
     private void Click(bool isZone)
     {
         greenZone.sizeDelta += Vector2.right * ((isZone ? 1 : -1) * size);
-        
-        greenZone.position = Vector3.Lerp(_dir, redZone.position, greenZone.sizeDelta.x / (redZone.sizeDelta.x - minSize));
+
+        greenZone.position =
+            Vector3.Lerp(_dir, redZone.position, greenZone.sizeDelta.x / (redZone.sizeDelta.x - minSize));
 
         OnChange?.Invoke(isZone);
 
@@ -73,5 +79,12 @@ public class ZoneController : MonoBehaviour
 
         _screenX += speed * Time.deltaTime * (_isRight ? 1 : -1);
         cursor.position = new Vector2(_screenX, redZone.position.y);
+    }
+
+    public void Block(bool b)
+    {
+        _isBlock = b;
+        
+        cursor.gameObject.SetActive(!b);
     }
 }

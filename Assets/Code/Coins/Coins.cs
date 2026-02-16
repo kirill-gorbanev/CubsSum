@@ -4,14 +4,12 @@ namespace Code
 {
     public class Coins : MonoBehaviour
     {
-        [SerializeField] private ZoneController zone;
-
         public int mult = 1;
         public int coin;
 
-        private void Awake()
+        public void Add()
         {
-            zone.OnChange += _ => coin += mult;
+            coin += mult;
         }
     }
 }

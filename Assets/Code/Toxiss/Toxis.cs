@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Toxis : MonoBehaviour
@@ -5,10 +6,15 @@ public class Toxis : MonoBehaviour
     [SerializeField] private ZoneController zone;
     [SerializeField] public int maxTox = 1;
 
+    public int mult = 1;
     public int toxis;
 
-    private void Awake()
+    public event Action OnTox;
+
+    public void Add()
     {
-        zone.OnChange += e => toxis += (e ? -1 : 1);
+        toxis += mult;
+        if (toxis >= maxTox)
+            OnTox?.Invoke();
     }
 }
