@@ -26,7 +26,7 @@ namespace Code.Grid.Sumator
 
         private void FindEnergy(int step)
         {
-            if (step != 1) return;
+            if (step != 2) return;
 
             var g = spawner.grid;
             for (int i = 0; i < g.x; i++)

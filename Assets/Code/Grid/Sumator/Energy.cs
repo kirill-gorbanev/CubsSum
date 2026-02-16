@@ -30,14 +30,11 @@ namespace Code.Grid.Sumator
                 for (int j = 0; j < g.y; j++)
                 {
                     var c = spawner.CellsActive[i, j];
-                    if (c.typeCell.res != energyType)
-                        continue;
                     
                     var valR = c.typeCell.res.Range;
                     foreach (var point in c.typeCell.pointers.pointsDetect)
                     {
                         var d = new Vector2Int((int)point.localPosition.x + i, (int)point.localPosition.y + j);
-                        Debug.Log(d + " " + valR);
 
                         if (d.x < 0 || d.x >= g.x || d.y < 0 || d.y >= g.y)
                             continue;
@@ -51,8 +48,11 @@ namespace Code.Grid.Sumator
                         }
 
                     }
-                    _energy += valR;
 
+                    if (c.typeCell.res == energyType)
+                        _energy += valR;
+                    else
+                        spawner.CellsActive[i, j].moment = valR;
                 }
             }
 

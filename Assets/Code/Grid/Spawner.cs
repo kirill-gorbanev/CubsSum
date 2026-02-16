@@ -168,7 +168,7 @@ namespace Code.Grid
                     if (d != null)
                     {
                         var v = CellsActive[d.Value.x, d.Value.y];
-                        var s = v.active && itemConfig.GridCont[construct.cells[i]].Any(e => e.id == v.typeCell);
+                        var s = v.active && ( itemConfig.GridCont[v.typeCell].Any(e => e.id ==  construct.cells[i]) || itemConfig.GridCont[construct.cells[i]].Any(e => e.id == v.typeCell));
 
                         construct.Preview(i, j, s);
                     }
