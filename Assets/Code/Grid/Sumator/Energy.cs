@@ -1,5 +1,3 @@
-using Code.UI;
-using Code.UI.Tools;
 using TMPro;
 using UnityEngine;
 
@@ -8,12 +6,10 @@ namespace Code.Grid.Sumator
     public class Energy : MonoBehaviour
     {
         [SerializeField] private Spawner spawner;
-        [SerializeField] private ItemConfig currentItem;
         [SerializeField] private TMP_Text energyText;
+        [SerializeField] private Detect energyType;
 
-        [SerializeField] private TypeRes energyType;
-
-        public float _energy;
+        public float _energy { get; set; }
 
         private void Start()
         {
@@ -23,40 +19,10 @@ namespace Code.Grid.Sumator
         private void FindEnergy(int step)
         {
             if (step != 1) return;
-
-            var g = spawner.grid;
-            for (int i = 0; i < g.x; i++)
-            {
-                for (int j = 0; j < g.y; j++)
-                {
-                    var c = spawner.CellsActive[i, j];
-                    
-                    var valR = c.typeCell.res.Range;
-                    foreach (var point in c.typeCell.pointers.pointsDetect)
-                    {
-                        var d = new Vector2Int((int)point.localPosition.x + i, (int)point.localPosition.y + j);
-
-                        if (d.x < 0 || d.x >= g.x || d.y < 0 || d.y >= g.y)
-                            continue;
-                        var ce = spawner.CellsActive[d.x, d.y];
-                        foreach (var comp in c.typeCell.compatible)
-                        {
-                            if (comp.id == ce.typeCell)
-                            {
-                                valR = comp.connect.GetValue(valR);
-                            }
-                        }
-
-                    }
-
-                    if (c.typeCell.res == energyType)
-                        _energy += valR;
-                    else
-                        spawner.CellsActive[i, j].moment = valR;
-                }
-            }
-
-            energyText.text = _energy.ToString();
+            
+            energyType.Check();
+            _energy = energyType._energy;
+            energyText.text =_energy.ToString();
         }
     }
 }

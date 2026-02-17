@@ -23,14 +23,14 @@ MonoBehaviour:
     SerializationNodes: []
   res: {fileID: 11400000, guid: 1e1fc882584590249beae8275d22c706, type: 2}
   use: []
-  rez: {fileID: 11400000, guid: 1e1fc882584590249beae8275d22c706, type: 2}
+  rez: {fileID: 11400000, guid: fbcaa94d1ea40f04c8bf886b8228a43a, type: 2}
   compatible:
   - id: {fileID: 11400000, guid: c427314684390a54c9d2dd8c0b3b31e3, type: 2}
     connect:
       rid: 7555688085293105155
   - id: {fileID: 11400000, guid: 996143de0e8f9354ca26f0e59a9ba7d3, type: 2}
     connect:
-      rid: 7555688085293105157
+      rid: 7555688149707128833
   - id: {fileID: 11400000, guid: 711ce57f82b56374aa4ce874d1645f98, type: 2}
     connect:
       rid: 7555688085293105197
@@ -44,12 +44,12 @@ MonoBehaviour:
       type: {class: Mult, ns: , asm: Assembly-CSharp}
       data:
         rangeSynMod: {x: 1, y: 1}
-    - rid: 7555688085293105157
-      type: {class: Min, ns: , asm: Assembly-CSharp}
-      data:
-        rangeSynMod: {x: 1, y: 1}
     - rid: 7555688085293105197
       type: {class: PumpMod, ns: , asm: Assembly-CSharp}
       data:
         rangeSynMod: {x: 1, y: 1}
         pumpEnergy: {x: 1, y: 1}
+    - rid: 7555688149707128833
+      type: {class: Min, ns: , asm: Assembly-CSharp}
+      data:
+        rangeSynMod: {x: 0, y: 0}

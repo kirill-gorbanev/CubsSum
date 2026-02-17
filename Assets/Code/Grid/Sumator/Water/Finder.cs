@@ -1,4 +1,4 @@
-using System.Linq;
+using Code.Parametars;
 using Code.UI.Tools;
 using TMPro;
 using UnityEngine;
@@ -11,10 +11,83 @@ namespace Code.Grid.Sumator.Water
         [SerializeField] private TooltipManager tooltipManager;
 
         [SerializeField] private TypeRes waterType;
+        [SerializeField] private TypeRes desertType;
+        [SerializeField] private Detect waterDetect;
+        [SerializeField] private TMP_Text waterText;
+        [SerializeField] private Detect desertDetect;
+        [SerializeField] private TMP_Text desertText;
+        [SerializeField] private Happy happy;
+        [SerializeField] private TypeRes forest;
 
         private void Start()
         {
             spawner.OnLoadStep += Find;
+            spawner.OnLoadStep += (step) =>
+            {
+                if (step != 4) return;
+
+                waterDetect.Check();
+                waterText.text = waterDetect._energy.ToString();
+                desertDetect.Check();
+                desertText.text = desertDetect._energy.ToString();
+
+                if (waterDetect._energy > desertDetect._energy)
+                {
+                    Forest(waterDetect._energy - desertDetect._energy);
+                    desertDetect._energy = 0;
+                    waterDetect._energy = 0;
+
+                    var g = spawner.grid;
+                    for (int i = 0; i < g.x; i++)
+                    {
+                        for (int j = 0; j < g.y; j++)
+                        {
+                            var c = spawner.CellsActive[i, j];
+
+                            if (c.typeCell.res == desertType)
+                                spawner.CellsActive[i, j].moment = 0;
+                        }
+                    }
+                }
+                else
+                {
+                    desertDetect._energy -= waterDetect._energy;
+                    waterDetect._energy = 0;
+
+                    var g = spawner.grid;
+                    for (int i = 0; i < g.x; i++)
+                    {
+                        for (int j = 0; j < g.y; j++)
+                        {
+                            var c = spawner.CellsActive[i, j];
+
+                            if (c.typeCell.res == waterType)
+                                spawner.CellsActive[i, j].moment = 0;
+                        }
+                    }
+
+                    happy.Damage(desertDetect._energy);
+                }
+
+                waterText.text = waterDetect._energy.ToString();
+                desertText.text = desertDetect._energy.ToString();
+            };
+        }
+
+        private void Forest(float water)
+        {
+            var g = spawner.grid;
+            for (int i = 0; i < g.x; i++)
+            {
+                for (int j = 0; j < g.y; j++)
+                {
+                    var c = spawner.CellsActive[i, j];
+                    if (c.typeCell.res == forest)
+                        spawner.CellsActive[i, j].moment += water;
+                    if (c.typeCell.res == waterType)
+                        spawner.CellsActive[i, j].moment = 0;
+                }
+            }
         }
 
         private void Find(int step)
