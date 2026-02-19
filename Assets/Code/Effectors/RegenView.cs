@@ -7,7 +7,6 @@ namespace Code.Effectors
 {
     public class RegenView : MonoBehaviour
     {
-        [SerializeField] private Regen regen;
         [SerializeField] private Button bt;
         [SerializeField] private TMP_Text text;
 
@@ -16,12 +15,6 @@ namespace Code.Effectors
         private void Start()
         {
             bt.onClick.AddListener(OnBtClicked);
-            View();
-        }
-
-        public void View()
-        {
-            text.text = regen.Cost.ToString();
         }
     }
 }

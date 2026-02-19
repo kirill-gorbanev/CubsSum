@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Code.Toxiss
@@ -7,9 +8,13 @@ namespace Code.Toxiss
     {
         [SerializeField] private Image _image;
         [SerializeField] private Toxis toxis;
+        [SerializeField] private Button btDetox;
+
+        public UnityAction OnBtClicked { get; set; }
 
         private void Start()
         {
+            btDetox.onClick.AddListener(OnBtClicked);
             View();
         }
 

@@ -1,6 +1,7 @@
 ﻿using Code.Effectors;
 using Code.Toxiss;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Code
 {
@@ -9,12 +10,16 @@ namespace Code
         [SerializeField] private ZoneController zone;
         [SerializeField] private Coins coins;
         [SerializeField] private Toxis toxis;
-        [SerializeField] private Regen regen;
-        [SerializeField] private Creats creatsView;
 
         [SerializeField] private CoinView coinsView;
         [SerializeField] private ToxView toxisView;
         [SerializeField] private RegenView regenView;
+
+        [SerializeField] private ByeManage regen;
+        [SerializeField] private ByeManage detox;
+
+        [SerializeField] private Creats creatsZone;
+        [SerializeField] private Creats creatsPassive;
 
         private void Awake()
         {
@@ -29,24 +34,31 @@ namespace Code
 
             toxis.OnTox += () => { zone.Block(true); };
 
-            regen.OnRegen += () =>
+
+            regenView.OnBtClicked = () => { regen.Bye(); };
+            toxisView.OnBtClicked = () => { detox.Bye(); };
+            regen.OnByeCompleted += _ =>
             {
                 zone.Block(false);
 
                 toxis.toxis = 0;
                 toxisView.View();
-
-                regenView.View();
             };
-            regenView.OnBtClicked = () => { regen.Bye(); };
+            detox.OnByeCompleted += e =>
+            {
+                zone.Block(false);
 
-            creatsView.OnBye += cost =>
+                toxis.maxTox *= e;
+                toxisView.View();
+            };
+
+            creatsZone.OnBye += cost =>
             {
                 if (coins.coin < cost)
                     return false;
 
                 coins.coin -= cost;
-                var v = creatsView.GetStep();
+                var v = creatsZone.GetStep();
                 coins.mult = v.coinMult;
                 toxis.mult = v.toxMult;
                 zone.speed = v.speed;
@@ -56,6 +68,19 @@ namespace Code
                 toxisView.View();
                 return true;
             };
+            creatsZone.Start();
+
+
+            creatsPassive.OnBye += cost =>
+            {
+                if (coins.coin < cost)
+                    return false;
+                coins.coin -= cost;
+
+                coinsView.View();
+                return true;
+            };
+            creatsPassive.Start();
         }
     }
 }

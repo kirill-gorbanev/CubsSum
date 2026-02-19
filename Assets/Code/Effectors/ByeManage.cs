@@ -3,7 +3,8 @@ using UnityEngine;
 
 namespace Code.Effectors
 {
-    public class Regen : MonoBehaviour
+    [Serializable]
+    public class ByeManage 
     {
         [SerializeField] private int cost;
         [SerializeField] private int velocityLiner;
@@ -11,7 +12,7 @@ namespace Code.Effectors
 
         private int _step;
 
-        public event Action OnRegen; 
+        public event Action<int> OnByeCompleted; 
         public int Cost => cost + velocityLiner * _step;
 
         public void Bye()
@@ -20,7 +21,7 @@ namespace Code.Effectors
                 return;
             coins.coin -= Cost;
             _step++;
-            OnRegen?.Invoke();
+            OnByeCompleted?.Invoke(_step);
         }
     }
 }

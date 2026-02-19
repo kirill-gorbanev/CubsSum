@@ -2,9 +2,11 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-public class Creats : MonoBehaviour
+[Serializable]
+public class Creats 
 {
     [SerializeField] private Button cellPr;
     [SerializeField] private Transform parent;
@@ -22,11 +24,11 @@ public class Creats : MonoBehaviour
 
     private int _step;
 
-    private void Start()
+    public void Start()
     {
         for (int i = 0; i < countCell; i++)
         {
-            var c = Instantiate(cellPr, parent);
+            var c = Object. Instantiate(cellPr, parent);
             c.gameObject.SetActive(true);
             var cost = initCost + stepCost * i;
             c.GetComponentInChildren<TMP_Text>().text = cost.ToString();
