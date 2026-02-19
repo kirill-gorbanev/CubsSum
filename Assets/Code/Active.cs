@@ -10,6 +10,7 @@ namespace Code
         [SerializeField] private Coins coins;
         [SerializeField] private Toxis toxis;
         [SerializeField] private Regen regen;
+        [SerializeField] private Creats creatsView;
 
         [SerializeField] private CoinView coinsView;
         [SerializeField] private ToxView toxisView;
@@ -17,10 +18,11 @@ namespace Code
 
         private void Awake()
         {
-            zone.OnChange += _ =>
+            zone.OnChange += e =>
             {
                 coins.Add();
-                toxis.Add();
+                if (!e)
+                    toxis.Add();
                 coinsView.View();
                 toxisView.View();
             };
@@ -37,6 +39,22 @@ namespace Code
                 regenView.View();
             };
             regenView.OnBtClicked = () => { regen.Bye(); };
+
+            creatsView.OnBye += cost =>
+            {
+                if (coins.coin < cost)
+                    return false;
+
+                coins.coin -= cost;
+                var v = creatsView.GetStep();
+                coins.mult = v.coinMult;
+                toxis.mult = v.toxMult;
+                zone.Reload(v.step);
+
+                coinsView.View();
+                toxisView.View();
+                return true;
+            };
         }
     }
 }

@@ -14,12 +14,12 @@ namespace Code
         private void Start()
         {
             View();
-            mult.text = count.mult.ToString();
         }
 
         public void View()
         {
             counter.text = count.coin.ToString();
+            mult.text = count.mult.ToString();
         }
     }
 }
