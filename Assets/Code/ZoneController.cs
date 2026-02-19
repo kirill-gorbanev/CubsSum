@@ -7,7 +7,7 @@ public class ZoneController : MonoBehaviour
     [SerializeField] private RectTransform redZone;
     [SerializeField] private RectTransform greenZone;
     [SerializeField] private RectTransform cursor;
-    [SerializeField] private float speed;
+    [SerializeField] public float speed;
     [SerializeField] private float size;
     [SerializeField] private float minSize;
 

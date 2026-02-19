@@ -49,6 +49,7 @@ namespace Code
                 var v = creatsView.GetStep();
                 coins.mult = v.coinMult;
                 toxis.mult = v.toxMult;
+                zone.speed = v.speed;
                 zone.Reload(v.step);
 
                 coinsView.View();
