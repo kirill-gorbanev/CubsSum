@@ -35,8 +35,16 @@ namespace Code
             toxis.OnTox += () => { zone.Block(true); };
 
 
-            regenView.OnBtClicked = () => { regen.Bye(); };
-            toxisView.OnBtClicked = () => { detox.Bye(); };
+            regenView.OnBtClicked = () =>
+            {
+                regen.Bye();
+                coinsView.View();
+            };
+            toxisView.OnBtClicked = () =>
+            {
+                detox.Bye();
+                coinsView.View();
+            };
             regen.OnByeCompleted += _ =>
             {
                 zone.Block(false);
