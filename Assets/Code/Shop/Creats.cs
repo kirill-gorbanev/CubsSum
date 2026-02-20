@@ -1,4 +1,5 @@
 using System;
+using Code.Shop;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,11 +7,13 @@ using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 [Serializable]
-public class Creats 
+public class Creats
 {
+    [SerializeField] private ContentConfig config;
+    [SerializeField] private float multSizeView;
+    [SerializeField] private Vector3 offsetPos;
     [SerializeField] private Button cellPr;
     [SerializeField] private Transform parent;
-    [SerializeField] private int countCell;
 
     [SerializeField] private int stepCost;
     [SerializeField] private int initCost;
@@ -26,16 +29,25 @@ public class Creats
 
     public void Start()
     {
-        for (int i = 0; i < countCell; i++)
+        if(config == null)
+            return;
+        
+        int i = 0;
+        foreach (var item in config.items)
         {
-            var c = Object. Instantiate(cellPr, parent);
+            var c = Object.Instantiate(cellPr, parent);
+       var v=    Object.Instantiate(item.view, c.transform);
+       v.transform.localScale *= multSizeView;
+       v.transform.localPosition += offsetPos;
+       v.transform.localRotation = Quaternion.Euler(0,90,0);
+       
             c.gameObject.SetActive(true);
-            var cost = initCost + stepCost * i;
+            var cost = item.cost;
             c.GetComponentInChildren<TMP_Text>().text = cost.ToString();
             var i1 = i;
             c.onClick.AddListener(() =>
             {
-                if (OnBye.Invoke(cost))
+                if (OnBye != null && OnBye.Invoke(cost))
                 {
                     _step = i1 + 1;
                     c.gameObject.SetActive(false);

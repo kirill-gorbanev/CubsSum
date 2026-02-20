@@ -79,7 +79,7 @@ public class ZoneController : MonoBehaviour
             _isRight = true;
 
         _screenX += speed * Time.deltaTime * (_isRight ? 1 : -1);
-        cursor.position = new Vector2(_screenX, redZone.position.y);
+        cursor.position = new Vector3(_screenX, redZone.position.y,redZone.position.z);
     }
 
     public void Block(bool b)
