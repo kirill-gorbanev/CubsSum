@@ -6,7 +6,7 @@ namespace Code.Toxiss
 {
     public class ToxView : MonoBehaviour
     {
-        [SerializeField] private Image _image;
+        [SerializeField] private Slider slider;
         [SerializeField] private Toxis toxis;
         [SerializeField] private Button btDetox;
 
@@ -20,7 +20,7 @@ namespace Code.Toxiss
 
         public void View()
         {
-            _image.fillAmount = (float)toxis.toxis / toxis.maxTox;
+            slider.value = (float)toxis.toxis / toxis.maxTox;
         }
     }
 }
