@@ -16,5 +16,10 @@ namespace Code.Effectors
         {
             bt.onClick.AddListener(OnBtClicked);
         }
+
+        public void View(string value)
+        {
+            text.text = value;
+        }
     }
 }

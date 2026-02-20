@@ -39,11 +39,13 @@ namespace Code
             {
                 regen.Bye();
                 coinsView.View();
+                regenView.View(regen.Cost.ToString());
             };
             toxisView.OnBtClicked = () =>
             {
                 detox.Bye();
                 coinsView.View();
+                toxisView.View(detox.Cost.ToString(), toxis.mult.ToString());
             };
             regen.OnByeCompleted += _ =>
             {
@@ -74,6 +76,7 @@ namespace Code
 
                 coinsView.View();
                 toxisView.View();
+                toxisView.View(detox.Cost.ToString(), toxis.mult.ToString());
                 return true;
             };
             creatsZone.Start();
@@ -88,6 +91,9 @@ namespace Code
                 coinsView.View();
                 return true;
             };
+            
+            regenView.View(regen.Cost.ToString());
+            toxisView.View(detox.Cost.ToString(), toxis.mult.ToString());
             creatsPassive.Start();
         }
     }
