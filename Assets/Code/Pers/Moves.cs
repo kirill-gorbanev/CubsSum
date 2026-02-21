@@ -20,6 +20,7 @@ namespace Code.Pers
 
         public event Action<int> OnAdd;
 
+        [Serializable]
         public class MyStruct
         {
             public Pers pers;

@@ -76,7 +76,7 @@ public class Creats
                     _step = i1 + 1;
                     _range = item.range;
                     view = item.view;
-                    c.gameObject.SetActive(false);
+                //    c.gameObject.SetActive(false);
                     OnComplete?.Invoke();
                 }
             });
