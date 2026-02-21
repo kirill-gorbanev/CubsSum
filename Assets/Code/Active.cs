@@ -115,7 +115,7 @@ namespace Code
             {
                 coins.coin += e;
                 coinsView.View();
-                coinsView.passive.text = e.ToString();
+                coinsView.passive.text =string.Format(coinsView.formatPassive, e);
             };
 
             regenView.View(regen.Cost.ToString());

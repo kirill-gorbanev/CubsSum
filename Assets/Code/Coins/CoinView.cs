@@ -8,6 +8,7 @@ namespace Code
         [SerializeField] private TMP_Text counter;
         [SerializeField] private TMP_Text mult;
         [SerializeField] public TMP_Text passive;
+        [SerializeField] public string formatPassive;
 
         [SerializeField] private Coins count;
 

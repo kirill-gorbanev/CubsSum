@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -15,7 +16,7 @@ namespace Code.Pers
 
         private float _time;
         private float _timeStop;
-        private float _sec = 1f;
+      [SerializeField]  private float _sec = 1f;
 
         public event Action<int> OnAdd;
 
@@ -33,6 +34,7 @@ namespace Code.Pers
         private void Start()
         {
             _time = _sec;
+            StartCoroutine( timer());
         }
 
         public void Ranger()
@@ -70,14 +72,24 @@ namespace Code.Pers
             else
             {
                 _time = _sec;
+                
+                foreach (var item in pres)
+                    item.pers.Smoke();
+                
+                _timeStop = 11f / 4;
+            }
+        }
+
+        private IEnumerator timer()
+        {
+            var s = new WaitForSeconds(1);
+            while (true)
+            {
+                yield return s;
                 var v = 0;
                 foreach (var item in pres)
-                {
-                    item.pers.Smoke();
                     v += item.add;
-                }
 
-                _timeStop = 1.1f;
                 OnAdd?.Invoke(v);
             }
         }
