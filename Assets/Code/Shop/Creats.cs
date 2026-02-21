@@ -14,15 +14,9 @@ public class Creats
     [SerializeField] private RectTransform parent;
     [SerializeField] private RectTransform parentView;
 
-    [SerializeField] private int stepCost;
-    [SerializeField] private int initCost;
-
     private Vector2Int _rangeCost;
     private Vector2Int _rangeTox;
     private Range _range;
-
-    [SerializeField] private Vector2 size;
-    [SerializeField] private Vector2 speedRange;
 
     public event Func<int, bool> OnBye;
     public event Action OnComplete;
@@ -64,7 +58,8 @@ public class Creats
             add = new Vector2Int(a, a + aY);
 
             c.cost.text = cost.ToString();
-            c.damage.text = $"{damage.x}-{damage.y}";
+            if (c.damage != null)
+                c.damage.text = $"{damage.x}-{damage.y}";
             c.add.text = $"{add.x}-{add.y}";
             c.bgView.color = rangeZones.First(e => e.range == item.range).color;
 

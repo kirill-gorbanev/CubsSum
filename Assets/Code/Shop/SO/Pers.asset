@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 049ee7866e914884af14c448298a5894, type: 3}
+  m_Name: Pers
+  m_EditorClassIdentifier: 
+  view:
+  - {fileID: 4682017244306344129, guid: d3c77e08130c3a743b72b8a1ef72b13a, type: 3}
+  - {fileID: 7380629863186873245, guid: 1aa8b2d611743dc43be243e90c0b66f9, type: 3}
+  - {fileID: 7252839821876779636, guid: 082132e3395dfd84fa2c214122a3e27a, type: 3}
+  - {fileID: 970571405554784665, guid: 207477e2f10a12446bfc5c3246b54ba6, type: 3}
+  - {fileID: 6571697106491509815, guid: 67ad6ff0929aa3149931102e8e0aa860, type: 3}
+  - {fileID: 5400452667747124541, guid: de7a8e9331b6b5d4eb53ec23c4ee6cc0, type: 3}
+  - {fileID: 7739657144611171254, guid: 6478c811c0f81894185bc53facb6e208, type: 3}
+  - {fileID: 7184575445805450442, guid: 90d36dd465a0cca42bff91e4ef31ac66, type: 3}
+  - {fileID: 7515160118176021979, guid: 23363f2aecb5dd44ea83033824335f04, type: 3}
+  isDetect: 0
+  costInit: 30
+  rangeInitDamage: {x: 0, y: 0}
+  dopDamage: 0
+  rangeInitAdd: {x: 2, y: 10}
+  dopAdd: 20
+  multSizeView: 62.8
+  offsetPos: {x: 11.16, y: -53, z: -10}
+  rot: {x: 0, y: 165.2, z: 0}
+  items:
+  - isDetect: 0
+    view: {fileID: 4682017244306344129, guid: d3c77e08130c3a743b72b8a1ef72b13a, type: 3}
+    multSizeView: 62.8
+    offsetPos: {x: 11.16, y: -53, z: -10}
+    rot: {x: 0, y: 165.2, z: 0}
+    range: 0
+  - isDetect: 0
+    view: {fileID: 7380629863186873245, guid: 1aa8b2d611743dc43be243e90c0b66f9, type: 3}
+    multSizeView: 62.8
+    offsetPos: {x: 11.16, y: -53, z: -10}
+    rot: {x: 0, y: 165.2, z: 0}
+    range: 0
+  - isDetect: 0
+    view: {fileID: 7252839821876779636, guid: 082132e3395dfd84fa2c214122a3e27a, type: 3}
+    multSizeView: 62.8
+    offsetPos: {x: 11.16, y: -53, z: -10}
+    rot: {x: 0, y: 165.2, z: 0}
+    range: 0
+  - isDetect: 0
+    view: {fileID: 970571405554784665, guid: 207477e2f10a12446bfc5c3246b54ba6, type: 3}
+    multSizeView: 62.8
+    offsetPos: {x: 11.16, y: -53, z: -10}
+    rot: {x: 0, y: 165.2, z: 0}
+    range: 0
+  - isDetect: 0
+    view: {fileID: 6571697106491509815, guid: 67ad6ff0929aa3149931102e8e0aa860, type: 3}
+    multSizeView: 62.8
+    offsetPos: {x: 11.16, y: -53, z: -10}
+    rot: {x: 0, y: 165.2, z: 0}
+    range: 0
+  - isDetect: 0
+    view: {fileID: 5400452667747124541, guid: de7a8e9331b6b5d4eb53ec23c4ee6cc0, type: 3}
+    multSizeView: 62.8
+    offsetPos: {x: 11.16, y: -53, z: -10}
+    rot: {x: 0, y: 165.2, z: 0}
+    range: 0
+  - isDetect: 0
+    view: {fileID: 7739657144611171254, guid: 6478c811c0f81894185bc53facb6e208, type: 3}
+    multSizeView: 62.8
+    offsetPos: {x: 11.16, y: -53, z: -10}
+    rot: {x: 0, y: 165.2, z: 0}
+    range: 0
+  - isDetect: 0
+    view: {fileID: 7184575445805450442, guid: 90d36dd465a0cca42bff91e4ef31ac66, type: 3}
+    multSizeView: 62.8
+    offsetPos: {x: 11.16, y: -53, z: -10}
+    rot: {x: 0, y: 165.2, z: 0}
+    range: 0
+  - isDetect: 0
+    view: {fileID: 7515160118176021979, guid: 23363f2aecb5dd44ea83033824335f04, type: 3}
+    multSizeView: 62.8
+    offsetPos: {x: 11.16, y: -53, z: -10}
+    rot: {x: 0, y: 165.2, z: 0}
+    range: 0
