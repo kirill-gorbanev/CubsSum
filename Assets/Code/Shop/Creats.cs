@@ -22,7 +22,7 @@ public class Creats
     public event Func<int, bool> OnBye;
     public event Action OnComplete;
 
-    private int _step;
+    public int _step;
 
     public void Start()
     {

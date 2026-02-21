@@ -2,7 +2,6 @@
 using Code.Pers;
 using Code.Toxiss;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Code
 {
@@ -22,6 +21,8 @@ namespace Code
 
         [SerializeField] private Creats creatsZone;
         [SerializeField] private Creats creatsPassive;
+
+        [SerializeField] private GameObject[] viewsSmokes;
 
         private void Awake()
         {
@@ -83,6 +84,11 @@ namespace Code
                 coinsView.View();
                 toxisView.View();
                 toxisView.View(detox.Cost.ToString(), toxis.mult.ToString());
+                
+                
+                foreach (var vv in viewsSmokes)
+                    vv.SetActive(false);
+                viewsSmokes[creatsZone._step].SetActive(true);
             };
             creatsZone.Start();
 
@@ -101,7 +107,7 @@ namespace Code
                 moves.pres.Add(new Moves.MyStruct
                 {
                     pers = Instantiate(creatsPassive.view).GetComponent<Pers.Pers>(),
-                    add = Random.Range(creatsPassive._rangeCost.x,creatsPassive._rangeCost.y),
+                    add = Random.Range(creatsPassive._rangeCost.x, creatsPassive._rangeCost.y),
                 });
                 moves.Ranger();
             };
@@ -115,6 +121,10 @@ namespace Code
             regenView.View(regen.Cost.ToString());
             toxisView.View(detox.Cost.ToString(), toxis.mult.ToString());
             creatsPassive.Start();
+            
+            foreach (var v in viewsSmokes)
+                v.SetActive(false);
+            viewsSmokes[0].SetActive(true);
         }
     }
 }
