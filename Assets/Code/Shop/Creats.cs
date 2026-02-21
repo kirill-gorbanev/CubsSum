@@ -14,7 +14,7 @@ public class Creats
     [SerializeField] private RectTransform parent;
     [SerializeField] private RectTransform parentView;
 
-    private Vector2Int _rangeCost;
+    [HideInInspector] public Vector2Int _rangeCost;
     private Vector2Int _rangeTox;
     private Range _range;
     [HideInInspector] public GameObject view;

@@ -101,10 +101,17 @@ namespace Code
                 moves.pres.Add(new Moves.MyStruct
                 {
                     pers = Instantiate(creatsPassive.view).transform,
+                    add = Random.Range(creatsPassive._rangeCost.x,creatsPassive._rangeCost.y),
                 });
                 moves.Ranger();
             };
-            
+            moves.OnAdd += e =>
+            {
+                coins.coin += e;
+                coinsView.View();
+                coinsView.passive.text = e.ToString();
+            };
+
             regenView.View(regen.Cost.ToString());
             toxisView.View(detox.Cost.ToString(), toxis.mult.ToString());
             creatsPassive.Start();
