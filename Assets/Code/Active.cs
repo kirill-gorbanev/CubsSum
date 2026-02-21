@@ -1,4 +1,5 @@
 ﻿using Code.Effectors;
+using Code.Pers;
 using Code.Toxiss;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -14,6 +15,7 @@ namespace Code
         [SerializeField] private CoinView coinsView;
         [SerializeField] private ToxView toxisView;
         [SerializeField] private RegenView regenView;
+        [SerializeField] private Moves moves;
 
         [SerializeField] private ByeManage regen;
         [SerializeField] private ByeManage detox;
@@ -91,8 +93,16 @@ namespace Code
                     return false;
                 coins.coin -= cost;
 
-                coinsView.View();
                 return true;
+            };
+            creatsPassive.OnComplete += () =>
+            {
+                coinsView.View();
+                moves.pres.Add(new Moves.MyStruct
+                {
+                    pers = Instantiate(creatsPassive.view).transform,
+                });
+                moves.Ranger();
             };
             
             regenView.View(regen.Cost.ToString());

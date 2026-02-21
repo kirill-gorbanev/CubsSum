@@ -17,6 +17,7 @@ public class Creats
     private Vector2Int _rangeCost;
     private Vector2Int _rangeTox;
     private Range _range;
+    [HideInInspector] public GameObject view;
 
     public event Func<int, bool> OnBye;
     public event Action OnComplete;
@@ -60,7 +61,7 @@ public class Creats
             c.cost.text = cost.ToString();
             if (c.damage != null)
                 c.damage.text = $"{damage.x}-{damage.y}";
-            c.add.text = $"{add.x}-{add.y}";
+            c.add.text = string.Format(c.formatAdd, add.x, add.y);
             c.bgView.color = rangeZones.First(e => e.range == item.range).color;
 
             var i1 = i;
@@ -74,6 +75,7 @@ public class Creats
                     _rangeCost = add1;
                     _step = i1 + 1;
                     _range = item.range;
+                    view = item.view;
                     c.gameObject.SetActive(false);
                     OnComplete?.Invoke();
                 }
