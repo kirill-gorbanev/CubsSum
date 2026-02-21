@@ -100,7 +100,7 @@ namespace Code
                 coinsView.View();
                 moves.pres.Add(new Moves.MyStruct
                 {
-                    pers = Instantiate(creatsPassive.view).transform,
+                    pers = Instantiate(creatsPassive.view).GetComponent<Pers.Pers>(),
                     add = Random.Range(creatsPassive._rangeCost.x,creatsPassive._rangeCost.y),
                 });
                 moves.Ranger();

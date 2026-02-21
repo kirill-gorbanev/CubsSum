@@ -14,18 +14,20 @@ namespace Code.Pers
         public List<MyStruct> pres = new();
 
         private float _time;
+        private float _timeStop;
         private float _sec = 1f;
 
-        public event Action<int> OnAdd; 
-        
+        public event Action<int> OnAdd;
+
         public class MyStruct
         {
-            public Transform pers;
+            public Pers pers;
             public Vector3 target;
             public int add;
 
-            public bool IsNext => Vector3.Distance(pers.position, target) < 1f;
-            public void Move(float speed) => pers.position = Vector3.MoveTowards(pers.position, target, speed);
+            public bool IsNext => Vector3.Distance(pers.transform.position, target) < 1f;
+
+            public void Move(float speed) => pers.transform.position = Vector3.MoveTowards(pers.transform.position, target, speed);
         }
 
         private void Start()
@@ -37,20 +39,27 @@ namespace Code.Pers
         {
             foreach (var item in pres)
             {
+                item.pers.Move();
                 item.target = Range();
-                item.pers.LookAt(item.target);
+                item.pers.transform.LookAt(item.target);
             }
         }
-        
+
         private void Update()
         {
+            if (_timeStop > 0)
+            {
+                _timeStop -= Time.deltaTime;
+                return;
+            }
+            
             foreach (var item in pres)
             {
                 item.Move(speed * Time.deltaTime);
                 if (item.IsNext)
                 {
                     item.target = Range();
-                    item.pers.LookAt(item.target);
+                    item.pers.transform.LookAt(item.target);
                 }
             }
 
@@ -63,7 +72,12 @@ namespace Code.Pers
                 _time = _sec;
                 var v = 0;
                 foreach (var item in pres)
+                {
+                    item.pers.Smoke();
                     v += item.add;
+                }
+
+                _timeStop = 1.1f;
                 OnAdd?.Invoke(v);
             }
         }

@@ -1510,6 +1510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8629060129476076518}
   - component: {fileID: 2085354122576645593}
+  - component: {fileID: 614360821948629940}
   m_Layer: 0
   m_Name: 1 Defualt
   m_TagString: Untagged
@@ -1566,6 +1567,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &614360821948629940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4682017244306344129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487653ed3a644338a2f2e6d052b39c9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 8927436746100690504}
+  animator: {fileID: 2085354122576645593}
 --- !u!1 &4800207504629171000
 GameObject:
   m_ObjectHideFlags: 0
@@ -2990,6 +3005,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e12b3c53c0f8ee4da83655d8d2770d5, type: 3}
+--- !u!198 &8927436746100690504 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6403252182692130911, guid: 4e12b3c53c0f8ee4da83655d8d2770d5, type: 3}
+  m_PrefabInstance: {fileID: 2537861424265444887}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8927436746100690614 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6403252182692130977, guid: 4e12b3c53c0f8ee4da83655d8d2770d5, type: 3}
