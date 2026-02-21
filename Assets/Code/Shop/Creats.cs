@@ -10,10 +10,9 @@ using Random = UnityEngine.Random;
 public class Creats
 {
     [SerializeField] private ContentConfig config;
-    [SerializeField] private float multSizeView;
-    [SerializeField] private Vector3 offsetPos;
-    [SerializeField] private Button cellPr;
-    [SerializeField] private Transform parent;
+    [SerializeField] private CellShop cellShop;
+    [SerializeField] private RectTransform parent;
+    [SerializeField] private RectTransform parentView;
 
     [SerializeField] private int stepCost;
     [SerializeField] private int initCost;
@@ -29,23 +28,25 @@ public class Creats
 
     public void Start()
     {
-        if(config == null)
+        if (config == null)
             return;
-        
+
         int i = 0;
         foreach (var item in config.items)
         {
-            var c = Object.Instantiate(cellPr, parent);
-       var v=    Object.Instantiate(item.view, c.transform);
-       v.transform.localScale *= multSizeView;
-       v.transform.localPosition += offsetPos;
-       v.transform.localRotation = Quaternion.Euler(0,90,0);
-       
+            var c = Object.Instantiate(cellShop, parent);
+            c.rectTransform = parentView;
+            
+            var v = Object.Instantiate(item.view, c.parentView);
+            v.transform.localScale *= item.multSizeView;
+            v.transform.localPosition += item.offsetPos;
+            v.transform.localRotation = Quaternion.Euler(item.rot);
+
             c.gameObject.SetActive(true);
             var cost = item.cost;
             c.GetComponentInChildren<TMP_Text>().text = cost.ToString();
             var i1 = i;
-            c.onClick.AddListener(() =>
+            c.bt.onClick.AddListener(() =>
             {
                 if (OnBye != null && OnBye.Invoke(cost))
                 {

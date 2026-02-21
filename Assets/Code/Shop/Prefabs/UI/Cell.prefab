@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 1064262412198741698}
   - component: {fileID: 6526762079471562684}
   - component: {fileID: 6246397592121604994}
+  - component: {fileID: 6423811171591501995}
   m_Layer: 5
   m_Name: Cell
   m_TagString: Untagged
@@ -186,6 +187,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6423811171591501995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859144893265029967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7f6155b1d8640b3a4bf4d6e85015b44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bt: {fileID: 6246397592121604994}
+  parentView: {fileID: 7062564243588108561}
 --- !u!1 &2655079932025249019
 GameObject:
   m_ObjectHideFlags: 0
@@ -1099,6 +1114,10 @@ PrefabInstance:
     - target: {fileID: 3514934769894796977, guid: 25ff72324e9c5fb4dbb1b14cb3f269f4, type: 3}
       propertyPath: m_Name
       value: 3 vape 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3514934769894796977, guid: 25ff72324e9c5fb4dbb1b14cb3f269f4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4290908038565458955, guid: 25ff72324e9c5fb4dbb1b14cb3f269f4, type: 3}
       propertyPath: m_LocalScale.x
