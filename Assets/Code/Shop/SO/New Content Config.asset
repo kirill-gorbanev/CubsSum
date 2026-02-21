@@ -28,8 +28,12 @@ MonoBehaviour:
   - {fileID: 2447476482111512557, guid: ebdfed453d316c6428fe5c5dd2516ca7, type: 3}
   - {fileID: 4411345428899422388, guid: 3310dd4b0a329ba49a5b439cdb7ed86d, type: 3}
   - {fileID: 254158218533911817, guid: 0f092fe4c0b648e42b59b75fdf5fdc9c, type: 3}
-  costInit: 30
   isDetect: 1
+  costInit: 30
+  rangeInitDamage: {x: 2, y: 5}
+  dopDamage: 2
+  rangeInitAdd: {x: 1, y: 3}
+  dopAdd: 10
   multSizeView: 200
   offsetPos: {x: 0, y: -10, z: -10}
   rot: {x: -90, y: 0, z: 0}
@@ -37,105 +41,90 @@ MonoBehaviour:
   - isDetect: 1
     view: {fileID: 2524413170292221051, guid: 1ffa15564abe24945996f2d4e1849f24, type: 3}
     multSizeView: 200
-    offsetPos: {x: 0, y: -44.2, z: -10}
+    offsetPos: {x: 4, y: -44.2, z: -10}
     rot: {x: 0, y: 0, z: 0}
-    descr: 
-    cost: 30
+    range: 1
   - isDetect: 1
     view: {fileID: 8857142707819070513, guid: 74c210ad49f83c04399193ea340ce131, type: 3}
     multSizeView: 200
-    offsetPos: {x: 0, y: -44.2, z: -10}
+    offsetPos: {x: 4, y: -44.2, z: -10}
     rot: {x: 0, y: 0, z: 0}
-    descr: 
-    cost: 60
+    range: 0
   - isDetect: 1
     view: {fileID: 5425637842660680607, guid: deafd586dddc3c04aaf7bd5124c0ae8f, type: 3}
     multSizeView: 200
-    offsetPos: {x: 0, y: 44, z: -10}
+    offsetPos: {x: 0.84, y: 44, z: -10}
     rot: {x: -90, y: 0, z: 0}
-    descr: 
-    cost: 90
+    range: 2
   - isDetect: 1
     view: {fileID: 7577801576868544369, guid: e497a52de691ca84b99a572c288e6b83, type: 3}
     multSizeView: 200
     offsetPos: {x: 0, y: 20, z: -10}
     rot: {x: -90, y: 0, z: 0}
-    descr: 
-    cost: 120
+    range: 1
   - isDetect: 1
     view: {fileID: 4448147525069327979, guid: 3d58a66ad0066d547978f1d309c93dff, type: 3}
     multSizeView: 200
     offsetPos: {x: 0, y: 20, z: -10}
     rot: {x: -90, y: 0, z: 0}
-    descr: 
-    cost: 150
+    range: 0
   - isDetect: 1
     view: {fileID: 897917706762144169, guid: 8dbda44c31b3be04786050c441be9833, type: 3}
     multSizeView: 200
     offsetPos: {x: 0, y: 20, z: -10}
     rot: {x: -90, y: 0, z: 0}
-    descr: 
-    cost: 180
+    range: 2
   - isDetect: 0
     view: {fileID: 8794511567131022747, guid: ae91ee11ba1fb2448a795eec008a2563, type: 3}
     multSizeView: 200
     offsetPos: {x: 0, y: -10, z: -10}
     rot: {x: -90, y: 0, z: 0}
-    descr: 
-    cost: 210
+    range: 1
   - isDetect: 0
     view: {fileID: 3514934769894796977, guid: 25ff72324e9c5fb4dbb1b14cb3f269f4, type: 3}
     multSizeView: 200
     offsetPos: {x: 0, y: -10, z: -10}
     rot: {x: -90, y: 0, z: 0}
-    descr: 
-    cost: 240
+    range: 0
   - isDetect: 0
     view: {fileID: 130756125456145911, guid: c9dc500ba2968e54e942014abed28d49, type: 3}
     multSizeView: 200
     offsetPos: {x: 0, y: -10, z: -10}
     rot: {x: -90, y: 0, z: 0}
-    descr: 
-    cost: 270
+    range: 2
   - isDetect: 0
     view: {fileID: 4736784175428859559, guid: 6d9e20c50e3d15947babe9440079ab72, type: 3}
     multSizeView: 200
     offsetPos: {x: 0, y: 0, z: -10}
     rot: {x: -90, y: 0, z: 0}
-    descr: 
-    cost: 300
+    range: 0
   - isDetect: 0
     view: {fileID: 5112301673286794540, guid: 03fa6467de880824180d3d0782975a28, type: 3}
     multSizeView: 200
     offsetPos: {x: 0, y: 0, z: -10}
     rot: {x: -90, y: 0, z: 0}
-    descr: 
-    cost: 330
+    range: 2
   - isDetect: 0
     view: {fileID: 1113700287011791531, guid: bb26ac7f5cec322489c3e7406ce2c7ac, type: 3}
     multSizeView: 200
     offsetPos: {x: 0, y: -10, z: -10}
     rot: {x: -90, y: 0, z: 0}
-    descr: 
-    cost: 360
+    range: 0
   - isDetect: 0
     view: {fileID: 2447476482111512557, guid: ebdfed453d316c6428fe5c5dd2516ca7, type: 3}
     multSizeView: 200
     offsetPos: {x: 0, y: 0, z: -10}
     rot: {x: -90, y: 0, z: 0}
-    descr: 
-    cost: 390
+    range: 2
   - isDetect: 0
     view: {fileID: 4411345428899422388, guid: 3310dd4b0a329ba49a5b439cdb7ed86d, type: 3}
     multSizeView: 200
     offsetPos: {x: 0, y: -10, z: -10}
     rot: {x: -90, y: 0, z: 0}
-    descr: 
-    cost: 420
+    range: 0
   - isDetect: 0
     view: {fileID: 254158218533911817, guid: 0f092fe4c0b648e42b59b75fdf5fdc9c, type: 3}
     multSizeView: 200
     offsetPos: {x: 0, y: -10, z: -10}
     rot: {x: -90, y: 0, z: 0}
-    descr: 
-    cost: 450
+    range: 1

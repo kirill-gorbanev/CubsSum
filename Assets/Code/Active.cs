@@ -58,7 +58,7 @@ namespace Code
             {
                 zone.Block(false);
 
-                toxis.maxTox *= e;
+                toxis.maxTox *= 2;
                 toxisView.View();
             };
 
@@ -68,16 +68,19 @@ namespace Code
                     return false;
 
                 coins.coin -= cost;
+                return true;
+            };
+            creatsZone.OnComplete += () =>
+            {
                 var v = creatsZone.GetStep();
                 coins.mult = v.coinMult;
                 toxis.mult = v.toxMult;
                 zone.speed = v.speed;
-                zone.Reload(v.step);
+                zone.Reload(v.size);
 
                 coinsView.View();
                 toxisView.View();
                 toxisView.View(detox.Cost.ToString(), toxis.mult.ToString());
-                return true;
             };
             creatsZone.Start();
 

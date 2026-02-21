@@ -89,5 +89,5 @@ public class ZoneController : MonoBehaviour
         cursor.gameObject.SetActive(!b);
     }
 
-    public void Reload(float vStep)=>  minSize = vStep;
+    public void Reload(float sizes)=>  minSize = sizes;
 }

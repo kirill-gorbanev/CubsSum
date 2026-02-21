@@ -17,7 +17,7 @@ namespace Code
 
         public void View()
         {
-            counter.text = count.coin.ToString();
+            counter.text =NumberFormatter.Format(count.coin);
             mult.text = count.mult.ToString();
         }
     }

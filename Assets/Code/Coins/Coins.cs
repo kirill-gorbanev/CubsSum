@@ -5,7 +5,7 @@ namespace Code
     public class Coins : MonoBehaviour
     {
         public int mult = 1;
-        public int coin;
+        public double coin;
 
         public void Add()
         {

@@ -23,7 +23,7 @@ namespace Code.Toxiss
 
         public void View()
         {
-            slider.value = (float)toxis.toxis / toxis.maxTox;
+            slider.value = toxis.V;
         }
         
         public void View(string value, string mult)
