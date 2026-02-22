@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Code.Shop;
 using UnityEngine;
+using UnityEngine.UI;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 using Range = Code.Shop.Range;
@@ -13,6 +15,8 @@ public class Creats
     [SerializeField] private CellShop cellShop;
     [SerializeField] private RectTransform parent;
     [SerializeField] private RectTransform parentView;
+    [SerializeField] private Color active;
+    [SerializeField] private Color inactive;
 
     [HideInInspector] public Vector2Int _rangeCost;
     private Vector2Int _rangeTox;
@@ -22,6 +26,8 @@ public class Creats
     public event Func<int, bool> OnBye;
     public event Action OnComplete;
 
+    private HashSet<int> _unblocks = new();
+    private Image last;
     public int _step;
 
     public void Start()
@@ -40,7 +46,7 @@ public class Creats
         var damage = config.rangeInitDamage;
         var add = config.rangeInitAdd;
 
-        foreach (var item in config.items)
+        foreach (Item item in config.items)
         {
             var c = Object.Instantiate(cellShop, parent);
             c.rectTransform = parentView;
@@ -69,20 +75,38 @@ public class Creats
             var add1 = add;
             c.bt.onClick.AddListener(() =>
             {
-                if (OnBye != null && OnBye.Invoke(cost))
+                var step = i1 + 1;
+
+                if (_unblocks.Contains(step))
                 {
-                    _rangeTox = damage1;
-                    _rangeCost = add1;
-                    _step = i1 + 1;
-                    _range = item.range;
-                    view = item.view;
-                //    c.gameObject.SetActive(false);
-                    OnComplete?.Invoke();
+                    Compl(item, step, damage1, add1, c.bgCell);
+                }
+
+                else if (OnBye != null && OnBye.Invoke(cost))
+                {
+                    Compl(item, step, damage1, add1, c.bgCell);
                 }
             });
 
             i++;
         }
+    }
+
+    private void Compl(Item item, int step, Vector2Int damage1, Vector2Int add1, Image c)
+    {
+        _rangeTox = damage1;
+        _rangeCost = add1;
+        _step = step;
+        _unblocks.Add(_step);
+        _range = item.range;
+        view = item.view;
+        //    c.gameObject.SetActive(false);
+        OnComplete?.Invoke();
+
+        if(last != null)
+        last.color = inactive;
+        c.color = active;
+        last = c;
     }
 
     [Serializable]

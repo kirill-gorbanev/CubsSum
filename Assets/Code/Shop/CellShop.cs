@@ -13,6 +13,7 @@ namespace Code.Shop
         public string formatAdd;
         public Transform parentView;
         public Image bgView;
+        public Image bgCell;
 
         [HideInInspector] public RectTransform rectTransform;
 
