@@ -18,6 +18,7 @@ namespace Code.Grid.Form
         public class Grid
         {
             [SerializeField] public Transform cell;
+            [SerializeField] public SpriteRenderer sr;
             [HideInInspector] public List<SpriteRenderer> detectSR = new();
         }
 
@@ -39,7 +40,12 @@ namespace Code.Grid.Form
             cells = views;
             int i = 0;
             foreach (var tt in cells)
-                grid[i++].cell.GetComponent<SpriteRenderer>().color = tt.view;
+            {
+                grid[i].cell.GetComponent<SpriteRenderer>().color = tt.view;
+                grid[i].sr.sprite = tt.sprite;
+                grid[i].sr.transform.localScale /= 2;
+                i++;
+            }
         }
 
         public void Rotate()

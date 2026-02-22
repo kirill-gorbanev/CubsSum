@@ -12,6 +12,7 @@ public class TypeCell : SerializedScriptableObject
     public TypeRes rez;
     public List<Compatible> compatible;
     public Color view;
+    public Sprite sprite;
     public string info;
 
     public Pointers pointers;
