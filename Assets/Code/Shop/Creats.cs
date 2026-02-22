@@ -59,6 +59,8 @@ public class Creats
             c.gameObject.SetActive(true);
 
             var cost = config.costInit * (i + 1);
+            c.costValue = cost;
+
             var d = dDop * i + damage.y + dX;
             damage = new Vector2Int(d, d + dY);
             var a = aDop * i + add.y + aX;
@@ -79,10 +81,22 @@ public class Creats
 
                 if (_unblocks.Contains(step))
                 {
-                    Compl(item, step, damage1, add1, c.bgCell);
-                }
+                    if (c.counterCell == null)
+                        Compl(item, step, damage1, add1, c.bgCell);
+                    else
+                    {
+                        if (!c.counterCell.IsMax)
+                            if (OnBye != null && OnBye.Invoke(c.costValue))
+                            {
+                                c.counterCell.Add();
+                                c.costValue *= 2;
+                                c.cost.text = c.costValue.ToString();
 
-                else if (OnBye != null && OnBye.Invoke(cost))
+                                Compl(item, step, damage1, add1, c.bgCell);
+                            }
+                    }
+                }
+                else if (OnBye != null && OnBye.Invoke(c.costValue))
                 {
                     Compl(item, step, damage1, add1, c.bgCell);
                 }
@@ -103,8 +117,8 @@ public class Creats
         //    c.gameObject.SetActive(false);
         OnComplete?.Invoke();
 
-        if(last != null)
-        last.color = inactive;
+        if (last != null)
+            last.color = inactive;
         c.color = active;
         last = c;
     }

@@ -15,6 +15,9 @@ namespace Code.Shop
         public Image bgView;
         public Image bgCell;
 
+        public CounterCell counterCell;
+        public int costValue;
+        
         [HideInInspector] public RectTransform rectTransform;
 
         private void LateUpdate()
