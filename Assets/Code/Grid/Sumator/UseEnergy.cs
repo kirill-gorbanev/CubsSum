@@ -1,7 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Code.UI;
 using Code.UI.Tools;
-using TMPro;
 using UnityEngine;
 
 namespace Code.Grid.Sumator
@@ -24,6 +25,8 @@ namespace Code.Grid.Sumator
             spawner.OnLoadStep += FindEnergy;
         }
 
+        private List<Vector2Int> _energys = new();
+
         private void FindEnergy(int step)
         {
             if (step != 2) return;
@@ -35,23 +38,61 @@ namespace Code.Grid.Sumator
                 {
                     var c = spawner.CellsActive[i, j];
 
+                    if (c.typeCell.res == energyType)
+                        _energys.Add(new Vector2Int(i, j));
+
                     if (c.typeCell.use.Contains(energyType))
                     {
                         var t = Instantiate(energyText, parent);
                         t.gameObject.SetActive(true);
                         t.text.text = c.typeCell.info;
+
                         var p = new Vector2Int(i, j);
+
+                        t.find.onClick.AddListener(() =>
+                        {
+                            if (tooltipManager.tooltips.TryGetValue(p, out var cellTooltip))
+                                cellTooltip.Find();
+                        });
+                        if (tooltipManager.tooltips.TryGetValue(p, out var cellTooltip))
+                            cellTooltip.Sub(() => { t.OnChange?.Invoke(true); });
+
                         t.OnChange += e =>
                         {
                             var d = Add(p, e);
 
                             if (tooltipManager.tooltips.TryGetValue(p, out var cellTooltip))
                             {
-                                cellTooltip.gameObject.SetActive(true);
-                                cellTooltip.GetComponentInChildren<TMP_Text>().text = d.ToString();
+                                cellTooltip.View(d.ToString());
+                                t.text.text = c.typeCell.info + $" {d}";
+                                t.bg.color = d > 0 ? Color.green : Color.white;
                             }
                         };
                     }
+                }
+            }
+
+            StartCoroutine(UseEnergyAnim());
+        }
+
+        private IEnumerator UseEnergyAnim()
+        {
+            var s = new WaitForSeconds(0.05f);
+
+            foreach (var pp in _energys)
+            {
+                if (tooltipManager.tooltips.TryGetValue(pp, out var cellTooltip))
+                {
+                    var e = spawner.CellsActive[pp.x, pp.y].moment;
+                    while (e >= 0)
+                    {
+                        e--;
+                        cellTooltip.View($"{e}");
+                        yield return s;
+                    }
+
+                    spawner.CellsActive[pp.x, pp.y].moment = 0;
+                    cellTooltip.InActive();
                 }
             }
         }

@@ -9,9 +9,11 @@ namespace Code.Grid.Sumator
     {
         [SerializeField] private Button add;
         [SerializeField] private Button min;
+        [SerializeField] public Button find;
         [SerializeField] public TMP_Text text;
+        [SerializeField] public Image bg;
         
-        public event Action<bool> OnChange;
+        public Action<bool> OnChange;
 
         private void Start()
         {

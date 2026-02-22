@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using System.Linq;
 using Code.Grid.Form;
 using Code.UI;
+using Code.UI.Tools;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,12 +18,13 @@ namespace Code.Grid
         [SerializeField] private Color b;
 
         [SerializeField] private Camera mainCamera;
+        [SerializeField] private TooltipManager tooltipManager;
 
         [SerializeField] private Button nextAge;
         [SerializeField] private ItemConfig itemConfig;
         [SerializeField] private TypeCell idAlls;
         [SerializeField] private FormConstruct prefab;
-        
+
         public GridItem[,] CellsActive { get; private set; }
 
         public event Action<ItemInfo> OnNewSpawn;
@@ -43,7 +46,7 @@ namespace Code.Grid
         }
 
         private int _step = 0;
-        
+
         private void Awake()
         {
             nextAge.onClick.AddListener(() =>
@@ -54,37 +57,43 @@ namespace Code.Grid
 
             OnLoadStep += e =>
             {
-              if(e != 0)return  ;
-              
-              for (int i = 0; i < grid.x; i++)
-              {
-                  for (int j = 0; j < grid.y; j++)
-                  {
-                      var c = CellsActive[i, j];
-                      if (!c.active)
-                      {
-                          c.active = true;
-                          c.typeCell = idAlls;
-                          CellsActive[i, j] = c;
-
-                          var p = Instantiate(prefab, (Vector2)transform.position + new Vector2(i, j) * size,
-                              Quaternion.identity);
-                          p.transform.localScale = size;
-
-                          p.LoadView(new[] { idAlls });
-                          OnNewSpawn?.Invoke(
-                              new ItemInfo
-                              {
-                                  id = new Vector2Int(i, j),
-                                  pos = (Vector2)transform.position + new Vector2(i, j) * size,
-                                  isMain = true,
-                                  typeCell = idAlls
-                              });
-                      }
-                  }
-              }
-
+                if (e != 0) return;
+                StartCoroutine(Spawn());
             };
+        }
+
+        private IEnumerator Spawn()
+        {
+            var s = new WaitForSeconds(0.05f);
+            for (int i = 0; i < grid.x; i++)
+            {
+                for (int j = 0; j < grid.y; j++)
+                {
+                    var c = CellsActive[i, j];
+                    if (!c.active)
+                    {
+                        c.active = true;
+                        c.typeCell = idAlls;
+                        CellsActive[i, j] = c;
+
+                        var p = Instantiate(prefab, (Vector2)transform.position + new Vector2(i, j) * size,
+                            Quaternion.identity);
+                        p.transform.localScale = size;
+
+                        p.LoadView(new[] { idAlls });
+                        OnNewSpawn?.Invoke(
+                            new ItemInfo
+                            {
+                                id = new Vector2Int(i, j),
+                                pos = (Vector2)transform.position + new Vector2(i, j) * size,
+                                isMain = true,
+                                typeCell = idAlls
+                            });
+                    }
+                }
+
+                yield return s;
+            }
         }
 
         private void Start()
@@ -144,7 +153,7 @@ namespace Code.Grid
                 {
                     id = d.Value,
                     pos = (Vector2)transform.position + new Vector2(d.Value.x, d.Value.y) * size,
-                    isMain =true,// !construct.IsGroup || i == 0,
+                    isMain = true, // !construct.IsGroup || i == 0,
                     typeCell = construct.cells[i]
                 };
 
@@ -168,7 +177,8 @@ namespace Code.Grid
                     if (d != null)
                     {
                         var v = CellsActive[d.Value.x, d.Value.y];
-                        var s = v.active && ( itemConfig.GridCont[v.typeCell].Any(e => e.id ==  construct.cells[i]) || itemConfig.GridCont[construct.cells[i]].Any(e => e.id == v.typeCell));
+                        var s = v.active && (itemConfig.GridCont[v.typeCell].Any(e => e.id == construct.cells[i]) ||
+                                             itemConfig.GridCont[construct.cells[i]].Any(e => e.id == v.typeCell));
 
                         construct.Preview(i, j, s);
                     }

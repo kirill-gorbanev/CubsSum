@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Linq;
+using Code.UI.Tools;
 using TMPro;
 using UnityEngine;
 
@@ -11,9 +13,11 @@ namespace Code.Grid.Sumator.Storm
         [SerializeField] private Spawner spawner;
         [SerializeField] private TMP_Text damageTx;
         [SerializeField] private RectTransform parent;
+        [SerializeField] private SpriteRenderer srPrefabStorm;
 
         [SerializeField] private TypeCell[] stopStorm;
         [SerializeField] private TypeRes[] damageStorm;
+        [SerializeField] private TooltipManager tooltipManager;
 
         private void Start()
         {
@@ -35,18 +39,25 @@ namespace Code.Grid.Sumator.Storm
 
             spawner.OnLoadStep += step =>
             {
-                if (step != 6) return;
-                
+                if (step != 5) return;
+
                 var g = spawner.grid;
                 for (int j = 0; j < g.y; j++)
                 {
-                    var d = damage *  g.x;
+                    var p = Instantiate(srPrefabStorm,
+                        spawner.transform.position + (Vector3)(new Vector2(isRight ? 0 : g.x, j) * spawner.size),
+                        Quaternion.identity);
+                    var ePos = Vector2.zero;
+                    var d = damage * g.x;
                     if (isRight)
                         for (int i = 0; i < g.x; i++)
                         {
                             d = Damage(i, j, d);
                             if (d <= 0)
+                            {
+                                ePos = spawner.transform.position + (Vector3)(new Vector2(i, j) * spawner.size);
                                 break;
+                            }
                         }
 
                     else
@@ -54,8 +65,13 @@ namespace Code.Grid.Sumator.Storm
                         {
                             d = Damage(i, j, d);
                             if (d <= 0)
+                            {
+                                ePos = spawner.transform.position + (Vector3)(new Vector2(i, j) * spawner.size);
                                 break;
+                            }
                         }
+
+                    StartCoroutine(Move(p.transform, ePos));
                 }
             };
         }
@@ -67,25 +83,55 @@ namespace Code.Grid.Sumator.Storm
 
             if (stopStorm.Contains(c.typeCell))
                 return -1;
-            
+
             if (e <= 0)
                 return damage;
-            
+
             if (damageStorm.Contains(c.typeCell.res))
             {
                 if (e >= damage)
                 {
-                    spawner.CellsActive[x, y].moment -= e;
+                    var r = spawner.CellsActive[x, y].moment -= damage;
+                    StartCoroutine(SpineTextMin(new Vector2Int(x, y), e, r));
                     return -1;
                 }
                 else
                 {
                     spawner.CellsActive[x, y].moment = 0;
+                    StartCoroutine(SpineTextMin(new Vector2Int(x, y), e, 0));
                     return damage - e;
                 }
             }
 
             return damage;
+        }
+
+        private IEnumerator SpineTextMin(Vector2Int p, float max, float min)
+        {
+            var ss = new WaitForSeconds(0.05f);
+            if (tooltipManager.tooltips.TryGetValue(p, out var us))
+            {
+                var t = max;
+                while (t > min)
+                {
+                    t--;
+                    us.View(t.ToString());
+                    yield return ss;
+                }
+
+                us.View(min.ToString());
+            }
+        }
+
+        private IEnumerator Move(Transform target, Vector2 end)
+        {
+            while (Vector2.Distance(target.position, end) > 0.1f)
+            {
+                target.position = Vector2.MoveTowards(target.position, end, Time.deltaTime * 10f);
+                yield return null;
+            }
+
+            Destroy(target.gameObject);
         }
     }
 }

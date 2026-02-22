@@ -6,12 +6,12 @@ namespace Code.UI.Tools
 {
     public class TooltipManager : MonoBehaviour
     {
-        [SerializeField] private GameObject tooltipPrefab;
+        [SerializeField] private Tools tooltipPrefab;
         [SerializeField] private RectTransform parent;
 
         [SerializeField] private Spawner spawner;
 
-        public Dictionary<Vector2Int, GameObject> tooltips = new();
+        public Dictionary<Vector2Int, Tools> tooltips = new();
 
         private void Awake()
         {
@@ -24,6 +24,7 @@ namespace Code.UI.Tools
                 return;
 
             var p = Instantiate(tooltipPrefab, parent);
+            
             tooltips.Add(info.id, p);
             Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, info.pos);
 
@@ -34,6 +35,8 @@ namespace Code.UI.Tools
 
             var rectTransform = p.GetComponent<RectTransform>();
             rectTransform.anchoredPosition = localPoint;
+            
+            p.gameObject.SetActive(false);
         }
     }
 }
