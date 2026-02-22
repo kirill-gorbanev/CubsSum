@@ -10,20 +10,7 @@ public class ZoneController : MonoBehaviour
     [SerializeField] public float speed;
     [SerializeField] private float size;
     [SerializeField] private float minSize;
-    [SerializeField] private Anim anim;
 
-    [Serializable]
-    public class Anim
-    {
-        public ParticleSystem particle;
-        public Animator animator;
-
-        public void Smoke()
-        {
-            particle.Play();
-            animator.Play("Move");
-        }
-    }
     
     private float _stripLeftX;
     private float _stripRightX;
@@ -65,7 +52,6 @@ public class ZoneController : MonoBehaviour
             {
                 Click(false);
             }
-            anim.Smoke();
         }
 
         Move();
