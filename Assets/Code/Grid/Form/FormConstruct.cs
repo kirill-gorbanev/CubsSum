@@ -72,6 +72,16 @@ namespace Code.Grid.Form
             transform.localScale = spawner.size;
             transform.Rotate(0, 0, -90);
 
+            if(_pointersHas.Count > 0)
+            {
+             
+                foreach (var cell in grid)
+                foreach (var ss in cell.detectSR)
+                    ss.gameObject.SetActive(true);
+
+                return;
+            }
+            
             foreach (var g in grid)
                 _pointersHas.Add(g.cell.position);
 
