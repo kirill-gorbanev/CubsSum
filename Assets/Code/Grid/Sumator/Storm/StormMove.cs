@@ -44,10 +44,8 @@ namespace Code.Grid.Sumator.Storm
                 var g = spawner.grid;
                 for (int j = 0; j < g.y; j++)
                 {
-                    var p = Instantiate(srPrefabStorm,
-                        spawner.transform.position + (Vector3)(new Vector2(isRight ? 0 : g.x, j) * spawner.size),
-                        Quaternion.identity);
-                    var ePos = Vector2.zero;
+                    var ePos = spawner.transform.position + (Vector3)(new Vector2(isRight ? 0 : g.x, j) * spawner.size);
+                    var p = Instantiate(srPrefabStorm, ePos, Quaternion.identity);
                     var d = damage * g.x;
                     if (isRight)
                         for (int i = 0; i < g.x; i++)
@@ -71,6 +69,8 @@ namespace Code.Grid.Sumator.Storm
                             }
                         }
 
+                    if (d > 0)
+                        ePos = spawner.transform.position + (Vector3)(new Vector2(isRight ? g.x : 0, j) * spawner.size);
                     StartCoroutine(Move(p.transform, ePos));
                 }
             };
