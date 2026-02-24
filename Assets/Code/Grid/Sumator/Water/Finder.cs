@@ -27,27 +27,29 @@ namespace Code.Grid.Sumator.Water
             {
                 if (step != 4) return;
 
-                waterDetect.CheckZero(this);
-                StartCoroutine(SpineText(waterText, waterDetect._energy));
+                var allWater = Detect.CheckAllResource(waterType, spawner,
+                    (p, e) => { StartCoroutine(SpineTextMin(p, e)); });
+                StartCoroutine(SpineText(waterText, allWater));
 
-                desertDetect.CheckZero(this);
-                StartCoroutine(SpineText(desertText, desertDetect._energy));
+                var allDesert = Detect.CheckAllResource(desertType, spawner,
+                    (p, e) => { StartCoroutine(SpineTextMin(p, e)); });
+                StartCoroutine(SpineText(desertText, allDesert));
 
-                if (waterDetect._energy > desertDetect._energy)
+                if (allWater > allDesert)
                 {
-                    Forest(waterDetect._energy - desertDetect._energy);
-                    desertDetect._energy = 0;
-                    waterDetect._energy = 0;
+                    Forest(allWater - allDesert);
+                    allDesert = 0;
+                    allWater = 0;
                 }
                 else
                 {
-                    desertDetect._energy -= waterDetect._energy;
-                    waterDetect._energy = 0;
-                    happy.Damage(desertDetect._energy);
+                    allDesert -= allWater;
+                    allWater = 0;
+                    happy.Damage(allDesert);
                 }
 
-                waterText.text = waterDetect._energy.ToString();
-                desertText.text = desertDetect._energy.ToString();
+                waterText.text = allWater.ToString();
+                desertText.text = allDesert.ToString();
             };
         }
 
@@ -59,6 +61,7 @@ namespace Code.Grid.Sumator.Water
                 for (int j = 0; j < g.y; j++)
                 {
                     var c = spawner.CellsActive[i, j];
+                
                     if (c.typeCell.res == forest)
                     {
                         var v = spawner.CellsActive[i, j].moment += water;
@@ -78,16 +81,25 @@ namespace Code.Grid.Sumator.Water
                 for (int j = 0; j < g.y; j++)
                 {
                     var c = spawner.CellsActive[i, j];
-                    float e = c.moment;
+               
+               
 
-                    if (e <= 0) continue;
                     if (c.typeCell.rez != waterType) continue;
+
+                    float e = c.moment;
+                    if (e <= 0)
+                    {
+                        if (tooltipManager.tooltips.TryGetValue(new Vector2Int(i, j), out var tooltip))
+                            tooltip.InActive();
+
+                        continue;
+                    }
 
                     bool iss = false;
                     foreach (var point in c.typeCell.pointers.pointsDetect)
                     {
                         var w = new Vector2Int((int)point.localPosition.x + i, (int)point.localPosition.y + j);
-                        if (Detect(w))
+                        if (Detect1(w))
                             continue;
 
                         var cc = spawner.CellsActive[w.x, w.y];
@@ -153,7 +165,7 @@ namespace Code.Grid.Sumator.Water
             }
         }
 
-        private bool Detect(Vector2Int d)
+        private bool Detect1(Vector2Int d)
         {
             var g = spawner.grid;
             return d.x < 0 || d.x >= g.x || d.y < 0 || d.y >= g.y;

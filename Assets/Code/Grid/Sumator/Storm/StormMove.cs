@@ -103,6 +103,22 @@ namespace Code.Grid.Sumator.Storm
                 }
             }
 
+            if (damageStorm.Contains(c.typeCell.rez))
+            {
+                if (e >= damage)
+                {
+                    var r = spawner.CellsActive[x, y].moment -= damage;
+                    StartCoroutine(SpineTextMin(new Vector2Int(x, y), e, r));
+                    return -1;
+                }
+                else
+                {
+                    spawner.CellsActive[x, y].moment = 0;
+                    StartCoroutine(SpineTextMin(new Vector2Int(x, y), e, 0));
+                    return damage - e;
+                }
+            }
+
             return damage;
         }
 

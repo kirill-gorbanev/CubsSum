@@ -38,16 +38,20 @@ namespace Code.Grid.Sumator
                 {
                     var c = spawner.CellsActive[i, j];
 
+                    var p =new Vector2Int(i, j) ;
                     if (c.typeCell.res == energyType)
-                        _energys.Add(new Vector2Int(i, j));
+                        _energys.Add(p);
 
                     if (c.typeCell.use.Contains(energyType))
                     {
+                        
+                        if (tooltipManager.tooltips.TryGetValue(p, out var cc))
+                            cc.View(c.moment.ToString());
+
                         var t = Instantiate(energyText, parent);
                         t.gameObject.SetActive(true);
                         t.text.text = c.typeCell.info;
 
-                        var p = new Vector2Int(i, j);
 
                         t.find.onClick.AddListener(() =>
                         {
