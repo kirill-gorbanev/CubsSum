@@ -9,18 +9,25 @@ namespace Code.Grid.Sumator.Storm
     public class StormMove : MonoBehaviour
     {
         [SerializeField] private float damage;
-        [SerializeField] private bool isRight;
         [SerializeField] private Spawner spawner;
         [SerializeField] private TMP_Text damageTx;
+        [SerializeField] private RectTransform damageImage;
+        [SerializeField] private Vector2 size;
+        [SerializeField] private Vector2 deltPosR;
+        [SerializeField] private Vector2 deltPosL;
         [SerializeField] private RectTransform parent;
         [SerializeField] private SpriteRenderer srPrefabStorm;
 
         [SerializeField] private TypeCell[] stopStorm;
         [SerializeField] private TypeRes[] damageStorm;
         [SerializeField] private TooltipManager tooltipManager;
+        
+        private bool isRight;
 
         private void Start()
         {
+            isRight = Random.Range(0, 2) == 0;
+            
             var v = spawner.grid.x * spawner.grid.y * damage;
             damageTx.text = v.ToString();
 
@@ -34,9 +41,8 @@ namespace Code.Grid.Sumator.Storm
                     out Vector2 localPoint))
                 return;
 
-            var rectTransform = damageTx.GetComponent<RectTransform>();
-            rectTransform.anchoredPosition = localPoint;
-
+            damageImage.sizeDelta = new Vector2(size.x,size.y*  spawner.grid.y );
+            damageImage.anchoredPosition = localPoint + (isRight ? deltPosR : deltPosL);
             spawner.OnLoadStep += step =>
             {
                 if (step != 5) return;
@@ -143,7 +149,7 @@ namespace Code.Grid.Sumator.Storm
         {
             while (Vector2.Distance(target.position, end) > 0.1f)
             {
-                target.position = Vector2.MoveTowards(target.position, end, Time.deltaTime * 10f);
+                target.position = Vector2.MoveTowards(target.position, end, Time.deltaTime * 4f);
                 yield return null;
             }
 
