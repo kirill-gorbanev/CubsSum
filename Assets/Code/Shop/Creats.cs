@@ -30,6 +30,8 @@ public class Creats
     private Image last;
     public int _step;
 
+    public List<CellShop> _cells = new();
+    
     public void Start()
     {
         if (config == null)
@@ -50,7 +52,8 @@ public class Creats
         {
             var c = Object.Instantiate(cellShop, parent);
             c.rectTransform = parentView;
-
+            _cells.Add(c);
+            
             var v = Object.Instantiate(item.view, c.parentView);
             v.transform.localScale *= item.multSizeView;
             v.transform.localPosition += item.offsetPos;

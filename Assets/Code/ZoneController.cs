@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -11,7 +12,7 @@ public class ZoneController : MonoBehaviour
     [SerializeField] private float size;
     [SerializeField] private float minSize;
 
-    
+
     private float _stripLeftX;
     private float _stripRightX;
     private float _screenX;
@@ -41,15 +42,17 @@ public class ZoneController : MonoBehaviour
     {
         if (_isBlock)
             return;
-        
+
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             if (RectTransformUtility.RectangleContainsScreenPoint(greenZone, cursor.position))
             {
+                Call();
                 Click(true);
             }
             else
             {
+                CallRed();
                 Click(false);
             }
         }
@@ -80,15 +83,52 @@ public class ZoneController : MonoBehaviour
             _isRight = true;
 
         _screenX += speed * Time.deltaTime * (_isRight ? 1 : -1);
-        cursor.position = new Vector3(_screenX, redZone.position.y,redZone.position.z);
+        cursor.position = new Vector3(_screenX, redZone.position.y, redZone.position.z);
     }
 
     public void Block(bool b)
     {
         _isBlock = b;
-        
+
         cursor.gameObject.SetActive(!b);
     }
 
-    public void Reload(float sizes)=>  minSize = sizes;
+    public void Reload(float sizes) => minSize = sizes;
+
+    private void Call()
+    {
+        if (_isAnim)
+            return;
+        _isAnim = true;
+
+        StartCoroutine(Anim());
+    }
+    
+    private void CallRed()
+    {
+        if (_isAnim)
+            return;
+        _isAnim = true;
+
+        StartCoroutine( AnimRed());
+    }
+
+    private bool _isAnim;
+
+    private IEnumerator Anim()
+    {
+        var s = greenZone.sizeDelta;
+        greenZone.sizeDelta += Vector2.one*25;
+        yield return new WaitForSeconds(0.3f);
+        greenZone.sizeDelta = s;
+        _isAnim = false;
+    }
+    private IEnumerator AnimRed()
+    {
+        var s = redZone.sizeDelta;
+        redZone.sizeDelta += Vector2.one*25;
+        yield return new WaitForSeconds(0.3f);
+        redZone.sizeDelta = s;
+        _isAnim = false;
+    }
 }

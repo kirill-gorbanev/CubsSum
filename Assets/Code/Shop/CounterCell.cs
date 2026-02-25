@@ -1,5 +1,4 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace Code.Shop
@@ -8,14 +7,14 @@ namespace Code.Shop
     {
         [SerializeField] private TMP_Text textCount;
         [SerializeField] private string formater;
-        [SerializeField] private int max;
+        [SerializeField] public int max;
 
-        private int count;
+        private int count = 0;
 
         private void Start()
         {
             textCount.text = string.Format(formater, count, max);
-
+            count = 1;
         }
 
         public void Add()

@@ -1,4 +1,5 @@
-﻿using Code.Effectors;
+﻿using System.Collections;
+using Code.Effectors;
 using Code.Pers;
 using Code.Toxiss;
 using UnityEngine;
@@ -19,10 +20,10 @@ namespace Code
         [SerializeField] private ByeManage regen;
         [SerializeField] private ByeManage detox;
 
-        [SerializeField] private Creats creatsZone;
-        [SerializeField] private Creats creatsPassive;
+        [SerializeField] public Creats creatsZone;
+        [SerializeField] public Creats creatsPassive;
 
-        [SerializeField] private GameObject[] viewsSmokes;
+        [SerializeField] public GameObject[] viewsSmokes;
 
         private void Awake()
         {
@@ -30,7 +31,14 @@ namespace Code
             {
                 coins.Add();
                 if (!e)
+                {
                     toxis.Add();
+
+                    if (!_isDetox)
+                        StartCoroutine(Detox());
+                    _isDetox = false;
+                }
+
                 coinsView.View();
                 toxisView.View();
             };
@@ -84,8 +92,8 @@ namespace Code
                 coinsView.View();
                 toxisView.View();
                 toxisView.View(detox.Cost.ToString(), toxis.mult.ToString());
-                
-                
+
+
                 foreach (var vv in viewsSmokes)
                     vv.SetActive(false);
                 viewsSmokes[creatsZone._step].SetActive(true);
@@ -115,16 +123,25 @@ namespace Code
             {
                 coins.coin += e;
                 coinsView.View();
-                coinsView.passive.text =string.Format(coinsView.formatPassive, e);
+                coinsView.passive.text = string.Format(coinsView.formatPassive, e);
             };
 
             regenView.View(regen.Cost.ToString());
             toxisView.View(detox.Cost.ToString(), toxis.mult.ToString());
             creatsPassive.Start();
-            
+
             foreach (var v in viewsSmokes)
                 v.SetActive(false);
             viewsSmokes[0].SetActive(true);
+        }
+
+        private bool _isDetox;
+
+        private IEnumerator Detox()
+        {
+            yield return new WaitForSeconds(5f);
+            toxis.toxis-=10;
+            _isDetox = true;
         }
     }
 }
