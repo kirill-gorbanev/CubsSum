@@ -6,11 +6,11 @@ namespace Code.Parametars
 {
     public class Ecologi: MonoBehaviour
     {
-        [SerializeField] private float valueInit;
+        [SerializeField] public float valueInit;
         [SerializeField] private TMP_Text text;
         [SerializeField] private UnityEvent<float> add;
 
-        private float _value;
+        public float _value;
 
         private void Start()
         {
