@@ -25,6 +25,8 @@ namespace Code.Grid
         [SerializeField] private TypeCell idAlls;
         [SerializeField] private FormConstruct prefab;
 
+        [SerializeField] private GameObject[] ages;
+
         public GridItem[,] CellsActive { get; private set; }
 
         public event Action<ItemInfo> OnNewSpawn;
@@ -57,6 +59,11 @@ namespace Code.Grid
 
             OnLoadStep += e =>
             {
+                foreach (var a in ages)
+                    a.SetActive(false);
+                if (e < ages.Length)
+                    ages[e].SetActive(true);
+
                 if (e != 0) return;
                 StartCoroutine(Spawn());
             };
