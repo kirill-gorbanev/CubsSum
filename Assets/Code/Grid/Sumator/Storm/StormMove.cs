@@ -11,38 +11,29 @@ namespace Code.Grid.Sumator.Storm
         [SerializeField] private float damage;
         [SerializeField] private Spawner spawner;
         [SerializeField] private TMP_Text damageTx;
-        [SerializeField] private RectTransform damageImage;
+        [SerializeField] private RectTransform damageImageR;
+        [SerializeField] private RectTransform damageImageL;
         [SerializeField] private Vector2 size;
-        [SerializeField] private Vector2 deltPosR;
-        [SerializeField] private Vector2 deltPosL;
         [SerializeField] private RectTransform parent;
         [SerializeField] private SpriteRenderer srPrefabStorm;
 
         [SerializeField] private TypeCell[] stopStorm;
         [SerializeField] private TypeRes[] damageStorm;
         [SerializeField] private TooltipManager tooltipManager;
-        
+
         private bool isRight;
 
         private void Start()
         {
             isRight = Random.Range(0, 2) == 0;
-            
+
             var v = spawner.grid.x * spawner.grid.y * damage;
             damageTx.text = v.ToString();
 
-            var pos = (Vector2)spawner.transform.position + new Vector2(0, spawner.grid.y / 2f) * spawner.size;
-            if (!isRight)
-                pos = (Vector2)spawner.transform.position +
-                      new Vector2(spawner.grid.x, spawner.grid.y / 2f) * spawner.size;
-
-            Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, pos);
-            if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, screenPoint, Camera.main,
-                    out Vector2 localPoint))
-                return;
-
-            damageImage.sizeDelta = new Vector2(size.x,size.y*  spawner.grid.y );
-            damageImage.anchoredPosition = localPoint + (isRight ? deltPosR : deltPosL);
+            damageImageR.sizeDelta = damageImageL.sizeDelta = new Vector2(size.x, size.y * spawner.grid.y);
+            damageImageR.gameObject.SetActive(isRight);
+            damageImageL.gameObject.SetActive(!isRight);
+            
             spawner.OnLoadStep += step =>
             {
                 if (step != 5) return;
