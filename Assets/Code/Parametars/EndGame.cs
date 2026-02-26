@@ -35,6 +35,7 @@ namespace Code
                 if (step != 7) return;
 
                 panel.SetActive(true);
+                panel.transform.SetAsLastSibling();
                 View();
                 StartCoroutine(AnimV());
             };
