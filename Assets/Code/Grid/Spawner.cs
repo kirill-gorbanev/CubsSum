@@ -13,9 +13,8 @@ namespace Code.Grid
     {
         [SerializeField] public Vector2Int grid;
         [SerializeField] public Vector2 size;
+        [SerializeField] private Vector2 sizeVP;
         [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private Color a;
-        [SerializeField] private Color b;
 
         [SerializeField] private Camera mainCamera;
         [SerializeField] private TooltipManager tooltipManager;
@@ -114,11 +113,8 @@ namespace Code.Grid
                     var sr = Instantiate(spriteRenderer, (Vector2)transform.position + new Vector2(i, j) * size,
                         Quaternion.identity);
                     sr.name = i + "-" + j;
-                    sr.transform.localScale = size;
-                    if ((j + (i % 2 == 0 ? 1 : 0)) % 2 == 0)
-                        sr.color = a;
-                    else
-                        sr.color = b;
+                    sr.transform.localScale = sizeVP;
+                   
                 }
             }
         }

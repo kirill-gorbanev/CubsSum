@@ -10,7 +10,7 @@ namespace Code.Grid.Sumator.Storm
     {
         [SerializeField] private float damage;
         [SerializeField] private Spawner spawner;
-        [SerializeField] private TMP_Text damageTx;
+        [SerializeField] private TMP_Text[] damageTx;
         [SerializeField] private RectTransform damageImageR;
         [SerializeField] private RectTransform damageImageL;
         [SerializeField] private Vector2 size;
@@ -28,12 +28,14 @@ namespace Code.Grid.Sumator.Storm
             isRight = Random.Range(0, 2) == 0;
 
             var v = spawner.grid.x * spawner.grid.y * damage;
-            damageTx.text = v.ToString();
+
+            foreach (var tm in damageTx)
+                tm.text = v.ToString();
 
             damageImageR.sizeDelta = damageImageL.sizeDelta = new Vector2(size.x, size.y * spawner.grid.y);
             damageImageR.gameObject.SetActive(isRight);
             damageImageL.gameObject.SetActive(!isRight);
-            
+
             spawner.OnLoadStep += step =>
             {
                 if (step != 5) return;

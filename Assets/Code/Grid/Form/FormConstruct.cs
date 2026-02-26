@@ -58,6 +58,9 @@ namespace Code.Grid.Form
 
             transform.position += rotatedDirection;
             _last = rotatedDirection;
+
+            foreach (var g in grid)
+                g.sr.transform.rotation = Quaternion.identity;
         }
 
         public void Move()
@@ -72,16 +75,15 @@ namespace Code.Grid.Form
             transform.localScale = spawner.size;
             transform.Rotate(0, 0, -90);
 
-            if(_pointersHas.Count > 0)
+            if (_pointersHas.Count > 0)
             {
-             
                 foreach (var cell in grid)
                 foreach (var ss in cell.detectSR)
                     ss.gameObject.SetActive(true);
 
                 return;
             }
-            
+
             foreach (var g in grid)
                 _pointersHas.Add(g.cell.position);
 
@@ -102,10 +104,16 @@ namespace Code.Grid.Form
                     ss.gameObject.SetActive(true);
                 }
             }
+
+            foreach (var g in grid)
+                g.sr.transform.rotation = Quaternion.identity;
         }
 
         public bool FindCellReset(Prefab prefab, GameObject eventDataPointerEnter)
         {
+            foreach (var g in grid)
+                g.sr.transform.rotation = Quaternion.identity;
+
             foreach (var cell in grid)
             foreach (var ss in cell.detectSR)
                 ss.gameObject.SetActive(false);
