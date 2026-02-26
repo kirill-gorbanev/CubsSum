@@ -43,7 +43,6 @@ namespace Code
                 toxisView.View();
             };
 
-            toxis.OnTox += () => { zone.Block(true); };
 
 
             regenView.OnBtClicked = () =>
@@ -60,14 +59,12 @@ namespace Code
             };
             regen.OnByeCompleted += _ =>
             {
-                zone.Block(false);
 
                 toxis.toxis = 0;
                 toxisView.View();
             };
             detox.OnByeCompleted += e =>
             {
-                zone.Block(false);
 
                 toxis.maxTox *= 2;
                 toxisView.View();

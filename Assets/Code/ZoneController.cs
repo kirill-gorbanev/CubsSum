@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -19,7 +18,6 @@ public class ZoneController : MonoBehaviour
     private Vector3 _dir;
 
     private bool _isRight;
-    private bool _isBlock;
 
     public event Action<bool> OnChange;
 
@@ -40,19 +38,14 @@ public class ZoneController : MonoBehaviour
 
     void Update()
     {
-        if (_isBlock)
-            return;
-
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             if (RectTransformUtility.RectangleContainsScreenPoint(greenZone, cursor.position))
             {
-                Call();
                 Click(true);
             }
             else
             {
-                CallRed();
                 Click(false);
             }
         }
@@ -86,49 +79,6 @@ public class ZoneController : MonoBehaviour
         cursor.position = new Vector3(_screenX, redZone.position.y, redZone.position.z);
     }
 
-    public void Block(bool b)
-    {
-        _isBlock = b;
-
-        cursor.gameObject.SetActive(!b);
-    }
-
     public void Reload(float sizes) => minSize = sizes;
 
-    private void Call()
-    {
-        if (_isAnim)
-            return;
-        _isAnim = true;
-
-        StartCoroutine(Anim());
-    }
-    
-    private void CallRed()
-    {
-        if (_isAnim)
-            return;
-        _isAnim = true;
-
-        StartCoroutine( AnimRed());
-    }
-
-    private bool _isAnim;
-
-    private IEnumerator Anim()
-    {
-        var s = greenZone.sizeDelta;
-        greenZone.sizeDelta += Vector2.one*25;
-        yield return new WaitForSeconds(0.3f);
-        greenZone.sizeDelta = s;
-        _isAnim = false;
-    }
-    private IEnumerator AnimRed()
-    {
-        var s = redZone.sizeDelta;
-        redZone.sizeDelta += Vector2.one*25;
-        yield return new WaitForSeconds(0.3f);
-        redZone.sizeDelta = s;
-        _isAnim = false;
-    }
 }
