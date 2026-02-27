@@ -1,8 +1,6 @@
-﻿using Code.Toxiss;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using YG;
 
 namespace Code.Shop.Donat
 {
@@ -10,8 +8,6 @@ namespace Code.Shop.Donat
     {
         [SerializeField] private Button btBye;
         [SerializeField] private Coins coins;
-        [SerializeField] private Toxis toxis;
-        [SerializeField] private ToxView toxisView;
         [SerializeField] private ZoneController zone;
         [SerializeField] private CoinView coinsView;
         [SerializeField] private Active active;
@@ -44,12 +40,10 @@ namespace Code.Shop.Donat
             if (purchase != "sign") return;
 
             coins.mult = Random.Range(mCoin.x, mCoin.y);
-            toxis.mult = Random.Range(mTox.x, mTox.y);
             zone.speed = speed;
             zone.Reload(size);
 
             coinsView.View();
-            toxisView.View();
 
 
             foreach (var vv in active.viewsSmokes)

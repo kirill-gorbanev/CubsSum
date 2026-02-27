@@ -8,7 +8,6 @@ namespace Code.Shop
     {
         public Button bt;
         public TMP_Text cost;
-        public TMP_Text damage;
         public TMP_Text add;
         public string formatAdd;
         public Transform parentView;

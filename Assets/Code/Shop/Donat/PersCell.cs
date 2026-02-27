@@ -31,9 +31,9 @@ namespace Code.Shop.Donat
             passiveTx.text = string.Format(formCount, rangeCost.x, rangeCost.y);
             countert.text = string.Format(formCount, _counter, maxCount);
             _counter = 1;
-   
-         //   YandexGame.PurchaseSuccessEvent += OnPurchaseSuccessHandler;
-        //    btBye.onClick.AddListener(() => { YandexGame.BuyPayments("pers"); });
+
+            //   YandexGame.PurchaseSuccessEvent += OnPurchaseSuccessHandler;
+            //    btBye.onClick.AddListener(() => { YandexGame.BuyPayments("pers"); });
         }
 
 
@@ -54,12 +54,14 @@ namespace Code.Shop.Donat
             _counter++;
             countert.text = string.Format(formCount, _counter, maxCount);
             coinsView.View();
+
+            var perss = Instantiate(pers).GetComponent<Pers.Pers>();
             moves.pres.Add(new Moves.MyStruct
             {
-                pers = Instantiate(pers).GetComponent<Pers.Pers>(),
+                pers = perss,
                 add = Random.Range(rangeCost.x, rangeCost.y),
             });
-            moves.Ranger();
+            moves.Ranger(perss.transform);
         }
     }
 }

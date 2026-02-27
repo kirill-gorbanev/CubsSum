@@ -2,21 +2,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Code.Pers
 {
     public class Moves : MonoBehaviour
     {
-        [SerializeField] private Transform start;
-        [SerializeField] private Transform end;
+        [SerializeField] private Transform point;
+        [SerializeField] private Vector3 offset;
+        [SerializeField] private Vector2 size;
+        [SerializeField] private Vector3 rot;
         [SerializeField] private float speed;
 
         public List<MyStruct> pres = new();
 
         private float _time;
         private float _timeStop;
-      [SerializeField]  private float _sec = 1f;
+        [SerializeField] private float _sec = 1f;
+        
+        private List<Vector3> start = new();
 
         public event Action<int> OnAdd;
 
@@ -29,23 +32,37 @@ namespace Code.Pers
 
             public bool IsNext => Vector3.Distance(pers.transform.position, target) < 1f;
 
-            public void Move(float speed) => pers.transform.position = Vector3.MoveTowards(pers.transform.position, target, speed);
+            public void Move(float speed) =>
+                pers.transform.position = Vector3.MoveTowards(pers.transform.position, target, speed);
         }
 
         private void Start()
         {
             _time = _sec;
-            StartCoroutine( timer());
+            StartCoroutine(timer());
         }
 
-        public void Ranger()
+        private void OnValidate()
         {
-            foreach (var item in pres)
+            start.Clear();
+            
+            for (int i = 0; i < size.x; i++)
+                for (int j = 0; j < size.y; j++)
+                    start.Add(point.position + new Vector3(i * offset.x,offset.y,j* offset.z));
+        }
+
+        private void OnDrawGizmos()
+        {
+            foreach (var st in start)
             {
-                item.pers.Move();
-                item.target = Range();
-                item.pers.transform.LookAt(item.target);
+                Gizmos.DrawSphere(st, 0.1f);
             }
+        }
+
+        public void Ranger(Transform pers)
+        {
+            pers.transform.position = start[pres.Count];
+            pers.transform.rotation = Quaternion.Euler(rot);
         }
 
         private void Update()
@@ -55,16 +72,6 @@ namespace Code.Pers
                 _timeStop -= Time.deltaTime;
                 return;
             }
-            
-            foreach (var item in pres)
-            {
-                item.Move(speed * Time.deltaTime);
-                if (item.IsNext)
-                {
-                    item.target = Range();
-                    item.pers.transform.LookAt(item.target);
-                }
-            }
 
             if (_time > 0)
             {
@@ -73,10 +80,10 @@ namespace Code.Pers
             else
             {
                 _time = _sec;
-                
+
                 foreach (var item in pres)
                     item.pers.Smoke();
-                
+
                 _timeStop = 11f / 4;
             }
         }
@@ -93,14 +100,6 @@ namespace Code.Pers
 
                 OnAdd?.Invoke(v);
             }
-        }
-
-        public Vector3 Range()
-        {
-            var x = Random.Range(start.position.x, end.position.x);
-            var y = Random.Range(start.position.y, end.position.y);
-            var z = Random.Range(start.position.z, end.position.z);
-            return new Vector3(x, y, z);
         }
     }
 }

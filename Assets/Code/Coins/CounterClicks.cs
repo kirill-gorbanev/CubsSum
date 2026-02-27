@@ -30,7 +30,14 @@ namespace Code
             slider.value = (_count - _last) / (float)_max;
             level.text = string.Format(formLevel, _step);
 
-            btX2.onClick.AddListener(() => { YG2.RewardedAdvShow("x2", () => { StartCoroutine(Time()); }); });
+            btX2.onClick.AddListener(() =>
+            {
+                YG2.RewardedAdvShow("x2", () =>
+                {
+                    btX2.enabled = false;
+                    StartCoroutine(Time());
+                });
+            });
 
             zoneController.OnChange += b =>
             {
@@ -52,10 +59,11 @@ namespace Code
         private IEnumerator Time()
         {
             _mult = 2;
-
             yield return new WaitForSeconds(60);
-
             _mult = 1;
+
+            yield return new WaitForSeconds(2 * 60);
+            btX2.enabled = true;
         }
 
         public void ToLink()

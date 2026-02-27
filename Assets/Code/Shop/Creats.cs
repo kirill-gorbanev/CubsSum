@@ -70,8 +70,6 @@ public class Creats
             add = new Vector2Int(a, a + aY);
 
             c.cost.text = cost.ToString();
-            if (c.damage != null)
-                c.damage.text = $"{damage.x}-{damage.y}";
             c.add.text = string.Format(c.formatAdd, add.x, add.y);
             c.bgView.color = rangeZones.First(e => e.range == item.range).color;
 
