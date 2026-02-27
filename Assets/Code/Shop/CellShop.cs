@@ -13,11 +13,21 @@ namespace Code.Shop
         public Transform parentView;
         public Image bgView;
         public Image bgCell;
+        public GameObject obj;
 
         public CounterCell counterCell;
         public int costValue;
-        
+
         [HideInInspector] public RectTransform rectTransform;
+
+        public void Active()
+        {
+            if (obj != null)
+            {
+                obj.SetActive(false);
+                cost.gameObject.SetActive(false);
+            }
+        }
 
         private void LateUpdate()
         {

@@ -1,12 +1,15 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ZoneController : MonoBehaviour
 {
     [SerializeField] private RectTransform redZone;
     [SerializeField] private RectTransform greenZone;
     [SerializeField] private RectTransform cursor;
+    [SerializeField] private Outline outline;
     [SerializeField] public float speed;
     [SerializeField] private float size;
     [SerializeField] private float minSize;
@@ -43,14 +46,25 @@ public class ZoneController : MonoBehaviour
             if (RectTransformUtility.RectangleContainsScreenPoint(greenZone, cursor.position))
             {
                 Click(true);
+                outline.effectColor = Color.green;
+                StartCoroutine(NoOutline());
             }
             else
             {
                 Click(false);
+                outline.effectColor = Color.red;
+                StartCoroutine(NoOutline());
             }
         }
 
         Move();
+    }
+
+    private IEnumerator NoOutline()
+    {
+        outline.enabled = true;
+        yield return new WaitForSeconds(0.5f);
+        outline.enabled = false;
     }
 
     private void Click(bool isZone)
@@ -80,5 +94,4 @@ public class ZoneController : MonoBehaviour
     }
 
     public void Reload(float sizes) => minSize = sizes;
-
 }

@@ -100,6 +100,7 @@ public class Creats
                 else if (OnBye != null && OnBye.Invoke(c.costValue))
                 {
                     Compl(item, step, damage1, add1, c.bgCell);
+                    c.Active();
                 }
             });
 

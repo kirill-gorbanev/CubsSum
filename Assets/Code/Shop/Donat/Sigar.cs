@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Audio;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +24,8 @@ namespace Code.Shop.Donat
         [SerializeField] private Vector2Int mTox;
         [SerializeField] private float speed;
         [SerializeField] private float size;
+        
+        [SerializeField] public Audios audioZone;
 
         private void Start()
         {
@@ -49,6 +52,8 @@ namespace Code.Shop.Donat
             foreach (var vv in active.viewsSmokes)
                 vv.SetActive(false);
             active.viewsSmokes[myId].SetActive(true);
+            
+            audioZone.Bye();
         }
     }
 }

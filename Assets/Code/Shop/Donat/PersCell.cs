@@ -1,4 +1,5 @@
-﻿using Code.Pers;
+﻿using Audio;
+using Code.Pers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,6 +23,7 @@ namespace Code.Shop.Donat
         [SerializeField] private string formCount;
         [SerializeField] private TMP_Text passiveTx;
         [SerializeField] private string formPassive;
+        [SerializeField] public Audios audioZone;
 
         private int _counter;
 
@@ -62,6 +64,8 @@ namespace Code.Shop.Donat
                 add = Random.Range(rangeCost.x, rangeCost.y),
             });
             moves.Ranger(perss.transform);
+            
+            audioZone.Bye();
         }
     }
 }

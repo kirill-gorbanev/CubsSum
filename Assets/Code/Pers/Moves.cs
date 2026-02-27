@@ -7,7 +7,7 @@ namespace Code.Pers
 {
     public class Moves : MonoBehaviour
     {
-        [SerializeField] private Transform point;
+        [SerializeField] private Transform[] point;
         [SerializeField] private Vector3 offset;
         [SerializeField] private Vector2 size;
         [SerializeField] private Vector3 rot;
@@ -19,7 +19,7 @@ namespace Code.Pers
         private float _timeStop;
         [SerializeField] private float _sec = 1f;
         
-        private List<Vector3> start = new();
+       // private List<Vector3> start = new();
 
         public event Action<int> OnAdd;
 
@@ -44,24 +44,24 @@ namespace Code.Pers
 
         private void OnValidate()
         {
-            start.Clear();
+    /*        start.Clear();
             
             for (int i = 0; i < size.x; i++)
                 for (int j = 0; j < size.y; j++)
                     start.Add(point.position + new Vector3(i * offset.x,offset.y,j* offset.z));
-        }
+      */  }
 
         private void OnDrawGizmos()
         {
-            foreach (var st in start)
+        //    foreach (var st in start)
             {
-                Gizmos.DrawSphere(st, 0.1f);
+        //        Gizmos.DrawSphere(st, 0.1f);
             }
         }
 
         public void Ranger(Transform pers)
         {
-            pers.transform.position = start[pres.Count];
+            pers.transform.position = point[pres.Count].position;
             pers.transform.rotation = Quaternion.Euler(rot);
         }
 

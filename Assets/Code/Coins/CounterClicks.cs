@@ -54,6 +54,8 @@ namespace Code
 
                 slider.value = (_count - _last) / (float)_max;
             };
+
+            StartCoroutine(Ads());
         }
 
         private IEnumerator Time()
@@ -64,6 +66,23 @@ namespace Code
 
             yield return new WaitForSeconds(2 * 60);
             btX2.enabled = true;
+        }
+
+        [SerializeField] private GameObject ads;
+
+        private IEnumerator Ads()
+        {
+            var s = new WaitForSeconds(2 * 60);
+            var ss = new WaitForSeconds(2);
+            while (true)
+            {
+                yield return s;
+                ads.SetActive(true);
+                yield return ss;
+                ads.SetActive(false);
+                
+                YG2.InterstitialAdvShow();
+            }
         }
 
         public void ToLink()

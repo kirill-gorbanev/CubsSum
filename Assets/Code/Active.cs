@@ -1,4 +1,5 @@
-﻿using Code.Pers;
+﻿using Audio;
+using Code.Pers;
 using UnityEngine;
 
 namespace Code
@@ -11,9 +12,9 @@ namespace Code
         [SerializeField] private CoinView coinsView;
         [SerializeField] private Moves moves;
 
-
         [SerializeField] public Creats creatsZone;
         [SerializeField] public Creats creatsPassive;
+        [SerializeField] public Audios audioZone;
 
         [SerializeField] public GameObject[] viewsSmokes;
 
@@ -27,14 +28,14 @@ namespace Code
                     coinsView.View();
                 }
             };
-
-
+            
             creatsZone.OnBye += cost =>
             {
                 if (coins.coin < cost)
                     return false;
 
                 coins.coin -= cost;
+                audioZone.Bye();
                 return true;
             };
             creatsZone.OnComplete += () =>
@@ -45,7 +46,6 @@ namespace Code
                 zone.Reload(v.size);
 
                 coinsView.View();
-
 
                 foreach (var vv in viewsSmokes)
                     vv.SetActive(false);
@@ -59,7 +59,7 @@ namespace Code
                 if (coins.coin < cost)
                     return false;
                 coins.coin -= cost;
-
+                audioZone.Bye();
                 return true;
             };
             creatsPassive.OnComplete += () =>

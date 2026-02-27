@@ -1,7 +1,7 @@
-﻿using TMPro;
+﻿using Audio;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using YG;
 
 namespace Code.Shop.Donat
 {
@@ -13,6 +13,7 @@ namespace Code.Shop.Donat
         [SerializeField] private int cost;
         [SerializeField] private int newMax;
         [SerializeField] private TMP_Text costTx;
+        [SerializeField] public Audios audioZone;
 
         private void Start()
         {
@@ -30,6 +31,7 @@ namespace Code.Shop.Donat
                 cell.counterCell.max = newMax;
 
             gameObject.SetActive(false);
+            audioZone.Bye();
         }
     }
 }

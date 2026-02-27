@@ -202,12 +202,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bt: {fileID: 6246397592121604994}
   cost: {fileID: 4656637839811856012}
-  damage: {fileID: 1810649956311866840}
   add: {fileID: 8125542031840637171}
   formatAdd: '{0}-{1}'
   parentView: {fileID: 7062564243588108561}
   bgView: {fileID: 3649220827724249413}
   bgCell: {fileID: 6526762079471562684}
+  obj: {fileID: 7406359392416985814}
+  counterCell: {fileID: 0}
+  costValue: 0
   rectTransform: {fileID: 0}
 --- !u!1 &2655079932025249019
 GameObject:
@@ -886,7 +888,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 435.1022, y: -66.41}
+  m_AnchoredPosition: {x: 475.46674, y: -66.41}
   m_SizeDelta: {x: 49.7, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &108740964837028720
