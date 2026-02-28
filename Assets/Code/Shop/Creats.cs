@@ -50,6 +50,9 @@ public class Creats
         var damage = config.rangeInitDamage;
         var add = config.rangeInitAdd;
 
+        YG2.Save.Peres ??= new();
+        YG2.Save.Pods ??= new();
+        
         foreach (Item item in config.items)
         {
             var c = Object.Instantiate(cellShop, parent);
@@ -85,7 +88,7 @@ public class Creats
                 {
                     if (c.counterCell == null)
                     {
-                        YG2.saves.activeIdPods = s;
+                        YG2.Save.activeIdPods = s;
                         Compl(item, s, damage1, add1, c.bgCell);
                     }
                     else
@@ -93,9 +96,9 @@ public class Creats
                         if (!c.counterCell.IsMax)
                             if (OnBye != null && OnBye.Invoke(c.costValue))
                             {
-                                var cs = YG2.saves.Pers.FirstOrDefault(e => e.id == s);
+                                var cs = YG2.Save.Peres.FirstOrDefault(e => e.id == s);
                                 if (cs == null)
-                                    YG2.saves.Pers.Add(new As { id = s, count = 2 });
+                                    YG2.Save.Peres.Add(new As { id = s, count = 2 });
                                 else
                                     cs.count++;
 
@@ -109,16 +112,16 @@ public class Creats
                 }
                 else if (OnBye != null && OnBye.Invoke(c.costValue))
                 {
-                    YG2.saves.pods.Add(s);
+                    YG2.Save.Pods.Add(s);
                     Compl(item, s, damage1, add1, c.bgCell);
                     c.Active();
                     if (c.counterCell == null)
-                        YG2.saves.activeIdPods = s;
+                        YG2.Save.activeIdPods = s;
                     else
                     {
-                        var cs = YG2.saves.Pers.FirstOrDefault(e => e.id == s);
+                        var cs = YG2.Save.Peres.FirstOrDefault(e => e.id == s);
                         if (cs == null)
-                            YG2.saves.Pers.Add(new As { id = s, count = 1 });
+                            YG2.Save.Peres.Add(new As { id = s, count = 1 });
                         else
                             cs.count++;
                     }
@@ -128,18 +131,18 @@ public class Creats
 
             i++;
 
-            if (c.counterCell != null)
+            if (c.counterCell != null && YG2.Save.Peres != null)
             {
-                var s = YG2.saves.Pers.FirstOrDefault(e => e.id == i);
+                var s = YG2.Save.Peres.FirstOrDefault(e => e.id == i);
                 if (s == null)
                 {
                     s = new As { id = i, count = 0 };
-                    YG2.saves.Pers.Add(s);
+                    YG2.Save.Peres.Add(s);
                 }
                 else
                     _unblocks.Add(i);
 
-                c.counterCell.id = YG2.saves.Pers.IndexOf(s);
+                c.counterCell.id = YG2.Save.Peres.IndexOf(s);
 
                 for (int j = 0; j < s.count; j++)
                 {
@@ -147,17 +150,20 @@ public class Creats
                     c.costValue *= 2;
                     c.cost.text = c.costValue.ToString();
 
-                    Compl(item, YG2.saves.activeIdPods, damage1, add1, c.bgCell);
+                    Compl(item, YG2.Save.activeIdPods, damage1, add1, c.bgCell);
                 }
             }
 
-            if (YG2.saves.pods.Contains(i) && c.counterCell == null)
+            
+            if ( c.counterCell == null && YG2.Save.Pods != null && YG2.Save.Pods.Count > 0)
             {
+                var vv = YG2.Save.Pods.FirstOrDefault(e=> e ==  i);
+                if(vv != 0)
                 _unblocks.Add(i);
                 c.Active();
             }
 
-            if (i == YG2.saves.activeIdPods && c.counterCell == null)
+            if (i == YG2.Save.activeIdPods && c.counterCell == null)
                 Compl(item, i, damage1, add1, c.bgCell);
         }
     }

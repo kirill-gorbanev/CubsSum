@@ -25,8 +25,8 @@ namespace Code
         {
             _step = 1;
             _max = _step * levelsUp;
-            counterText.text = YG2.saves.count.ToString();
-            slider.value = (YG2.saves.count - _last) / (float)_max;
+            counterText.text = YG2.Save.count.ToString();
+            slider.value = (YG2.Save.count - _last) / (float)_max;
             level.text = string.Format(formLevel, _step);
 
             btX2.onClick.AddListener(() =>
@@ -40,18 +40,18 @@ namespace Code
 
             zoneController.OnChange += b =>
             {
-                YG2.saves.count += _mult;
-                counterText.text = YG2.saves.count.ToString();
+                YG2.Save.count += _mult;
+                counterText.text = YG2.Save.count.ToString();
 
                 level.text = string.Format(formLevel, _step);
-                if (YG2.saves.count > _max)
+                if (YG2.Save.count > _max)
                 {
                     _step++;
                     _last = _max;
                     _max = _step * levelsUp;
                 }
 
-                slider.value = (YG2.saves.count - _last) / (float)_max;
+                slider.value = (YG2.Save.count - _last) / (float)_max;
             };
 
             StartCoroutine(Ads());

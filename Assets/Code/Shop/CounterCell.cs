@@ -14,15 +14,16 @@ namespace Code.Shop
 
         private void Start()
         {
-            if(YG2.saves.Pers.Count > id )
-            textCount.text = string.Format(formater, YG2.saves.Pers[id].count, max);
+            if (YG2.Save.Peres != null && YG2.Save.Peres.Count > id)
+                textCount.text = string.Format(formater, YG2.Save.Peres[id].count, max);
         }
 
         public void View()
         {
-            textCount.text = string.Format(formater, YG2.saves.Pers[id].count, max);
+            if (YG2.Save.Peres != null && YG2.Save.Peres.Count > id)
+            textCount.text = string.Format(formater, YG2.Save.Peres[id].count, max);
         }
 
-        public bool IsMax => YG2.saves.Pers.Count > id && YG2.saves.Pers[id].count >= max;
+        public bool IsMax => YG2.Save.Peres!= null&& YG2.Save.Peres.Count > id && YG2.Save.Peres[id].count >= max;
     }
 }

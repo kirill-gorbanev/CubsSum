@@ -49,9 +49,9 @@ namespace Code.Shop.Donat
         {
             if (_counter >= maxCount)
                 return;
-            if ( YG2.saves.coins < cost)
+            if ( YG2.Save.coins < cost)
                 return;
-            YG2.saves.coins-= cost;
+            YG2.Save.coins-= cost;
 
             _counter++;
             countert.text = string.Format(formCount, _counter, maxCount);

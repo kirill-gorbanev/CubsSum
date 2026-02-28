@@ -23,7 +23,6 @@ namespace Code
 
         private void Awake()
         {
-            
             zone.OnChange += e =>
             {
                 if (e)
@@ -35,10 +34,10 @@ namespace Code
 
             creatsZone.OnBye += cost =>
             {
-                if ( YG2.saves.coins < cost)
+                if (YG2.Save.coins < cost)
                     return false;
 
-                YG2.saves.coins -= cost;
+                YG2.Save.coins -= cost;
                 audioZone.Bye();
                 return true;
             };
@@ -60,9 +59,9 @@ namespace Code
 
             creatsPassive.OnBye += cost =>
             {
-                if ( YG2.saves.coins < cost)
+                if (YG2.Save.coins < cost)
                     return false;
-                YG2.saves.coins-= cost;
+                YG2.Save.coins -= cost;
                 audioZone.Bye();
                 return true;
             };
@@ -79,7 +78,7 @@ namespace Code
             };
             moves.OnAdd += e =>
             {
-                YG2.saves.coins += e;
+                YG2.Save.coins += e;
                 coinsView.View();
                 coinsView.passive.text = string.Format(coinsView.formatPassive, e);
             };
@@ -91,21 +90,24 @@ namespace Code
 
         private void OnDestroy()
         {
-//   YG2.SetDefaultSaves();
-        YG2.SaveProgress();
-
+            YG2.SaveProgress();
         }
 
         private void Saves()
         {
+            YG2.onDefaultSaves += () =>
+            {
+                YG2.Save.Pods = new();
+                YG2.Save.Peres = new();
+            };
+
             YGInsides.LoadProgress();
-            
+
             coinsView.View();
-            
-            
+
             foreach (var v in viewsSmokes)
                 v.SetActive(false);
-            viewsSmokes[YG2.saves.activeIdPods].SetActive(true);
+            viewsSmokes[YG2.Save.activeIdPods].SetActive(true);
         }
     }
 }
