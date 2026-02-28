@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Code.Shop;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 using Range = Code.Shop.Range;
@@ -31,7 +33,7 @@ public class Creats
     public int _step;
 
     public List<CellShop> _cells = new();
-    
+
     public void Start()
     {
         if (config == null)
@@ -53,7 +55,7 @@ public class Creats
             var c = Object.Instantiate(cellShop, parent);
             c.rectTransform = parentView;
             _cells.Add(c);
-            
+
             var v = Object.Instantiate(item.view, c.parentView);
             v.transform.localScale *= item.multSizeView;
             v.transform.localPosition += item.offsetPos;
@@ -78,33 +80,85 @@ public class Creats
             var add1 = add;
             c.bt.onClick.AddListener(() =>
             {
-                var step = i1 + 1;
-
-                if (_unblocks.Contains(step))
+                var s = i1 + 1;
+                if (_unblocks.Contains(s))
                 {
                     if (c.counterCell == null)
-                        Compl(item, step, damage1, add1, c.bgCell);
+                    {
+                        YG2.saves.activeIdPods = s;
+                        Compl(item, s, damage1, add1, c.bgCell);
+                    }
                     else
                     {
                         if (!c.counterCell.IsMax)
                             if (OnBye != null && OnBye.Invoke(c.costValue))
                             {
-                                c.counterCell.Add();
+                                var cs = YG2.saves.Pers.FirstOrDefault(e => e.id == s);
+                                if (cs == null)
+                                    YG2.saves.Pers.Add(new As { id = s, count = 2 });
+                                else
+                                    cs.count++;
+
+                                c.counterCell.View();
                                 c.costValue *= 2;
                                 c.cost.text = c.costValue.ToString();
 
-                                Compl(item, step, damage1, add1, c.bgCell);
+                                Compl(item, s, damage1, add1, c.bgCell);
                             }
                     }
                 }
                 else if (OnBye != null && OnBye.Invoke(c.costValue))
                 {
-                    Compl(item, step, damage1, add1, c.bgCell);
+                    YG2.saves.pods.Add(s);
+                    Compl(item, s, damage1, add1, c.bgCell);
                     c.Active();
+                    if (c.counterCell == null)
+                        YG2.saves.activeIdPods = s;
+                    else
+                    {
+                        var cs = YG2.saves.Pers.FirstOrDefault(e => e.id == s);
+                        if (cs == null)
+                            YG2.saves.Pers.Add(new As { id = s, count = 1 });
+                        else
+                            cs.count++;
+                    }
                 }
             });
 
+
             i++;
+
+            if (c.counterCell != null)
+            {
+                var s = YG2.saves.Pers.FirstOrDefault(e => e.id == i);
+                if (s == null)
+                {
+                    s = new As { id = i, count = 0 };
+                    YG2.saves.Pers.Add(s);
+                }
+                else
+                    _unblocks.Add(i);
+
+                c.counterCell.id = YG2.saves.Pers.IndexOf(s);
+
+                for (int j = 0; j < s.count; j++)
+                {
+                    c.counterCell.View();
+                    c.costValue *= 2;
+                    c.cost.text = c.costValue.ToString();
+
+                    Compl(item, YG2.saves.activeIdPods, damage1, add1, c.bgCell);
+                }
+            }
+
+            if (YG2.saves.pods.Contains(i) && c.counterCell == null)
+            {
+                _unblocks.Add(i);
+                c.Active();
+            }
+
+            if (i == YG2.saves.activeIdPods && c.counterCell == null)
+                Compl(item, i, damage1, add1, c.bgCell);
         }
     }
 

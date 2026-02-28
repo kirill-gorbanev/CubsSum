@@ -1,6 +1,9 @@
 ﻿using Audio;
 using Code.Pers;
 using UnityEngine;
+using YG;
+using YG.Insides;
+using Random = UnityEngine.Random;
 
 namespace Code
 {
@@ -20,6 +23,7 @@ namespace Code
 
         private void Awake()
         {
+            
             zone.OnChange += e =>
             {
                 if (e)
@@ -28,13 +32,13 @@ namespace Code
                     coinsView.View();
                 }
             };
-            
+
             creatsZone.OnBye += cost =>
             {
-                if (coins.coin < cost)
+                if ( YG2.saves.coins < cost)
                     return false;
 
-                coins.coin -= cost;
+                YG2.saves.coins -= cost;
                 audioZone.Bye();
                 return true;
             };
@@ -56,9 +60,9 @@ namespace Code
 
             creatsPassive.OnBye += cost =>
             {
-                if (coins.coin < cost)
+                if ( YG2.saves.coins < cost)
                     return false;
-                coins.coin -= cost;
+                YG2.saves.coins-= cost;
                 audioZone.Bye();
                 return true;
             };
@@ -68,23 +72,40 @@ namespace Code
                 var pers = Instantiate(creatsPassive.view).GetComponent<Pers.Pers>();
                 moves.pres.Add(new Moves.MyStruct
                 {
-                 pers = pers,
+                    pers = pers,
                     add = Random.Range(creatsPassive._rangeCost.x, creatsPassive._rangeCost.y),
                 });
                 moves.Ranger(pers.transform);
             };
             moves.OnAdd += e =>
             {
-                coins.coin += e;
+                YG2.saves.coins += e;
                 coinsView.View();
                 coinsView.passive.text = string.Format(coinsView.formatPassive, e);
             };
 
             creatsPassive.Start();
 
+            Saves();
+        }
+
+        private void OnDestroy()
+        {
+//   YG2.SetDefaultSaves();
+        YG2.SaveProgress();
+
+        }
+
+        private void Saves()
+        {
+            YGInsides.LoadProgress();
+            
+            coinsView.View();
+            
+            
             foreach (var v in viewsSmokes)
                 v.SetActive(false);
-            viewsSmokes[0].SetActive(true);
+            viewsSmokes[YG2.saves.activeIdPods].SetActive(true);
         }
     }
 }

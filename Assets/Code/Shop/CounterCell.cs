@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using YG;
 
 namespace Code.Shop
 {
@@ -9,19 +10,19 @@ namespace Code.Shop
         [SerializeField] private string formater;
         [SerializeField] public int max;
 
-        private int count = 0;
+        public int id;
 
         private void Start()
         {
-            textCount.text = string.Format(formater, count, max);
-            count = 1;
+            if(YG2.saves.Pers.Count > id )
+            textCount.text = string.Format(formater, YG2.saves.Pers[id].count, max);
         }
 
-        public void Add()
+        public void View()
         {
-            count++;
-            textCount.text = string.Format(formater, count, max);
+            textCount.text = string.Format(formater, YG2.saves.Pers[id].count, max);
         }
-        public bool IsMax => count >= max;
+
+        public bool IsMax => YG2.saves.Pers.Count > id && YG2.saves.Pers[id].count >= max;
     }
 }

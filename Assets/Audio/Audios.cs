@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 namespace Audio
 {
     public class Audios : MonoBehaviour
     {
-        [SerializeField] private AudioClip red;
-        [SerializeField] private AudioClip green;
+        [SerializeField] private AudioClip[] red;
+        [SerializeField] private AudioClip[] green;
         [SerializeField] private ZoneController zone;
 
         [SerializeField] private AudioClip bye;
@@ -27,7 +28,7 @@ namespace Audio
             zone.OnChange += e =>
             {
                 var a = GetFromPool();
-                a.clip = e ? green : red;
+                a.clip = e ? green[Random.Range(0, green.Length)] : red[Random.Range(0, red.Length)];
                 a.Play();
                 StartCoroutine(ReturnToPoolAfterPlay(a));
             };
@@ -37,7 +38,10 @@ namespace Audio
                 AudioListener.volume = e ? 1f : 0f;
                 a.SetActive(e);
                 b.SetActive(!e);
+                YG2.saves.isSounds=e; 
             });
+            
+            soundToggle.isOn = YG2.saves.isSounds;
         }
 
         public void Bye()

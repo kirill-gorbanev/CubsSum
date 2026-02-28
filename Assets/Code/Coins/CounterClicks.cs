@@ -16,7 +16,6 @@ namespace Code
         [SerializeField] private int levelsUp;
         [SerializeField] private Button btX2;
 
-        private int _count;
         private int _last;
         private int _max;
         private int _step;
@@ -26,8 +25,8 @@ namespace Code
         {
             _step = 1;
             _max = _step * levelsUp;
-            counterText.text = _count.ToString();
-            slider.value = (_count - _last) / (float)_max;
+            counterText.text = YG2.saves.count.ToString();
+            slider.value = (YG2.saves.count - _last) / (float)_max;
             level.text = string.Format(formLevel, _step);
 
             btX2.onClick.AddListener(() =>
@@ -41,18 +40,18 @@ namespace Code
 
             zoneController.OnChange += b =>
             {
-                _count += _mult;
-                counterText.text = _count.ToString();
+                YG2.saves.count += _mult;
+                counterText.text = YG2.saves.count.ToString();
 
                 level.text = string.Format(formLevel, _step);
-                if (_count > _max)
+                if (YG2.saves.count > _max)
                 {
                     _step++;
                     _last = _max;
                     _max = _step * levelsUp;
                 }
 
-                slider.value = (_count - _last) / (float)_max;
+                slider.value = (YG2.saves.count - _last) / (float)_max;
             };
 
             StartCoroutine(Ads());
@@ -80,7 +79,7 @@ namespace Code
                 ads.SetActive(true);
                 yield return ss;
                 ads.SetActive(false);
-                
+
                 YG2.InterstitialAdvShow();
             }
         }

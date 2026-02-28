@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
+using YG;
 
 namespace Code
 {
     public class Coins : MonoBehaviour
     {
         public int mult = 1;
-        public double coin;
 
         public void Add()
         {
-            coin += mult;
+            YG2.saves.coins += mult;
         }
     }
 }

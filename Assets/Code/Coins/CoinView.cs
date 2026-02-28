@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using YG;
 
 namespace Code
 {
@@ -19,7 +20,7 @@ namespace Code
 
         public void View()
         {
-            counter.text =NumberFormatter.Format(count.coin);
+            counter.text =NumberFormatter.Format( YG2.saves.coins);
             mult.text = count.mult.ToString();
         }
     }
