@@ -15,6 +15,7 @@ namespace Code.Shop
 
         private void Start()
         {
+            textCount.text = string.Format(formater, 0, max);
             if (YG2.Save.Peres != null)
             {
                 var s = YG2.Save.Peres.FirstOrDefault(e => e.id == id);
@@ -24,31 +25,14 @@ namespace Code.Shop
             }
         }
 
-        public void View()
+        public void View(int id)
         {
-            if (YG2.Save.Peres != null)
-            {
-                var s = YG2.Save.Peres.FirstOrDefault(e => e.id == id);
+            var s = YG2.Save.Peres.FirstOrDefault(e => e.id == id);
 
-                if (s != null)
-                    textCount.text = string.Format(formater, s.count, max);
-            }
+            if (s != null)
+                textCount.text = string.Format(formater, s.count, max);
         }
 
-        public bool IsMax
-        {
-            get
-            {
-                if (YG2.Save.Peres != null)
-                {
-                    var s = YG2.Save.Peres.FirstOrDefault(e => e.id == id);
-
-                    if (s != null)
-                        return s.count >= max;
-                }
-
-                return false;
-            }
-        }
+        public bool IsMax(int id) => YG2.Save.Peres?.FirstOrDefault(e => e.id == id)?.count >= max;
     }
 }

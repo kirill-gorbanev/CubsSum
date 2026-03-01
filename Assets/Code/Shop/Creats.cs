@@ -93,16 +93,20 @@ public class Creats
                     }
                     else
                     {
-                        if (!c.counterCell.IsMax)
+                        if (!c.counterCell.IsMax(s))
                             if (OnBye != null && OnBye.Invoke(c.costValue))
                             {
+                                YG2.Save.Peres ??= new();
                                 var cs = YG2.Save.Peres.FirstOrDefault(e => e.id == s);
                                 if (cs == null)
-                                    YG2.Save.Peres.Add(new As { id = s, count = 2 });
-                                else
-                                    cs.count++;
+                                {
+                                    cs = new As { id = s, count = 0 };
+                                    YG2.Save.Peres.Add(cs);
+                                }
 
-                                c.counterCell.View();
+                                cs.count++;
+
+                                c.counterCell.View(s);
                                 c.costValue *= 2;
                                 c.cost.text = c.costValue.ToString();
 
@@ -146,7 +150,7 @@ public class Creats
 
                 for (int j = 0; j < s.count; j++)
                 {
-                    c.counterCell.View();
+                    c.counterCell.View(i);
                     c.costValue *= 2;
                     c.cost.text = c.costValue.ToString();
 
