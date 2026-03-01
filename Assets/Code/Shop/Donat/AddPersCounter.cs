@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 namespace Code.Shop.Donat
 {
@@ -17,21 +18,43 @@ namespace Code.Shop.Donat
 
         private void Start()
         {
-            costTx.text = cost.ToString();
-          //  YandexGame.PurchaseSuccessEvent += OnPurchaseSuccessHandler;
-          //  btBye.onClick.AddListener(() => { YandexGame.BuyPayments("add_pers"); });
+            // costTx.text = cost.ToString();
+            Load();
+
+            YG2.onPurchaseSuccess += OnPurchaseSuccessHandler;
+            btBye.onClick.AddListener(() =>
+            {
+                if (!YG2.Save.isByeAdd)
+                    YG2.BuyPayments("add_pers");
+            });
+
+            YG2.onPurchaseSuccess += e =>
+            {
+                if (e == "add_pers")
+                    OnPurchaseSuccessHandler("add_pers");
+            };
+            YG2.ConsumePurchaseByID("add_pers");
         }
 
 
         private void OnPurchaseSuccessHandler(string purchase)
         {
             if (purchase != "add_pers") return;
-            
-            foreach (var cell in active.creatsPassive._cells)
-                cell.counterCell.max = newMax;
 
-            gameObject.SetActive(false);
+            YG2.Save.isByeAdd = true;
+            Load();
             audioZone.Bye();
+        }
+
+        public void Load()
+        {
+            if (YG2.Save.isByeAdd)
+            {
+                foreach (var cell in active.creatsPassive._cells)
+                    cell.counterCell.max = newMax;
+
+                gameObject.SetActive(false);
+            }
         }
     }
 }

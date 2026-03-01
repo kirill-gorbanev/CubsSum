@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 namespace Code.Shop.Donat
 {
@@ -24,36 +25,61 @@ namespace Code.Shop.Donat
         [SerializeField] private Vector2Int mTox;
         [SerializeField] private float speed;
         [SerializeField] private float size;
-        
+
         [SerializeField] public Audios audioZone;
 
         private void Start()
         {
-            costTx.text = cost.ToString();
+            //   costTx.text = cost.ToString();
             damageTx.text = string.Format(damageFr, mTox.x, mTox.y);
             addTx.text = string.Format(addFr, mCoin.x, mCoin.y);
 
-       //     YandexGame.PurchaseSuccessEvent += OnPurchaseSuccessHandler;
-         //   btBye.onClick.AddListener(() => { YandexGame.BuyPayments("sign"); });
-        }
+            Load();
 
+            YG2.onPurchaseSuccess += OnPurchaseSuccessHandler;
+            btBye.onClick.AddListener(() =>
+            {
+                if (!YG2.Save.isByeSigar)
+                    YG2.BuyPayments("sigar");
+                else
+                {
+                    YG2.Save.activeIdPods = myId;
+                    Load();
+                }
+            });
+            YG2.onPurchaseSuccess += e =>
+            {
+                if (e == "sigar")
+                    OnPurchaseSuccessHandler("sigar");
+            };
+            YG2.ConsumePurchaseByID("sigar");
+        }
 
         private void OnPurchaseSuccessHandler(string purchase)
         {
-            if (purchase != "sign") return;
+            if (purchase != "sigar") return;
+            YG2.Save.isByeSigar = true;
+            YG2.Save.activeIdPods = myId;
+            Load();
 
-            coins.mult = Random.Range(mCoin.x, mCoin.y);
-            zone.speed = speed;
-            zone.Reload(size);
-
-            coinsView.View();
-
-
-            foreach (var vv in active.viewsSmokes)
-                vv.SetActive(false);
-            active.viewsSmokes[myId].SetActive(true);
-            
             audioZone.Bye();
+        }
+
+        public void Load()
+        {
+            if (YG2.Save.activeIdPods == myId && YG2.Save.isByeSigar)
+            {
+                costTx.text = "";
+                coins.mult = Random.Range(mCoin.x, mCoin.y);
+                zone.speed = speed;
+                zone.Reload(size);
+
+                coinsView.View();
+
+                foreach (var vv in active.viewsSmokes)
+                    vv.SetActive(false);
+                active.viewsSmokes[myId].SetActive(true);
+            }
         }
     }
 }

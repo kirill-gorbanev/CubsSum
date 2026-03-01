@@ -1,4 +1,5 @@
-﻿using Audio;
+﻿using System.Linq;
+using Audio;
 using Code.Pers;
 using TMPro;
 using UnityEngine;
@@ -24,18 +25,42 @@ namespace Code.Shop.Donat
         [SerializeField] private TMP_Text passiveTx;
         [SerializeField] private string formPassive;
         [SerializeField] public Audios audioZone;
-
-        private int _counter;
+        public int id;
 
         private void Start()
         {
-            costTx.text = cost.ToString();
+            //  costTx.text = cost.ToString();
             passiveTx.text = string.Format(formCount, rangeCost.x, rangeCost.y);
-            countert.text = string.Format(formCount, _counter, maxCount);
-            _counter = 1;
 
-            //   YandexGame.PurchaseSuccessEvent += OnPurchaseSuccessHandler;
-            //    btBye.onClick.AddListener(() => { YandexGame.BuyPayments("pers"); });
+
+            if (YG2.Save.Peres != null)
+            {
+                var s = YG2.Save.Peres.FirstOrDefault(e => e.id == id);
+
+                if (s != null)
+                    countert.text = string.Format(formCount, s.count, maxCount);
+            }
+
+            Load();
+
+            YG2.onPurchaseSuccess += OnPurchaseSuccessHandler;
+            btBye.onClick.AddListener(() =>
+            {
+                if (YG2.Save.Peres != null)
+                {
+                    var s = YG2.Save.Peres.FirstOrDefault(e => e.id == id);
+
+                    if (s == null || s.count < maxCount)
+                        YG2.BuyPayments("pers");
+                }
+            });
+
+            YG2.onPurchaseSuccess += e =>
+            {
+                if (e == "pers")
+                    Load();
+            };
+            YG2.ConsumePurchaseByID("pers");
         }
 
 
@@ -47,25 +72,55 @@ namespace Code.Shop.Donat
 
         private void Bye()
         {
-            if (_counter >= maxCount)
-                return;
-            if ( YG2.Save.coins < cost)
-                return;
-            YG2.Save.coins-= cost;
-
-            _counter++;
-            countert.text = string.Format(formCount, _counter, maxCount);
-            coinsView.View();
-
-            var perss = Instantiate(pers).GetComponent<Pers.Pers>();
-            moves.pres.Add(new Moves.MyStruct
+            if (YG2.Save.Peres != null)
             {
-                pers = perss,
-                add = Random.Range(rangeCost.x, rangeCost.y),
-            });
-            moves.Ranger(perss.transform);
-            
-            audioZone.Bye();
+                var s = YG2.Save.Peres.FirstOrDefault(e => e.id == id);
+
+                if (s == null)
+                {
+                    s = new() { id = id, count = 0 };
+                    YG2.Save.Peres.Add(s);
+                }
+
+                if (s.count >= maxCount)
+                    return;
+
+                s.count++;
+
+                YG2.Save.isByePers = true;
+                Load();
+
+                audioZone.Bye();
+            }
+        }
+
+        private int active = 0;
+
+        public void Load()
+        {
+            if (YG2.Save.Peres != null)
+            {
+                var s = YG2.Save.Peres.FirstOrDefault(e => e.id == id);
+
+                if (s != null)
+                    if (YG2.Save.isByePers)
+                    {
+                        countert.text = string.Format(formCount, s.count, maxCount);
+                        coinsView.View();
+                        if (active < s.count)
+                            for (int i = 0; i < s.count - active; i++)
+                            {
+                                var perss = Instantiate(pers).GetComponent<Pers.Pers>();
+                                moves.pres.Add(new Moves.MyStruct
+                                {
+                                    pers = perss,
+                                    add = Random.Range(rangeCost.x, rangeCost.y),
+                                });
+                                moves.Ranger(perss.transform);
+                                active++;
+                            }
+                    }
+            }
         }
     }
 }

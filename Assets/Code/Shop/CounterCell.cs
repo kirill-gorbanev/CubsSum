@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Linq;
+using TMPro;
 using UnityEngine;
 using YG;
 
@@ -14,16 +15,40 @@ namespace Code.Shop
 
         private void Start()
         {
-            if (YG2.Save.Peres != null && YG2.Save.Peres.Count > id)
-                textCount.text = string.Format(formater, YG2.Save.Peres[id].count, max);
+            if (YG2.Save.Peres != null)
+            {
+                var s = YG2.Save.Peres.FirstOrDefault(e => e.id == id);
+
+                if (s != null)
+                    textCount.text = string.Format(formater, s.count, max);
+            }
         }
 
         public void View()
         {
-            if (YG2.Save.Peres != null && YG2.Save.Peres.Count > id)
-            textCount.text = string.Format(formater, YG2.Save.Peres[id].count, max);
+            if (YG2.Save.Peres != null)
+            {
+                var s = YG2.Save.Peres.FirstOrDefault(e => e.id == id);
+
+                if (s != null)
+                    textCount.text = string.Format(formater, s.count, max);
+            }
         }
 
-        public bool IsMax => YG2.Save.Peres!= null&& YG2.Save.Peres.Count > id && YG2.Save.Peres[id].count >= max;
+        public bool IsMax
+        {
+            get
+            {
+                if (YG2.Save.Peres != null)
+                {
+                    var s = YG2.Save.Peres.FirstOrDefault(e => e.id == id);
+
+                    if (s != null)
+                        return s.count >= max;
+                }
+
+                return false;
+            }
+        }
     }
 }

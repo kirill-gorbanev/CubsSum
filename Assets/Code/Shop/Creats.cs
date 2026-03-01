@@ -52,7 +52,7 @@ public class Creats
 
         YG2.Save.Peres ??= new();
         YG2.Save.Pods ??= new();
-        
+
         foreach (Item item in config.items)
         {
             var c = Object.Instantiate(cellShop, parent);
@@ -154,13 +154,15 @@ public class Creats
                 }
             }
 
-            
-            if ( c.counterCell == null && YG2.Save.Pods != null && YG2.Save.Pods.Count > 0)
+
+            if (c.counterCell == null && YG2.Save.Pods != null && YG2.Save.Pods.Count > 0)
             {
-                var vv = YG2.Save.Pods.FirstOrDefault(e=> e ==  i);
-                if(vv != 0)
-                _unblocks.Add(i);
-                c.Active();
+                var vv = YG2.Save.Pods.FirstOrDefault(e => e == i);
+                if (vv != 0)
+                {
+                    _unblocks.Add(i);
+                    c.Active();
+                }
             }
 
             if (i == YG2.Save.activeIdPods && c.counterCell == null)

@@ -1,5 +1,6 @@
 ﻿using Audio;
 using Code.Pers;
+using Code.Shop.Donat;
 using UnityEngine;
 using YG;
 using YG.Insides;
@@ -20,6 +21,10 @@ namespace Code
         [SerializeField] public Audios audioZone;
 
         [SerializeField] public GameObject[] viewsSmokes;
+
+        [SerializeField] private Sigar sigar;
+        [SerializeField] private PersCell pers;
+        [SerializeField] private AddPersCounter add;
 
         private void Awake()
         {
@@ -86,6 +91,10 @@ namespace Code
             creatsPassive.Start();
 
             Saves();
+            
+            sigar.Load();
+            pers.Load();
+            add.Load();
         }
 
         private void OnDestroy()

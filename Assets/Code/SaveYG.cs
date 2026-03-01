@@ -13,6 +13,11 @@ namespace YG
         public int count;
         public double coins;
         public bool isSounds = true;
+        
+        public bool isByeSigar;
+        public bool isByePers;
+        public bool isByeAdd;
+        
     }
 
     [Serializable]

@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using YG;
+using YG.Utils.LB;
 
 namespace Code
 {
@@ -15,6 +16,7 @@ namespace Code
         [SerializeField] private Slider slider;
         [SerializeField] private int levelsUp;
         [SerializeField] private Button btX2;
+        [SerializeField] private Toggle toggle;
 
         private int _last;
         private int _max;
@@ -55,6 +57,13 @@ namespace Code
             };
 
             StartCoroutine(Ads());
+
+
+            toggle.onValueChanged.AddListener(_ =>
+            {
+                YG2.SetLeaderboard("clicks", YG2.Save.count);
+                YG2.GetLeaderboard("clicks");
+            });
         }
 
         private IEnumerator Time()
