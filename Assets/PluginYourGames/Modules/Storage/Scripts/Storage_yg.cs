@@ -161,9 +161,9 @@ namespace YG.Insides
             Message("Save Local");
 #if !UNITY_EDITOR
 #if NJSON_STORAGE_YG2
-            LocalStorage.SetKey(STORAGE_KEY, JsonConvert.SerializeObject(YG2.saves));
+            LocalStorage.SetKey(STORAGE_KEY, JsonConvert.SerializeObject(YG2.Save));
 #else
-            LocalStorage.SetKey(STORAGE_KEY, JsonUtility.ToJson(YG2.saves));
+            LocalStorage.SetKey(STORAGE_KEY, JsonUtility.ToJson(YG2.Save));
 #endif
 #endif
         }
