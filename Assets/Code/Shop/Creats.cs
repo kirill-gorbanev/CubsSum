@@ -40,16 +40,7 @@ public class Creats
             return;
 
         int i = 0;
-
-        var dX = config.rangeInitDamage.x;
-        var aX = config.rangeInitAdd.x;
-        var dY = config.rangeInitDamage.y;
-        var aY = config.rangeInitAdd.y;
-        var dDop = config.dopDamage;
-        var aDop = config.dopAdd;
-        var damage = config.rangeInitDamage;
-        var add = config.rangeInitAdd;
-
+        
         YG2.Save.Peres ??= new();
         YG2.Save.Pods ??= new();
 
@@ -66,21 +57,18 @@ public class Creats
 
             c.gameObject.SetActive(true);
 
-            var cost = config.costInit * (i + 1);
-            c.costValue = cost;
+            c.costValue = item.cost;
 
-            var d = dDop * i + damage.y + dX;
-            damage = new Vector2Int(d, d + dY);
-            var a = aDop * i + add.y + aX;
-            add = new Vector2Int(a, a + aY);
+         //   var d = dDop * i + damage.y + dX;
+        //    damage = new Vector2Int(d, d + dY);
+          //  var a = aDop * i + add.y + aX;
+          //  add = new Vector2Int(a, a + aY);
 
-            c.cost.text = cost.ToString();
-            c.add.text = string.Format(c.formatAdd, add.x, add.y);
+            c.cost.text =  item.cost.ToString();
+            c.add.text = string.Format(c.formatAdd,  item.add.x, item.add.y);
             c.bgView.color = rangeZones.First(e => e.range == item.range).color;
 
             var i1 = i;
-            var damage1 = damage;
-            var add1 = add;
             c.bt.onClick.AddListener(() =>
             {
                 var s = i1 + 1;
@@ -89,7 +77,7 @@ public class Creats
                     if (c.counterCell == null)
                     {
                         YG2.Save.activeIdPods = s;
-                        Compl(item, s, damage1, add1, c.bgCell);
+                        Compl(item, s,   item.add, c.bgCell);
                     }
                     else
                     {
@@ -110,14 +98,14 @@ public class Creats
                                 c.costValue *= 2;
                                 c.cost.text = c.costValue.ToString();
 
-                                Compl(item, s, damage1, add1, c.bgCell);
+                                Compl(item, s,  item.add, c.bgCell);
                             }
                     }
                 }
                 else if (OnBye != null && OnBye.Invoke(c.costValue))
                 {
                     YG2.Save.Pods.Add(s);
-                    Compl(item, s, damage1, add1, c.bgCell);
+                    Compl(item, s,   item.add, c.bgCell);
                     c.Active();
                     if (c.counterCell == null)
                         YG2.Save.activeIdPods = s;
@@ -154,7 +142,7 @@ public class Creats
                     c.costValue *= 2;
                     c.cost.text = c.costValue.ToString();
 
-                    Compl(item, YG2.Save.activeIdPods, damage1, add1, c.bgCell);
+                    Compl(item, YG2.Save.activeIdPods,   item.add, c.bgCell);
                 }
             }
 
@@ -170,13 +158,12 @@ public class Creats
             }
 
             if (i == YG2.Save.activeIdPods && c.counterCell == null)
-                Compl(item, i, damage1, add1, c.bgCell);
+                Compl(item, i,   item.add, c.bgCell);
         }
     }
 
-    private void Compl(Item item, int step, Vector2Int damage1, Vector2Int add1, Image c)
+    private void Compl(Item item, int step, Vector2Int add1, Image c)
     {
-        _rangeTox = damage1;
         _rangeCost = add1;
         _step = step;
         _unblocks.Add(_step);

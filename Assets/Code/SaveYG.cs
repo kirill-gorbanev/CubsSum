@@ -11,6 +11,7 @@ namespace YG
         public int activeIdPods;
 
         public int count;
+        public int last;
         public double coins;
         public bool isSounds = true;
         

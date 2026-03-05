@@ -18,7 +18,6 @@ namespace Code
         [SerializeField] private Button btX2;
         [SerializeField] private Toggle toggle;
 
-        private int _last;
         private int _max;
         private int _step;
         private int _mult = 1;
@@ -28,7 +27,7 @@ namespace Code
             _step = 1;
             _max = _step * levelsUp;
             counterText.text = YG2.Save.count.ToString();
-            slider.value = (YG2.Save.count - _last) / (float)_max;
+            slider.value = (YG2.Save.count -  YG2.Save.last) / ((float)_max-  YG2.Save.last);
             level.text = string.Format(formLevel, _step);
 
             btX2.onClick.AddListener(() =>
@@ -49,11 +48,12 @@ namespace Code
                 if (YG2.Save.count > _max)
                 {
                     _step++;
-                    _last = _max;
+                    YG2.Save.last = _max;
                     _max = _step * levelsUp;
+                    YG2.SetLeaderboard("clicks", YG2.Save.count);
                 }
 
-                slider.value = (YG2.Save.count - _last) / (float)_max;
+                slider.value = (YG2.Save.count -  YG2.Save.last) / ((float)_max-  YG2.Save.last);
             };
 
             StartCoroutine(Ads());

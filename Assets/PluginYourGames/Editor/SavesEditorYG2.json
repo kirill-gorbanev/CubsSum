@@ -1,9 +1,27 @@
 {
-    "Pods": [],
-    "Peres": [],
-    "activeIdPods": 0,
-    "count": 0,
-    "coins": 0.0,
+    "Pods": [
+        1,
+        2,
+        3
+    ],
+    "Peres": [
+        {
+            "id": 1,
+            "count": 5
+        },
+        {
+            "id": 2,
+            "count": 5
+        },
+        {
+            "id": 3,
+            "count": 5
+        }
+    ],
+    "activeIdPods": 1,
+    "count": 191,
+    "last": 150,
+    "coins": 1094.0,
     "isSounds": false,
     "isByeSigar": false,
     "isByePers": false,
@@ -16,5 +34,5 @@
         false,
         false
     ],
-    "idSave": 3
+    "idSave": 2
 }

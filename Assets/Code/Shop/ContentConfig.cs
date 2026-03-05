@@ -15,11 +15,11 @@ namespace Code.Shop
     {
         [SerializeField] private GameObject[] view;
         [SerializeField] private bool isDetect;
-        [SerializeField] public int costInit;
-        [SerializeField] public Vector2Int rangeInitDamage;
-        [SerializeField] public int dopDamage;
-        [SerializeField] public Vector2Int rangeInitAdd;
-        [SerializeField] public int dopAdd;
+      //  [SerializeField] public int costInit;
+     //   [SerializeField] public Vector2Int rangeInitDamage;
+    //    [SerializeField] public int dopDamage;
+     //   [SerializeField] public Vector2Int rangeInitAdd;
+    //    [SerializeField] public int dopAdd;
 
         [Space] [SerializeField] private float multSizeView;
         [SerializeField] private Vector3 offsetPos;
@@ -54,5 +54,8 @@ namespace Code.Shop
         public Vector3 offsetPos;
         public Vector3 rot;
         public Range range;
+
+        public int cost;
+        public Vector2Int add;
     }
 }
