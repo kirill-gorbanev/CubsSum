@@ -11,7 +11,6 @@ namespace Code.Shop.Donat
         [SerializeField] private Active active;
         [SerializeField] private Button btBye;
         [SerializeField] private Coins coins;
-        [SerializeField] private int cost;
         [SerializeField] private int newMax;
         [SerializeField] private TMP_Text costTx;
         [SerializeField] public Audios audioZone;

@@ -16,7 +16,6 @@ namespace Code.Shop.Donat
         [SerializeField] private Coins coins;
         [SerializeField] private CoinView coinsView;
         [SerializeField] private Moves moves;
-        [SerializeField] private int cost;
         [SerializeField] private int maxCount;
         [SerializeField] private Vector2Int rangeCost;
         [SerializeField] private TMP_Text costTx;

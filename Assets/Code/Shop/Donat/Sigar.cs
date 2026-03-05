@@ -20,7 +20,6 @@ namespace Code.Shop.Donat
         [SerializeField] private TMP_Text addTx;
         [SerializeField] private string addFr;
 
-        [SerializeField] private int cost;
         [SerializeField] private Vector2Int mCoin;
         [SerializeField] private Vector2Int mTox;
         [SerializeField] private float speed;
