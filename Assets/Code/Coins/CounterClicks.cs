@@ -25,6 +25,9 @@ namespace Code
         {
             YG2.InterstitialAdvShow();
             
+            if (YG2.Save.step <= 0)
+                YG2.Save.step = 1;
+            
             _max = YG2.Save.step * levelsUp;
             counterText.text = YG2.Save.count.ToString();
             slider.value = (YG2.Save.count - YG2.Save.last) / ((float)_max - YG2.Save.last);
