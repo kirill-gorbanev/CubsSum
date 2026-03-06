@@ -1,9 +1,9 @@
 ﻿using System.Collections;
+using Code.Pers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using YG;
-using YG.Utils.LB;
 
 namespace Code
 {
@@ -27,7 +27,7 @@ namespace Code
             _step = 1;
             _max = _step * levelsUp;
             counterText.text = YG2.Save.count.ToString();
-            slider.value = (YG2.Save.count -  YG2.Save.last) / ((float)_max-  YG2.Save.last);
+            slider.value = (YG2.Save.count - YG2.Save.last) / ((float)_max - YG2.Save.last);
             level.text = string.Format(formLevel, _step);
 
             btX2.onClick.AddListener(() =>
@@ -53,7 +53,7 @@ namespace Code
                     YG2.SetLeaderboard("clicks", YG2.Save.count);
                 }
 
-                slider.value = (YG2.Save.count -  YG2.Save.last) / ((float)_max-  YG2.Save.last);
+                slider.value = (YG2.Save.count - YG2.Save.last) / ((float)_max - YG2.Save.last);
             };
 
             StartCoroutine(Ads());
@@ -64,6 +64,16 @@ namespace Code
                 YG2.SetLeaderboard("clicks", YG2.Save.count);
                 YG2.GetLeaderboard("clicks");
             });
+
+            YG2.onCloseInterAdv += () =>
+            {
+                ads.SetActive(false);
+                foreach (var a in activesAds)
+                    a.SetActive(true);
+                foreach (var a in _moves.pres)
+                    a.pers.gameObject.SetActive(true);
+                AudioListener.volume = YG2.Save.isSounds ? 1f : 0f;
+            };
         }
 
         private IEnumerator Time()
@@ -77,6 +87,8 @@ namespace Code
         }
 
         [SerializeField] private GameObject ads;
+        [SerializeField] private GameObject[] activesAds;
+        [SerializeField] private Moves _moves;
 
         private IEnumerator Ads()
         {
@@ -85,10 +97,15 @@ namespace Code
             while (true)
             {
                 yield return s;
-                ads.SetActive(true);
-                yield return ss;
-                ads.SetActive(false);
 
+                ads.SetActive(true);
+                foreach (var a in activesAds)
+                    a.SetActive(false);
+                foreach (var a in _moves.pres)
+                    a.pers.gameObject.SetActive(false);
+                AudioListener.volume = 0f;
+
+                yield return ss;
                 YG2.InterstitialAdvShow();
             }
         }

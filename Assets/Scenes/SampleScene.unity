@@ -5476,6 +5476,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2581996727823994830, guid: b223248a7b9d2a846ac37715139a8e55, type: 3}
   m_PrefabInstance: {fileID: 134363890}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &134453050 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6403252182692130976, guid: 4e12b3c53c0f8ee4da83655d8d2770d5, type: 3}
+  m_PrefabInstance: {fileID: 548074811}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &135736276
 GameObject:
   m_ObjectHideFlags: 0
@@ -64669,7 +64674,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -65628,6 +65633,12 @@ MonoBehaviour:
   btX2: {fileID: 451184869}
   toggle: {fileID: 118354300}
   ads: {fileID: 1440281411}
+  activesAds:
+  - {fileID: 1162234235}
+  - {fileID: 134453050}
+  - {fileID: 2014039849}
+  - {fileID: 594083429}
+  _moves: {fileID: 251985929}
 --- !u!114 &1461288715
 MonoBehaviour:
   m_ObjectHideFlags: 0
