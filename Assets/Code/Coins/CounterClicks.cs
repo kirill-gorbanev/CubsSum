@@ -24,6 +24,8 @@ namespace Code
 
         private void Start()
         {
+            YG2.InterstitialAdvShow();
+
             _step = 1;
             _max = _step * levelsUp;
             counterText.text = YG2.Save.count.ToString();
@@ -32,7 +34,6 @@ namespace Code
 
             btX2.onClick.AddListener(() =>
             {
-                ads.SetActive(true);
                 foreach (var a in activesAds)
                     a.SetActive(false);
                 foreach (var a in _moves.pres)
@@ -72,7 +73,7 @@ namespace Code
                 YG2.GetLeaderboard("clicks");
             });
 
-            YG2.onCloseAnyAdv  += () =>
+            YG2.onCloseAnyAdv += () =>
             {
                 ads.SetActive(false);
                 foreach (var a in activesAds)
