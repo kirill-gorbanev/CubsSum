@@ -19,18 +19,16 @@ namespace Code
         [SerializeField] private Toggle toggle;
 
         private int _max;
-        private int _step;
         private int _mult = 1;
 
         private void Start()
         {
             YG2.InterstitialAdvShow();
-
-            _step = 1;
-            _max = _step * levelsUp;
+            
+            _max = YG2.Save.step * levelsUp;
             counterText.text = YG2.Save.count.ToString();
             slider.value = (YG2.Save.count - YG2.Save.last) / ((float)_max - YG2.Save.last);
-            level.text = string.Format(formLevel, _step);
+            level.text = string.Format(formLevel, YG2.Save.step);
 
             btX2.onClick.AddListener(() =>
             {
@@ -52,12 +50,12 @@ namespace Code
                 YG2.Save.count += _mult;
                 counterText.text = YG2.Save.count.ToString();
 
-                level.text = string.Format(formLevel, _step);
+                level.text = string.Format(formLevel, YG2.Save.step);
                 if (YG2.Save.count > _max)
                 {
-                    _step++;
+                    YG2.Save.step++;
                     YG2.Save.last = _max;
-                    _max = _step * levelsUp;
+                    _max = YG2.Save.step * levelsUp;
                     YG2.SetLeaderboard("clicks", YG2.Save.count);
                 }
 

@@ -12,6 +12,7 @@ namespace YG
 
         public int count;
         public int last;
+        public int step;
         public double coins;
         public bool isSounds = true;
         
