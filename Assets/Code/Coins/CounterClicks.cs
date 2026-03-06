@@ -32,9 +32,16 @@ namespace Code
 
             btX2.onClick.AddListener(() =>
             {
+                ads.SetActive(true);
+                foreach (var a in activesAds)
+                    a.SetActive(false);
+                foreach (var a in _moves.pres)
+                    a.pers.gameObject.SetActive(false);
+                AudioListener.volume = 0f;
+
                 YG2.RewardedAdvShow("x2", () =>
                 {
-                    btX2.enabled = false;
+                    btX2.gameObject.SetActive(false);
                     StartCoroutine(Time());
                 });
             });
@@ -65,7 +72,7 @@ namespace Code
                 YG2.GetLeaderboard("clicks");
             });
 
-            YG2.onCloseInterAdv += () =>
+            YG2.onCloseAnyAdv  += () =>
             {
                 ads.SetActive(false);
                 foreach (var a in activesAds)
@@ -83,7 +90,7 @@ namespace Code
             _mult = 1;
 
             yield return new WaitForSeconds(2 * 60);
-            btX2.enabled = true;
+            btX2.gameObject.SetActive(true);
         }
 
         [SerializeField] private GameObject ads;
