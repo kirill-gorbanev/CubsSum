@@ -64,7 +64,7 @@ public class Creats
           //  var a = aDop * i + add.y + aX;
           //  add = new Vector2Int(a, a + aY);
 
-            c.cost.text =  item.cost.ToString();
+            c.cost.text = NumberFormatter.Format(item.cost);
             c.add.text = string.Format(c.formatAdd,  item.add.x, item.add.y);
             c.bgView.color = rangeZones.First(e => e.range == item.range).color;
 

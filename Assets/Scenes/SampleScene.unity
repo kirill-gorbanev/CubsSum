@@ -20145,7 +20145,7 @@ MonoBehaviour:
     _cells: []
     rangeZones:
     - range: 0
-      speed: {x: 1000, y: 1500}
+      speed: {x: 1000, y: 1000}
       size: {x: 60, y: 200}
       color: {r: 1, g: 0.4660377, b: 0.4660377, a: 1}
     - range: 1
@@ -52591,7 +52591,7 @@ MonoBehaviour:
   damageFr: '{0}-{1}'
   addTx: {fileID: 1865299342}
   addFr: '{0}'
-  mCoin: {x: 100000, y: 100000}
+  mCoin: {x: 10000, y: 20000}
   mTox: {x: 1, y: 2}
   speed: 400
   size: 400
@@ -89156,7 +89156,7 @@ MonoBehaviour:
   coinsView: {fileID: 1920995322}
   moves: {fileID: 251985929}
   maxCount: 5
-  rangeCost: {x: 30000, y: 50000}
+  rangeCost: {x: 5000, y: 15000}
   costTx: {fileID: 791652223}
   countert: {fileID: 837382250}
   formCount: '{0}\{1}'

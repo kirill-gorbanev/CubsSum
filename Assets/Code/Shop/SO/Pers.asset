@@ -22,12 +22,7 @@ MonoBehaviour:
   - {fileID: 7739657144611171254, guid: 6478c811c0f81894185bc53facb6e208, type: 3}
   - {fileID: 7184575445805450442, guid: 90d36dd465a0cca42bff91e4ef31ac66, type: 3}
   - {fileID: 7515160118176021979, guid: 23363f2aecb5dd44ea83033824335f04, type: 3}
-  isDetect: 0
-  costInit: 100
-  rangeInitDamage: {x: 0, y: 0}
-  dopDamage: 0
-  rangeInitAdd: {x: 2, y: 10}
-  dopAdd: 20
+  isDetect: 1
   multSizeView: 62.8
   offsetPos: {x: 11.16, y: -53, z: -10}
   rot: {x: 0, y: 165.2, z: 0}
@@ -38,51 +33,69 @@ MonoBehaviour:
     offsetPos: {x: 11.16, y: -53, z: -10}
     rot: {x: 0, y: 165.2, z: 0}
     range: 0
+    cost: 200
+    add: {x: 1, y: 5}
   - isDetect: 0
     view: {fileID: 7380629863186873245, guid: 1aa8b2d611743dc43be243e90c0b66f9, type: 3}
     multSizeView: 62.8
     offsetPos: {x: 11.16, y: -53, z: -10}
     rot: {x: 0, y: 165.2, z: 0}
     range: 0
+    cost: 1000
+    add: {x: 5, y: 25}
   - isDetect: 0
     view: {fileID: 7252839821876779636, guid: 082132e3395dfd84fa2c214122a3e27a, type: 3}
     multSizeView: 62.8
     offsetPos: {x: 11.16, y: -53, z: -10}
     rot: {x: 0, y: 165.2, z: 0}
     range: 0
+    cost: 3000
+    add: {x: 25, y: 70}
   - isDetect: 0
     view: {fileID: 970571405554784665, guid: 207477e2f10a12446bfc5c3246b54ba6, type: 3}
     multSizeView: 62.8
     offsetPos: {x: 11.16, y: -53, z: -10}
     rot: {x: 0, y: 165.2, z: 0}
     range: 0
+    cost: 10000
+    add: {x: 70, y: 150}
   - isDetect: 0
     view: {fileID: 6571697106491509815, guid: 67ad6ff0929aa3149931102e8e0aa860, type: 3}
     multSizeView: 62.8
     offsetPos: {x: 11.16, y: -53, z: -10}
     rot: {x: 0, y: 165.2, z: 0}
     range: 0
+    cost: 20000
+    add: {x: 150, y: 250}
   - isDetect: 0
     view: {fileID: 5400452667747124541, guid: de7a8e9331b6b5d4eb53ec23c4ee6cc0, type: 3}
     multSizeView: 62.8
     offsetPos: {x: 11.16, y: -53, z: -10}
     rot: {x: 0, y: 165.2, z: 0}
     range: 0
+    cost: 40000
+    add: {x: 250, y: 500}
   - isDetect: 0
     view: {fileID: 7739657144611171254, guid: 6478c811c0f81894185bc53facb6e208, type: 3}
     multSizeView: 62.8
     offsetPos: {x: 11.16, y: -53, z: -10}
     rot: {x: 0, y: 165.2, z: 0}
     range: 0
+    cost: 60000
+    add: {x: 500, y: 1000}
   - isDetect: 0
     view: {fileID: 7184575445805450442, guid: 90d36dd465a0cca42bff91e4ef31ac66, type: 3}
     multSizeView: 62.8
     offsetPos: {x: 11.16, y: -53, z: -10}
     rot: {x: 0, y: 165.2, z: 0}
     range: 0
+    cost: 100000
+    add: {x: 1000, y: 1500}
   - isDetect: 0
     view: {fileID: 7515160118176021979, guid: 23363f2aecb5dd44ea83033824335f04, type: 3}
     multSizeView: 62.8
     offsetPos: {x: 11.16, y: -53, z: -10}
     rot: {x: 0, y: 165.2, z: 0}
     range: 0
+    cost: 200000
+    add: {x: 1500, y: 2000}
