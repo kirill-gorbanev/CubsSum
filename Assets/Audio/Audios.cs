@@ -38,10 +38,11 @@ namespace Audio
                 AudioListener.volume = e ? 1f : 0f;
                 a.SetActive(e);
                 b.SetActive(!e);
-                YG2.Save.isSounds=e; 
+                YG2.saves.isSounds=e; 
+                YG2.SaveProgress();
             });
             
-            soundToggle.isOn = YG2.Save.isSounds;
+            soundToggle.isOn = YG2.saves.isSounds;
         }
 
         public void Bye()

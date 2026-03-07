@@ -23,7 +23,7 @@ namespace Code.Shop.Donat
             YG2.onPurchaseSuccess += OnPurchaseSuccessHandler;
             btBye.onClick.AddListener(() =>
             {
-                if (!YG2.Save.isByeAdd)
+                if (!YG2.saves.isByeAdd)
                     YG2.BuyPayments("add_pers");
             });
 
@@ -40,14 +40,15 @@ namespace Code.Shop.Donat
         {
             if (purchase != "add_pers") return;
 
-            YG2.Save.isByeAdd = true;
+            YG2.saves.isByeAdd = true;
+            YG2.SaveProgress();
             Load();
             audioZone.Bye();
         }
 
         public void Load()
         {
-            if (YG2.Save.isByeAdd)
+            if (YG2.saves.isByeAdd)
             {
                 foreach (var cell in active.creatsPassive._cells)
                     cell.counterCell.max = newMax;

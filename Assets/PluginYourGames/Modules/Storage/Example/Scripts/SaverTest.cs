@@ -32,13 +32,13 @@ namespace YG.Example
         {
             if (int.TryParse(integerText.text, out int intSave)) // Это всё корректная обработка int, для демо сцены
             {
-                YG2.Save.intExample = intSave; // Вот пример записи данных для сохранения
+                YG2.saves.intExample = intSave; // Вот пример записи данных для сохранения
             }
             else
             {
                 if (integerText.text == string.Empty)
                 {
-                    YG2.Save.intExample = 0;
+                    YG2.saves.intExample = 0;
                 }
                 else
                 {
@@ -50,10 +50,10 @@ namespace YG.Example
                 }
             }
 
-            YG2.Save.strExample = stringifyText.text.ToString(); // И вот пример
+            YG2.saves.strExample = stringifyText.text.ToString(); // И вот пример
 
             for (int i = 0; i < booleanArrayToggle.Length; i++)
-                YG2.Save.boolExample[i] = booleanArrayToggle[i].isOn;
+                YG2.saves.boolExample[i] = booleanArrayToggle[i].isOn;
 
             // Тут же можно сразу и сохранять данные с помощью YG2.SaveProgress();
         }
@@ -63,11 +63,11 @@ namespace YG.Example
             integerText.text = string.Empty;
             stringifyText.text = string.Empty;
 
-            integerText.placeholder.GetComponent<Text>().text = YG2.Save.intExample.ToString();
-            stringifyText.placeholder.GetComponent<Text>().text = YG2.Save.strExample;
+            integerText.placeholder.GetComponent<Text>().text = YG2.saves.intExample.ToString();
+            stringifyText.placeholder.GetComponent<Text>().text = YG2.saves.strExample;
 
             for (int i = 0; i < booleanArrayToggle.Length; i++)
-                booleanArrayToggle[i].isOn = YG2.Save.boolExample[i];
+                booleanArrayToggle[i].isOn = YG2.saves.boolExample[i];
         }
 
         public void Save()

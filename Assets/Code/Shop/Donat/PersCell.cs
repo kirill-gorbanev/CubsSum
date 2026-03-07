@@ -32,9 +32,9 @@ namespace Code.Shop.Donat
             passiveTx.text = string.Format(formCount, rangeCost.x, rangeCost.y);
 
 
-            if (YG2.Save.Peres != null)
+            if (YG2.saves.Peres != null)
             {
-                var s = YG2.Save.Peres.FirstOrDefault(e => e.id == id);
+                var s = YG2.saves.Peres.FirstOrDefault(e => e.id == id);
 
                 if (s != null)
                     countert.text = string.Format(formCount, s.count, maxCount);
@@ -45,9 +45,9 @@ namespace Code.Shop.Donat
             YG2.onPurchaseSuccess += OnPurchaseSuccessHandler;
             btBye.onClick.AddListener(() =>
             {
-                if (YG2.Save.Peres != null)
+                if (YG2.saves.Peres != null)
                 {
-                    var s = YG2.Save.Peres.FirstOrDefault(e => e.id == id);
+                    var s = YG2.saves.Peres.FirstOrDefault(e => e.id == id);
 
                     if (s == null || s.count < maxCount)
                         YG2.BuyPayments("pers");
@@ -71,14 +71,14 @@ namespace Code.Shop.Donat
 
         private void Bye()
         {
-            if (YG2.Save.Peres != null)
+            if (YG2.saves.Peres != null)
             {
-                var s = YG2.Save.Peres.FirstOrDefault(e => e.id == id);
+                var s = YG2.saves.Peres.FirstOrDefault(e => e.id == id);
 
                 if (s == null)
                 {
                     s = new() { id = id, count = 0 };
-                    YG2.Save.Peres.Add(s);
+                    YG2.saves.Peres.Add(s);
                 }
 
                 if (s.count >= maxCount)
@@ -86,7 +86,8 @@ namespace Code.Shop.Donat
 
                 s.count++;
 
-                YG2.Save.isByePers = true;
+                YG2.saves.isByePers = true;
+                YG2.SaveProgress();
                 Load();
 
                 audioZone.Bye();
@@ -97,12 +98,12 @@ namespace Code.Shop.Donat
 
         public void Load()
         {
-            if (YG2.Save.Peres != null)
+            if (YG2.saves.Peres != null)
             {
-                var s = YG2.Save.Peres.FirstOrDefault(e => e.id == id);
+                var s = YG2.saves.Peres.FirstOrDefault(e => e.id == id);
 
                 if (s != null)
-                    if (YG2.Save.isByePers)
+                    if (YG2.saves.isByePers)
                     {
                         countert.text = string.Format(formCount, s.count, maxCount);
                         coinsView.View();

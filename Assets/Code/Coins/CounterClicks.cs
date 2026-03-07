@@ -25,13 +25,13 @@ namespace Code
         {
             YG2.InterstitialAdvShow();
             
-            if (YG2.Save.step <= 0)
-                YG2.Save.step = 1;
+            if (YG2.saves.step <= 0)
+                YG2.saves.step = 1;
             
-            _max = YG2.Save.step * levelsUp;
-            counterText.text = YG2.Save.count.ToString();
-            slider.value = (YG2.Save.count - YG2.Save.last) / ((float)_max - YG2.Save.last);
-            level.text = string.Format(formLevel, YG2.Save.step);
+            _max = YG2.saves.step * levelsUp;
+            counterText.text = YG2.saves.count.ToString();
+            slider.value = (YG2.saves.count - YG2.saves.last) / ((float)_max - YG2.saves.last);
+            level.text = string.Format(formLevel, YG2.saves.step);
 
             btX2.onClick.AddListener(() =>
             {
@@ -50,19 +50,20 @@ namespace Code
 
             zoneController.OnChange += b =>
             {
-                YG2.Save.count += _mult;
-                counterText.text = YG2.Save.count.ToString();
+                YG2.saves.count += _mult;
+                counterText.text = YG2.saves.count.ToString();
 
-                level.text = string.Format(formLevel, YG2.Save.step);
-                if (YG2.Save.count > _max)
+                level.text = string.Format(formLevel, YG2.saves.step);
+                if (YG2.saves.count > _max)
                 {
-                    YG2.Save.step++;
-                    YG2.Save.last = _max;
-                    _max = YG2.Save.step * levelsUp;
-                    YG2.SetLeaderboard("clicks", YG2.Save.count);
+                    YG2.saves.step++;
+                    YG2.saves.last = _max;
+                    _max = YG2.saves.step * levelsUp;
+                    YG2.SetLeaderboard("clicks", YG2.saves.step);
                 }
 
-                slider.value = (YG2.Save.count - YG2.Save.last) / ((float)_max - YG2.Save.last);
+                slider.value = (YG2.saves.count - YG2.saves.last) / ((float)_max - YG2.saves.last);
+                YG2.SaveProgress();
             };
 
             StartCoroutine(Ads());
@@ -70,7 +71,7 @@ namespace Code
 
             toggle.onValueChanged.AddListener(_ =>
             {
-                YG2.SetLeaderboard("clicks", YG2.Save.count);
+                YG2.SetLeaderboard("clicks", YG2.saves.count);
                 YG2.GetLeaderboard("clicks");
             });
 
@@ -81,7 +82,7 @@ namespace Code
                     a.SetActive(true);
                 foreach (var a in _moves.pres)
                     a.pers.gameObject.SetActive(true);
-                AudioListener.volume = YG2.Save.isSounds ? 1f : 0f;
+                AudioListener.volume = YG2.saves.isSounds ? 1f : 0f;
             };
         }
 

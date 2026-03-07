@@ -38,11 +38,12 @@ namespace Code.Shop.Donat
             YG2.onPurchaseSuccess += OnPurchaseSuccessHandler;
             btBye.onClick.AddListener(() =>
             {
-                if (!YG2.Save.isByeSigar)
+                if (!YG2.saves.isByeSigar)
                     YG2.BuyPayments("sigar");
                 else
                 {
-                    YG2.Save.activeIdPods = myId;
+                    YG2.saves.activeIdPods = myId;
+                    YG2.SaveProgress();
                     Load();
                 }
             });
@@ -57,8 +58,9 @@ namespace Code.Shop.Donat
         private void OnPurchaseSuccessHandler(string purchase)
         {
             if (purchase != "sigar") return;
-            YG2.Save.isByeSigar = true;
-            YG2.Save.activeIdPods = myId;
+            YG2.saves.isByeSigar = true;
+            YG2.saves.activeIdPods = myId;
+            YG2.SaveProgress();
             Load();
 
             audioZone.Bye();
@@ -66,7 +68,7 @@ namespace Code.Shop.Donat
 
         public void Load()
         {
-            if (YG2.Save.activeIdPods == myId && YG2.Save.isByeSigar)
+            if (YG2.saves.activeIdPods == myId && YG2.saves.isByeSigar)
             {
                 costTx.text = "";
                 coins.mult = Random.Range(mCoin.x, mCoin.y);
