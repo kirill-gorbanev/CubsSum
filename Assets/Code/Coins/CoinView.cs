@@ -21,7 +21,7 @@ namespace Code
         public void View()
         {
             counter.text =NumberFormatter.Format( YG2.saves.coins);
-            mult.text = count.mult.ToString();
+                // mult.text = count.mult.ToString();
         }
     }
 }

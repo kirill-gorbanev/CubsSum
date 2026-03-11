@@ -37,7 +37,8 @@ namespace Code.Shop.Donat
 
             YG2.onPurchaseSuccess += OnPurchaseSuccessHandler;
             btBye.onClick.AddListener(() =>
-            {
+            {            YG2.OpenAuthDialog();
+
                 if (!YG2.saves.isByeSigar)
                     YG2.BuyPayments("sigar");
                 else
@@ -47,11 +48,6 @@ namespace Code.Shop.Donat
                     Load();
                 }
             });
-            YG2.onPurchaseSuccess += e =>
-            {
-                if (e == "sigar")
-                    OnPurchaseSuccessHandler("sigar");
-            };
             YG2.ConsumePurchaseByID("sigar");
         }
 

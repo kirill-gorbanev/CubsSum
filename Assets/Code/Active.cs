@@ -28,7 +28,6 @@ namespace Code
 
         private void Awake()
         {
-            YG2.OpenAuthDialog();
             YG2.onGetSDKData += () =>
             {
                 zone.OnChange += e =>

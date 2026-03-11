@@ -22,16 +22,11 @@ namespace Code.Shop.Donat
 
             YG2.onPurchaseSuccess += OnPurchaseSuccessHandler;
             btBye.onClick.AddListener(() =>
-            {
+            {            YG2.OpenAuthDialog();
+
                 if (!YG2.saves.isByeAdd)
                     YG2.BuyPayments("add_pers");
             });
-
-            YG2.onPurchaseSuccess += e =>
-            {
-                if (e == "add_pers")
-                    OnPurchaseSuccessHandler("add_pers");
-            };
             YG2.ConsumePurchaseByID("add_pers");
         }
 

@@ -12,6 +12,7 @@ namespace Code
         [SerializeField] private ZoneController zoneController;
         [SerializeField] private TMP_Text counterText;
         [SerializeField] private TMP_Text level;
+        [SerializeField] private TMP_Text multTx;
         [SerializeField] private string formLevel;
         [SerializeField] private Slider slider;
         [SerializeField] private int levelsUp;
@@ -24,14 +25,15 @@ namespace Code
         private void Start()
         {
             YG2.InterstitialAdvShow();
-            
+
             if (YG2.saves.step <= 0)
                 YG2.saves.step = 1;
-            
+
             _max = YG2.saves.step * levelsUp;
             counterText.text = YG2.saves.count.ToString();
             slider.value = (YG2.saves.count - YG2.saves.last) / ((float)_max - YG2.saves.last);
             level.text = string.Format(formLevel, YG2.saves.step);
+            multTx.text = "x" + _mult;
 
             btX2.onClick.AddListener(() =>
             {
@@ -41,11 +43,7 @@ namespace Code
                     a.pers.gameObject.SetActive(false);
                 AudioListener.volume = 0f;
 
-                YG2.RewardedAdvShow("x2", () =>
-                {
-                    btX2.gameObject.SetActive(false);
-                    StartCoroutine(Time());
-                });
+                YG2.RewardedAdvShow("x2", () => { StartCoroutine(Time()); });
             });
 
             zoneController.OnChange += b =>
@@ -88,9 +86,14 @@ namespace Code
 
         private IEnumerator Time()
         {
+            btX2.gameObject.SetActive(false);
+
             _mult = 2;
+            multTx.text = "x" + _mult;
+
             yield return new WaitForSeconds(60);
             _mult = 1;
+            multTx.text = "x" + _mult;
 
             yield return new WaitForSeconds(2 * 60);
             btX2.gameObject.SetActive(true);
