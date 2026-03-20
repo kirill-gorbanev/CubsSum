@@ -44,7 +44,6 @@ namespace Code.Shop.Donat
                 else
                 {
                     YG2.saves.activeIdPods = myId;
-                    YG2.SaveProgress();
                     Load();
                 }
             });
@@ -56,7 +55,6 @@ namespace Code.Shop.Donat
             if (purchase != "sigar") return;
             YG2.saves.isByeSigar = true;
             YG2.saves.activeIdPods = myId;
-            YG2.SaveProgress();
             Load();
 
             audioZone.Bye();

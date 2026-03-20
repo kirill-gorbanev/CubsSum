@@ -160,7 +160,6 @@ public class Creats
             if (i == YG2.saves.activeIdPods && c.counterCell == null)
                 Compl(item, i,   item.add, c.bgCell);
             
-            YG2.SaveProgress();
         }
     }
 

@@ -14,6 +14,7 @@ namespace Code.Shop.Donat
         [SerializeField] private int newMax;
         [SerializeField] private TMP_Text costTx;
         [SerializeField] public Audios audioZone;
+        [SerializeField] public GameObject cell;
 
         private void Start()
         {
@@ -36,7 +37,6 @@ namespace Code.Shop.Donat
             if (purchase != "add_pers") return;
 
             YG2.saves.isByeAdd = true;
-            YG2.SaveProgress();
             Load();
             audioZone.Bye();
         }
@@ -48,7 +48,7 @@ namespace Code.Shop.Donat
                 foreach (var cell in active.creatsPassive._cells)
                     cell.counterCell.max = newMax;
 
-                gameObject.SetActive(false);
+                cell.SetActive(false);
             }
         }
     }

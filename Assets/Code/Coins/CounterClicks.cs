@@ -61,7 +61,6 @@ namespace Code
                 }
 
                 slider.value = (YG2.saves.count - YG2.saves.last) / ((float)_max - YG2.saves.last);
-                YG2.SaveProgress();
             };
 
             StartCoroutine(Ads());

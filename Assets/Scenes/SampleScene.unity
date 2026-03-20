@@ -20205,9 +20205,9 @@ MonoBehaviour:
   - {fileID: 1840818680}
   - {fileID: 2058056999}
   - {fileID: 1678714650}
-  sigar: {fileID: 1165448102}
-  pers: {fileID: 1988736998}
-  add: {fileID: 466140625}
+  sigar: {fileID: 594083433}
+  pers: {fileID: 594083432}
+  add: {fileID: 594083431}
 --- !u!4 &459576987
 Transform:
   m_ObjectHideFlags: 0
@@ -20967,9 +20967,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1859144893265029967, guid: 81bc6f440fa632245800fa691af05703, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 466140625}
-    - targetCorrespondingSourceObject: {fileID: 1859144893265029967, guid: 81bc6f440fa632245800fa691af05703, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 466140627}
     - targetCorrespondingSourceObject: {fileID: 7406359392416985814, guid: 81bc6f440fa632245800fa691af05703, type: 3}
       insertIndex: -1
@@ -20985,24 +20982,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1859144893265029967, guid: 81bc6f440fa632245800fa691af05703, type: 3}
   m_PrefabInstance: {fileID: 466140622}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &466140625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 466140624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13735e405f114701b0a461cce323c274, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: {fileID: 459576986}
-  btBye: {fileID: 466140626}
-  coins: {fileID: 590080694}
-  newMax: 10
-  costTx: {fileID: 1712715541}
-  audioZone: {fileID: 1824509690}
 --- !u!114 &466140626 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6246397592121604994, guid: 81bc6f440fa632245800fa691af05703, type: 3}
@@ -21026,7 +21005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 676c869f6c04b7848ae04d741545c51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: add_pers
+  id: 
   purchaseImageLoad: {fileID: 0}
   currencyImageLoad: {fileID: 1017105178}
   showCurrencyCode: 0
@@ -26238,6 +26217,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 594083430}
+  - component: {fileID: 594083433}
+  - component: {fileID: 594083432}
+  - component: {fileID: 594083431}
   m_Layer: 5
   m_Name: GameObject
   m_TagString: Untagged
@@ -26268,6 +26250,79 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &594083431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594083429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13735e405f114701b0a461cce323c274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: {fileID: 459576986}
+  btBye: {fileID: 466140626}
+  coins: {fileID: 590080694}
+  newMax: 10
+  costTx: {fileID: 1712715541}
+  audioZone: {fileID: 1824509690}
+  cell: {fileID: 466140624}
+--- !u!114 &594083432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594083429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b435adcd9e07478980ced222d6024a25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btBye: {fileID: 1988736999}
+  pers: {fileID: 3267743280098991280, guid: 132056ca9f4a79346bd32b4432f50f7b, type: 3}
+  coins: {fileID: 590080694}
+  coinsView: {fileID: 1920995322}
+  moves: {fileID: 251985929}
+  maxCount: 5
+  rangeCost: {x: 5000, y: 15000}
+  costTx: {fileID: 791652223}
+  countert: {fileID: 837382250}
+  formCount: '{0}\{1}'
+  passiveTx: {fileID: 277487048}
+  formPassive: "{0}-{1} <br>\u0412 \u0421\u0435\u043A\u0443\u043D\u0434\u0443"
+  audioZone: {fileID: 1824509690}
+  id: 15
+--- !u!114 &594083433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594083429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddd32a520ce64f9291adac4bbaa0541b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btBye: {fileID: 1165448104}
+  coins: {fileID: 590080694}
+  zone: {fileID: 1162234240}
+  coinsView: {fileID: 1920995322}
+  active: {fileID: 459576986}
+  myId: 16
+  costTx: {fileID: 877115507}
+  damageTx: {fileID: 163193254}
+  damageFr: '{0}-{1}'
+  addTx: {fileID: 1865299342}
+  addFr: '{0}'
+  mCoin: {x: 10000, y: 20000}
+  mTox: {x: 1, y: 2}
+  speed: 400
+  size: 400
+  audioZone: {fileID: 1824509690}
 --- !u!1001 &596627109
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50874,10 +50929,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 700630886}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 245.74722, y: 0}
-  m_SizeDelta: {x: 94.89638, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 245.74722, y: -47.44819}
+  m_SizeDelta: {x: 0, y: 94.89638}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1127989622
 MonoBehaviour:
@@ -52556,9 +52611,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1859144893265029967, guid: 81bc6f440fa632245800fa691af05703, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1165448102}
-    - targetCorrespondingSourceObject: {fileID: 1859144893265029967, guid: 81bc6f440fa632245800fa691af05703, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1165448105}
     - targetCorrespondingSourceObject: {fileID: 7406359392416985814, guid: 81bc6f440fa632245800fa691af05703, type: 3}
       insertIndex: -1
@@ -52574,34 +52626,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1859144893265029967, guid: 81bc6f440fa632245800fa691af05703, type: 3}
   m_PrefabInstance: {fileID: 1165448099}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1165448102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1165448101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddd32a520ce64f9291adac4bbaa0541b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  btBye: {fileID: 1165448104}
-  coins: {fileID: 590080694}
-  zone: {fileID: 1162234240}
-  coinsView: {fileID: 1920995322}
-  active: {fileID: 459576986}
-  myId: 16
-  costTx: {fileID: 877115507}
-  damageTx: {fileID: 163193254}
-  damageFr: '{0}-{1}'
-  addTx: {fileID: 1865299342}
-  addFr: '{0}'
-  mCoin: {x: 10000, y: 20000}
-  mTox: {x: 1, y: 2}
-  speed: 400
-  size: 400
-  audioZone: {fileID: 1824509690}
 --- !u!224 &1165448103 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7062564243588108561, guid: 81bc6f440fa632245800fa691af05703, type: 3}
@@ -52630,7 +52654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 676c869f6c04b7848ae04d741545c51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: sigar
+  id: 
   purchaseImageLoad: {fileID: 0}
   currencyImageLoad: {fileID: 815746819}
   showCurrencyCode: 0
@@ -54761,17 +54785,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213405591}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1384699043}
-  m_Father: {fileID: 2004427821}
+  m_Father: {fileID: 1221872374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 1146, y: -63}
+  m_AnchoredPosition: {x: 504.18073, y: -62.999634}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1213405593
@@ -55435,6 +55459,7 @@ RectTransform:
   m_Children:
   - {fileID: 1920995321}
   - {fileID: 1461288713}
+  - {fileID: 1213405592}
   - {fileID: 2042003473}
   - {fileID: 1726010590}
   - {fileID: 594083430}
@@ -65787,10 +65812,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1011923320}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 13, y: 0}
-  m_SizeDelta: {x: 56.49645, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 13, y: -28.248224}
+  m_SizeDelta: {x: 0, y: 56.49645}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1465893334
 MonoBehaviour:
@@ -81290,7 +81315,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u04452 \u043A\u043B\u0438\u043A\u0438 \u043D\u0430 \u043C\u0438\u043D\u0443\u0442\u0443"
+  m_text: "\u04452 \u0434\u043E\u0445\u043E\u0434 \u0437\u0430 \u043A\u043B\u0438\u043A
+    \u043D\u0430 \u043C\u0438\u043D\u0443\u0442\u0443"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 94a37cd725b84b54493dd664affde436, type: 2}
   m_sharedMaterial: {fileID: 7359991773950396879, guid: 94a37cd725b84b54493dd664affde436, type: 2}
@@ -81317,7 +81343,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.35
+  m_fontSize: 25.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -89128,9 +89154,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3218849028554945916, guid: 4a7c03f92f912024da4f5406c8b4a01f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1988736998}
-    - targetCorrespondingSourceObject: {fileID: 3218849028554945916, guid: 4a7c03f92f912024da4f5406c8b4a01f, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1988737000}
     - targetCorrespondingSourceObject: {fileID: 4429071452384064058, guid: 4a7c03f92f912024da4f5406c8b4a01f, type: 3}
       insertIndex: -1
@@ -89151,32 +89174,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3218849028554945916, guid: 4a7c03f92f912024da4f5406c8b4a01f, type: 3}
   m_PrefabInstance: {fileID: 1988736994}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1988736998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1988736997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b435adcd9e07478980ced222d6024a25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  btBye: {fileID: 1988736999}
-  pers: {fileID: 3267743280098991280, guid: 132056ca9f4a79346bd32b4432f50f7b, type: 3}
-  coins: {fileID: 590080694}
-  coinsView: {fileID: 1920995322}
-  moves: {fileID: 251985929}
-  maxCount: 5
-  rangeCost: {x: 5000, y: 15000}
-  costTx: {fileID: 791652223}
-  countert: {fileID: 837382250}
-  formCount: '{0}\{1}'
-  passiveTx: {fileID: 277487048}
-  formPassive: "{0}-{1} <br>\u0412 \u0421\u0435\u043A\u0443\u043D\u0434\u0443"
-  audioZone: {fileID: 1824509690}
-  id: 15
 --- !u!114 &1988736999 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7658922012053490000, guid: 4a7c03f92f912024da4f5406c8b4a01f, type: 3}
@@ -89200,7 +89197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 676c869f6c04b7848ae04d741545c51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: pers
+  id: 
   purchaseImageLoad: {fileID: 0}
   currencyImageLoad: {fileID: 1467742791}
   showCurrencyCode: 0
@@ -90194,7 +90191,6 @@ RectTransform:
   m_Children:
   - {fileID: 451184866}
   - {fileID: 1228247664}
-  - {fileID: 1213405592}
   m_Father: {fileID: 1221872374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.80159414}
@@ -97808,7 +97804,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -703.8}
+  m_SizeDelta: {x: 0, y: -711.60004}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8316451671344126637
 GameObject:
@@ -97893,10 +97889,10 @@ RectTransform:
   - {fileID: 1392362701}
   m_Father: {fileID: 1162234239}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 604, y: 0.8125}
-  m_SizeDelta: {x: 635.1, y: 703.8}
+  m_AnchorMin: {x: 0.6465625, y: 0.17270373}
+  m_AnchorMax: {x: 0.98, y: 0.8315926}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8316451672351172569
 MonoBehaviour:

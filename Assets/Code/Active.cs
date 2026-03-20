@@ -1,4 +1,5 @@
-﻿using Audio;
+﻿using System.Collections;
+using Audio;
 using Code.Pers;
 using Code.Shop.Donat;
 using UnityEngine;
@@ -45,7 +46,6 @@ namespace Code
                         return false;
 
                     YG2.saves.coins -= cost;
-                    YG2.SaveProgress();
                     audioZone.Bye();
                     return true;
                 };
@@ -71,7 +71,6 @@ namespace Code
                         return false;
                     YG2.saves.coins -= cost;
                     audioZone.Bye();
-                    YG2.SaveProgress();
                     return true;
                 };
                 creatsPassive.OnComplete += () =>
@@ -88,7 +87,6 @@ namespace Code
                 moves.OnAdd += e =>
                 {
                     YG2.saves.coins += e;
-                    YG2.SaveProgress();
                     coinsView.View();
                     coinsView.passive.text = string.Format(coinsView.formatPassive, e);
                 };
@@ -100,9 +98,12 @@ namespace Code
 
             YG2.onShowWindowGame += YG2.SaveProgress;
             YG2.onHideWindowGame += YG2.SaveProgress;
-            YG2.onHideWindowGame += YG2.SaveProgress;
+            YG2.onPurchaseSuccess += _ => YG2.SaveProgress();
+
             YG2.onPauseGame += _ => YG2.SaveProgress();
             YG2.onFocusWindowGame += (_) => { YG2.SaveProgress(); };
+
+            StartCoroutine(TimeSave());
         }
 
         private void OnDestroy()
@@ -115,6 +116,16 @@ namespace Code
             YG2.SaveProgress();
         }
 
+        private IEnumerator TimeSave()
+        {
+            var t = new WaitForSeconds(1f);
+            while (true)
+            {
+                yield return t;
+                YG2.SaveProgress();
+            }
+        }
+        
         private void savess()
         {
             YG2.onDefaultSaves += () =>

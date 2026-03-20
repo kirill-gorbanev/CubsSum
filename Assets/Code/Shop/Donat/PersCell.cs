@@ -89,7 +89,6 @@ namespace Code.Shop.Donat
                 s.count++;
 
                 YG2.saves.isByePers = true;
-                YG2.SaveProgress();
                 Load();
 
                 audioZone.Bye();

@@ -10,7 +10,6 @@ namespace Code
         public void Add()
         {
             YG2.saves.coins += mult;
-            YG2.SaveProgress();
         }
     }
 }
