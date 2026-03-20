@@ -9,7 +9,7 @@ namespace Code
 
         public void Add()
         {
-            YG2.saves.coins += mult;
+            YandexGame.savesData.coins += mult;
         }
     }
 }

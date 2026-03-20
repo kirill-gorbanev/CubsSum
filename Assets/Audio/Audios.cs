@@ -38,11 +38,11 @@ namespace Audio
                 AudioListener.volume = e ? 1f : 0f;
                 a.SetActive(e);
                 b.SetActive(!e);
-                YG2.saves.isSounds=e; 
-                YG2.SaveProgress();
+                YandexGame.savesData.isSounds=e; 
+                YandexGame.SaveProgress();
             });
             
-            soundToggle.isOn = YG2.saves.isSounds;
+            soundToggle.isOn = YandexGame.savesData.isSounds;
         }
 
         public void Bye()

@@ -21005,10 +21005,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 676c869f6c04b7848ae04d741545c51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
+  showCurrencyCode: 0
   purchaseImageLoad: {fileID: 0}
   currencyImageLoad: {fileID: 1017105178}
-  showCurrencyCode: 0
+  id: 0
   textLegasy:
     title: {fileID: 0}
     description: {fileID: 0}
@@ -21017,6 +21017,16 @@ MonoBehaviour:
     title: {fileID: 0}
     description: {fileID: 0}
     priceValue: {fileID: 1712715541}
+  data:
+    id: 
+    title: 
+    description: 
+    imageURI: 
+    price: 
+    priceValue: 
+    priceCurrencyCode: 
+    currencyImageURL: 
+    consumed: 0
 --- !u!1001 &466730398
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23299,6 +23309,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7151008129383064775, guid: 4220bf4b02f24a84da3fabdabe688ee9, type: 3}
   m_PrefabInstance: {fileID: 523340991}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &523797061
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2211564899198745197, guid: caf9732433f4dc044845763962493607, type: 3}
+      propertyPath: m_Name
+      value: YandexGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 2211564899198745199, guid: caf9732433f4dc044845763962493607, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2211564899198745199, guid: caf9732433f4dc044845763962493607, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2211564899198745199, guid: caf9732433f4dc044845763962493607, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2211564899198745199, guid: caf9732433f4dc044845763962493607, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2211564899198745199, guid: caf9732433f4dc044845763962493607, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2211564899198745199, guid: caf9732433f4dc044845763962493607, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2211564899198745199, guid: caf9732433f4dc044845763962493607, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2211564899198745199, guid: caf9732433f4dc044845763962493607, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2211564899198745199, guid: caf9732433f4dc044845763962493607, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2211564899198745199, guid: caf9732433f4dc044845763962493607, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: caf9732433f4dc044845763962493607, type: 3}
 --- !u!1001 &525623270
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37722,11 +37789,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startLoad: 0
-  urlImage: 
   rawImage: {fileID: 0}
   spriteImage: {fileID: 815746817}
+  urlImage: 
   loadAnimObj: {fileID: 0}
-  log: 0
+  debug: 0
 --- !u!1001 &817827477
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45618,11 +45685,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startLoad: 0
-  urlImage: 
   rawImage: {fileID: 0}
   spriteImage: {fileID: 1017105176}
+  urlImage: 
   loadAnimObj: {fileID: 0}
-  log: 0
+  debug: 0
 --- !u!1001 &1017778952
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50929,10 +50996,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 700630886}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 245.74722, y: -47.44819}
-  m_SizeDelta: {x: 0, y: 94.89638}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 245.74722, y: 0}
+  m_SizeDelta: {x: 94.89638, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1127989622
 MonoBehaviour:
@@ -52654,10 +52721,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 676c869f6c04b7848ae04d741545c51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
+  showCurrencyCode: 0
   purchaseImageLoad: {fileID: 0}
   currencyImageLoad: {fileID: 815746819}
-  showCurrencyCode: 0
+  id: 0
   textLegasy:
     title: {fileID: 0}
     description: {fileID: 0}
@@ -52666,6 +52733,16 @@ MonoBehaviour:
     title: {fileID: 0}
     description: {fileID: 0}
     priceValue: {fileID: 877115507}
+  data:
+    id: 
+    title: 
+    description: 
+    imageURI: 
+    price: 
+    priceValue: 
+    priceCurrencyCode: 
+    currencyImageURL: 
+    consumed: 0
 --- !u!1001 &1167297381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65812,10 +65889,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1011923320}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 13, y: -28.248224}
-  m_SizeDelta: {x: 0, y: 56.49645}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 13, y: 0}
+  m_SizeDelta: {x: 56.49645, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1465893334
 MonoBehaviour:
@@ -65960,11 +66037,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startLoad: 0
-  urlImage: 
   rawImage: {fileID: 0}
   spriteImage: {fileID: 1467742789}
+  urlImage: 
   loadAnimObj: {fileID: 0}
-  log: 0
+  debug: 0
 --- !u!1001 &1467830938
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -89197,10 +89274,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 676c869f6c04b7848ae04d741545c51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
+  showCurrencyCode: 0
   purchaseImageLoad: {fileID: 0}
   currencyImageLoad: {fileID: 1467742791}
-  showCurrencyCode: 0
+  id: 0
   textLegasy:
     title: {fileID: 0}
     description: {fileID: 0}
@@ -89209,6 +89286,16 @@ MonoBehaviour:
     title: {fileID: 0}
     description: {fileID: 0}
     priceValue: {fileID: 791652223}
+  data:
+    id: 
+    title: 
+    description: 
+    imageURI: 
+    price: 
+    priceValue: 
+    priceCurrencyCode: 
+    currencyImageURL: 
+    consumed: 0
 --- !u!1001 &1988882799
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -98060,3 +98147,4 @@ SceneRoots:
   - {fileID: 427421309}
   - {fileID: 1824509689}
   - {fileID: 1726989397}
+  - {fileID: 523797061}

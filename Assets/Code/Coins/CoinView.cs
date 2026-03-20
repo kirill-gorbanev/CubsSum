@@ -20,7 +20,7 @@ namespace Code
 
         public void View()
         {
-            counter.text =NumberFormatter.Format( YG2.saves.coins);
+            counter.text =NumberFormatter.Format( YandexGame.savesData.coins);
                 // mult.text = count.mult.ToString();
         }
     }

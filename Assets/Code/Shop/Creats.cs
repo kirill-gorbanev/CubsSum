@@ -40,9 +40,9 @@ public class Creats
             return;
 
         int i = 0;
-        
-        YG2.saves.Peres ??= new();
-        YG2.saves.Pods ??= new();
+
+        YandexGame.savesData.Peres ??= new();
+        YandexGame.savesData.Pods ??= new();
 
         foreach (Item item in config.items)
         {
@@ -59,13 +59,13 @@ public class Creats
 
             c.costValue = item.cost;
 
-         //   var d = dDop * i + damage.y + dX;
-        //    damage = new Vector2Int(d, d + dY);
-          //  var a = aDop * i + add.y + aX;
-          //  add = new Vector2Int(a, a + aY);
+            //   var d = dDop * i + damage.y + dX;
+            //    damage = new Vector2Int(d, d + dY);
+            //  var a = aDop * i + add.y + aX;
+            //  add = new Vector2Int(a, a + aY);
 
             c.cost.text = NumberFormatter.Format(item.cost);
-            c.add.text = string.Format(c.formatAdd,  item.add.x, item.add.y);
+            c.add.text = string.Format(c.formatAdd, item.add.x, item.add.y);
             c.bgView.color = rangeZones.First(e => e.range == item.range).color;
 
             var i1 = i;
@@ -76,20 +76,20 @@ public class Creats
                 {
                     if (c.counterCell == null)
                     {
-                        YG2.saves.activeIdPods = s;
-                        Compl(item, s,   item.add, c.bgCell);
+                        YandexGame.savesData.activeIdPods = s;
+                        Compl(item, s, item.add, c.bgCell);
                     }
                     else
                     {
                         if (!c.counterCell.IsMax(s))
                             if (OnBye != null && OnBye.Invoke(c.costValue))
                             {
-                                YG2.saves.Peres ??= new();
-                                var cs = YG2.saves.Peres.FirstOrDefault(e => e.id == s);
+                                YandexGame.savesData.Peres ??= new();
+                                var cs = YandexGame.savesData.Peres.FirstOrDefault(e => e.id == s);
                                 if (cs == null)
                                 {
                                     cs = new As { id = s, count = 0 };
-                                    YG2.saves.Peres.Add(cs);
+                                    YandexGame.savesData.Peres.Add(cs);
                                 }
 
                                 cs.count++;
@@ -98,22 +98,22 @@ public class Creats
                                 c.costValue *= 2;
                                 c.cost.text = c.costValue.ToString();
 
-                                Compl(item, s,  item.add, c.bgCell);
+                                Compl(item, s, item.add, c.bgCell);
                             }
                     }
                 }
                 else if (OnBye != null && OnBye.Invoke(c.costValue))
                 {
-                    YG2.saves.Pods.Add(s);
-                    Compl(item, s,   item.add, c.bgCell);
+                    YandexGame.savesData.Pods.Add(s);
+                    Compl(item, s, item.add, c.bgCell);
                     c.Active();
                     if (c.counterCell == null)
-                        YG2.saves.activeIdPods = s;
+                        YandexGame.savesData.activeIdPods = s;
                     else
                     {
-                        var cs = YG2.saves.Peres.FirstOrDefault(e => e.id == s);
+                        var cs = YandexGame.savesData.Peres.FirstOrDefault(e => e.id == s);
                         if (cs == null)
-                            YG2.saves.Peres.Add(new As { id = s, count = 1 });
+                            YandexGame.savesData.Peres.Add(new As { id = s, count = 1 });
                         else
                             cs.count++;
                     }
@@ -123,18 +123,18 @@ public class Creats
 
             i++;
 
-            if (c.counterCell != null && YG2.saves.Peres != null)
+            if (c.counterCell != null && YandexGame.savesData.Peres != null)
             {
-                var s = YG2.saves.Peres.FirstOrDefault(e => e.id == i);
+                var s = YandexGame.savesData.Peres.FirstOrDefault(e => e.id == i);
                 if (s == null)
                 {
                     s = new As { id = i, count = 0 };
-                    YG2.saves.Peres.Add(s);
+                    YandexGame.savesData.Peres.Add(s);
                 }
                 else
                     _unblocks.Add(i);
 
-                c.counterCell.id = YG2.saves.Peres.IndexOf(s);
+                c.counterCell.id = YandexGame.savesData.Peres.IndexOf(s);
 
                 for (int j = 0; j < s.count; j++)
                 {
@@ -142,14 +142,14 @@ public class Creats
                     c.costValue *= 2;
                     c.cost.text = c.costValue.ToString();
 
-                    Compl(item, YG2.saves.activeIdPods,   item.add, c.bgCell);
+                    Compl(item, YandexGame.savesData.activeIdPods, item.add, c.bgCell);
                 }
             }
 
 
-            if (c.counterCell == null && YG2.saves.Pods != null && YG2.saves.Pods.Count > 0)
+            if (c.counterCell == null && YandexGame.savesData.Pods != null && YandexGame.savesData.Pods.Count > 0)
             {
-                var vv = YG2.saves.Pods.FirstOrDefault(e => e == i);
+                var vv = YandexGame.savesData.Pods.FirstOrDefault(e => e == i);
                 if (vv != 0)
                 {
                     _unblocks.Add(i);
@@ -157,9 +157,8 @@ public class Creats
                 }
             }
 
-            if (i == YG2.saves.activeIdPods && c.counterCell == null)
-                Compl(item, i,   item.add, c.bgCell);
-            
+            if (i == YandexGame.savesData.activeIdPods && c.counterCell == null)
+                Compl(item, i, item.add, c.bgCell);
         }
     }
 

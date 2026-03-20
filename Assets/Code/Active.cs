@@ -29,7 +29,7 @@ namespace Code
 
         private void Awake()
         {
-            YG2.onGetSDKData += () =>
+            YandexGame.GetDataEvent += () =>
             {
                 zone.OnChange += e =>
                 {
@@ -42,10 +42,10 @@ namespace Code
 
                 creatsZone.OnBye += cost =>
                 {
-                    if (YG2.saves.coins < cost)
+                    if (YandexGame.savesData.coins < cost)
                         return false;
 
-                    YG2.saves.coins -= cost;
+                    YandexGame.savesData.coins -= cost;
                     audioZone.Bye();
                     return true;
                 };
@@ -67,9 +67,9 @@ namespace Code
 
                 creatsPassive.OnBye += cost =>
                 {
-                    if (YG2.saves.coins < cost)
+                    if (YandexGame.savesData.coins < cost)
                         return false;
-                    YG2.saves.coins -= cost;
+                    YandexGame.savesData.coins -= cost;
                     audioZone.Bye();
                     return true;
                 };
@@ -86,7 +86,7 @@ namespace Code
                 };
                 moves.OnAdd += e =>
                 {
-                    YG2.saves.coins += e;
+                    YandexGame.savesData.coins += e;
                     coinsView.View();
                     coinsView.passive.text = string.Format(coinsView.formatPassive, e);
                 };
@@ -96,24 +96,21 @@ namespace Code
 
             savess();
 
-            YG2.onShowWindowGame += YG2.SaveProgress;
-            YG2.onHideWindowGame += YG2.SaveProgress;
-            YG2.onPurchaseSuccess += _ => YG2.SaveProgress();
-
-            YG2.onPauseGame += _ => YG2.SaveProgress();
-            YG2.onFocusWindowGame += (_) => { YG2.SaveProgress(); };
+            YandexGame.onShowWindowGame += YandexGame.SaveProgress;
+            YandexGame.onHideWindowGame += YandexGame.SaveProgress;
+            YandexGame.PurchaseSuccessEvent += _ => YandexGame.SaveProgress();
 
             StartCoroutine(TimeSave());
         }
 
         private void OnDestroy()
         {
-            YG2.SaveProgress();
+            YandexGame.SaveProgress();
         }
 
         private void OnDisable()
         {
-            YG2.SaveProgress();
+            YandexGame.SaveProgress();
         }
 
         private IEnumerator TimeSave()
@@ -122,31 +119,29 @@ namespace Code
             while (true)
             {
                 yield return t;
-                YG2.SaveProgress();
+                YandexGame.SaveProgress();
             }
         }
-        
+
         private void savess()
         {
-            YG2.onDefaultSaves += () =>
+            YandexGame.GetDataEvent  += () =>
             {
-                YG2.saves.Pods = new();
-                YG2.saves.Peres = new();
-            };
-            YG2.onGetSDKData += () =>
-            {
+                YandexGame.savesData.Pods ??= new();
+                YandexGame.savesData.Peres ??= new();
+                
                 coinsView.View();
 
                 foreach (var v in viewsSmokes)
                     v.SetActive(false);
-                viewsSmokes[YG2.saves.activeIdPods].SetActive(true);
+                viewsSmokes[YandexGame.savesData.activeIdPods].SetActive(true);
 
                 sigar.Load();
                 pers.Load();
                 add.Load();
             };
 
-            YGInsides.LoadProgress();
+            YandexGame.LoadProgress();
         }
     }
 }

@@ -32,9 +32,9 @@ namespace Code.Shop.Donat
             passiveTx.text = string.Format(formCount, rangeCost.x, rangeCost.y);
 
 
-            if (YG2.saves.Peres != null)
+            if (YandexGame.savesData.Peres != null)
             {
-                var s = YG2.saves.Peres.FirstOrDefault(e => e.id == id);
+                var s = YandexGame.savesData.Peres.FirstOrDefault(e => e.id == id);
 
                 if (s != null)
                     countert.text = string.Format(formCount, s.count, maxCount);
@@ -42,26 +42,20 @@ namespace Code.Shop.Donat
 
             Load();
 
-            YG2.onPurchaseSuccess += OnPurchaseSuccessHandler;
+            YandexGame.PurchaseSuccessEvent += OnPurchaseSuccessHandler;
             btBye.onClick.AddListener(() =>
             {
-                YG2.OpenAuthDialog();
-
-                if (YG2.saves.Peres != null)
+               
+                if (YandexGame.savesData.Peres != null)
                 {
-                    var s = YG2.saves.Peres.FirstOrDefault(e => e.id == id);
+                    var s = YandexGame.savesData.Peres.FirstOrDefault(e => e.id == id);
 
                     if (s == null || s.count < maxCount)
-                        YG2.BuyPayments("pers");
+                        YandexGame.BuyPayments("pers");
                 }
             });
 
-            YG2.onPurchaseSuccess += e =>
-            {
-                if (e == "pers")
-                    Bye();
-            };
-            YG2.ConsumePurchaseByID("pers");
+            YandexGame.ConsumePurchaseByID("pers");
         }
 
 
@@ -73,14 +67,14 @@ namespace Code.Shop.Donat
 
         private void Bye()
         {
-            if (YG2.saves.Peres != null)
+            if (YandexGame.savesData.Peres != null)
             {
-                var s = YG2.saves.Peres.FirstOrDefault(e => e.id == id);
+                var s = YandexGame.savesData.Peres.FirstOrDefault(e => e.id == id);
 
                 if (s == null)
                 {
                     s = new() { id = id, count = 0 };
-                    YG2.saves.Peres.Add(s);
+                    YandexGame.savesData.Peres.Add(s);
                 }
 
                 if (s.count >= maxCount)
@@ -88,7 +82,7 @@ namespace Code.Shop.Donat
 
                 s.count++;
 
-                YG2.saves.isByePers = true;
+                YandexGame.savesData.isByePers = true;
                 Load();
 
                 audioZone.Bye();
@@ -99,12 +93,12 @@ namespace Code.Shop.Donat
 
         public void Load()
         {
-            if (YG2.saves.Peres != null)
+            if (YandexGame.savesData.Peres != null)
             {
-                var s = YG2.saves.Peres.FirstOrDefault(e => e.id == id);
+                var s = YandexGame.savesData.Peres.FirstOrDefault(e => e.id == id);
 
                 if (s != null)
-                    if (YG2.saves.isByePers)
+                    if (YandexGame.savesData.isByePers)
                     {
                         countert.text = string.Format(formCount, s.count, maxCount);
                         coinsView.View();

@@ -24,15 +24,15 @@ namespace Code
 
         private void Start()
         {
-            YG2.InterstitialAdvShow();
+            YandexGame.FullscreenShow();
 
-            if (YG2.saves.step <= 0)
-                YG2.saves.step = 1;
+            if (YandexGame.savesData.step <= 0)
+                YandexGame.savesData.step = 1;
 
-            _max = YG2.saves.step * levelsUp;
-            counterText.text = YG2.saves.count.ToString();
-            slider.value = (YG2.saves.count - YG2.saves.last) / ((float)_max - YG2.saves.last);
-            level.text = string.Format(formLevel, YG2.saves.step);
+            _max = YandexGame.savesData.step * levelsUp;
+            counterText.text = YandexGame.savesData.count.ToString();
+            slider.value = (YandexGame.savesData.count - YandexGame.savesData.last) / ((float)_max - YandexGame.savesData.last);
+            level.text = string.Format(formLevel, YandexGame.savesData.step);
             multTx.text = "x" + _mult;
 
             btX2.onClick.AddListener(() =>
@@ -43,24 +43,25 @@ namespace Code
                     a.pers.gameObject.SetActive(false);
                 AudioListener.volume = 0f;
 
-                YG2.RewardedAdvShow("x2", () => { StartCoroutine(Time()); });
+                YandexGame.RewVideoShow(1);
+                YandexGame.RewardVideoEvent +=  (e) => {if(e==1) StartCoroutine(Time()); };
             });
 
             zoneController.OnChange += b =>
             {
-                YG2.saves.count += _mult;
-                counterText.text = YG2.saves.count.ToString();
+                YandexGame.savesData.count += _mult;
+                counterText.text = YandexGame.savesData.count.ToString();
 
-                level.text = string.Format(formLevel, YG2.saves.step);
-                if (YG2.saves.count > _max)
+                level.text = string.Format(formLevel, YandexGame.savesData.step);
+                if (YandexGame.savesData.count > _max)
                 {
-                    YG2.saves.step++;
-                    YG2.saves.last = _max;
-                    _max = YG2.saves.step * levelsUp;
-                    YG2.SetLeaderboard("clicks", YG2.saves.step);
+                    YandexGame.savesData.step++;
+                    YandexGame.savesData.last = _max;
+                    _max = YandexGame.savesData.step * levelsUp;
+                    YandexGame.NewLeaderboardScores("clicks", YandexGame.savesData.step);
                 }
 
-                slider.value = (YG2.saves.count - YG2.saves.last) / ((float)_max - YG2.saves.last);
+                slider.value = (YandexGame.savesData.count - YandexGame.savesData.last) / ((float)_max - YandexGame.savesData.last);
             };
 
             StartCoroutine(Ads());
@@ -68,18 +69,31 @@ namespace Code
 
             toggle.onValueChanged.AddListener(_ =>
             {
-                YG2.SetLeaderboard("clicks", YG2.saves.count);
-                YG2.GetLeaderboard("clicks");
+                YandexGame.NewLeaderboardScores("clicks", YandexGame.savesData.count);
+                YandexGame.GetLeaderboard("clicks",
+                maxQuantityPlayers:10,
+                    quantityTop:3,
+                quantityAround:10,
+                    photoSizeLB:"32");
             });
 
-            YG2.onCloseAnyAdv += () =>
+            YandexGame.CloseFullAdEvent += () =>
             {
                 ads.SetActive(false);
                 foreach (var a in activesAds)
                     a.SetActive(true);
                 foreach (var a in _moves.pres)
                     a.pers.gameObject.SetActive(true);
-                AudioListener.volume = YG2.saves.isSounds ? 1f : 0f;
+                AudioListener.volume = YandexGame.savesData.isSounds ? 1f : 0f;
+            };
+            YandexGame.CloseVideoEvent += () =>
+            {
+                ads.SetActive(false);
+                foreach (var a in activesAds)
+                    a.SetActive(true);
+                foreach (var a in _moves.pres)
+                    a.pers.gameObject.SetActive(true);
+                AudioListener.volume = YandexGame.savesData.isSounds ? 1f : 0f;
             };
         }
 
@@ -118,7 +132,7 @@ namespace Code
                 AudioListener.volume = 0f;
 
                 yield return ss;
-                YG2.InterstitialAdvShow();
+                YandexGame.FullscreenShow();
             }
         }
 

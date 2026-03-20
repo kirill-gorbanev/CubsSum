@@ -21,14 +21,13 @@ namespace Code.Shop.Donat
             // costTx.text = cost.ToString();
             Load();
 
-            YG2.onPurchaseSuccess += OnPurchaseSuccessHandler;
+            YandexGame.PurchaseSuccessEvent += OnPurchaseSuccessHandler;
             btBye.onClick.AddListener(() =>
-            {            YG2.OpenAuthDialog();
-
-                if (!YG2.saves.isByeAdd)
-                    YG2.BuyPayments("add_pers");
+            {         
+                if (!YandexGame.savesData.isByeAdd)
+                    YandexGame.BuyPayments("add_pers");
             });
-            YG2.ConsumePurchaseByID("add_pers");
+            YandexGame.ConsumePurchaseByID("add_pers");
         }
 
 
@@ -36,14 +35,14 @@ namespace Code.Shop.Donat
         {
             if (purchase != "add_pers") return;
 
-            YG2.saves.isByeAdd = true;
+            YandexGame.savesData.isByeAdd = true;
             Load();
             audioZone.Bye();
         }
 
         public void Load()
         {
-            if (YG2.saves.isByeAdd)
+            if (YandexGame.savesData.isByeAdd)
             {
                 foreach (var cell in active.creatsPassive._cells)
                     cell.counterCell.max = newMax;
