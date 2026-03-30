@@ -20,7 +20,7 @@ namespace Code
         [SerializeField] private Toggle toggle;
 
         private int _max;
-        private int _mult = 1;
+        public int _mult = 1;
 
         private void Start()
         {
@@ -49,7 +49,7 @@ namespace Code
 
             zoneController.OnChange += b =>
             {
-                YandexGame.savesData.count += _mult;
+                YandexGame.savesData.count ++;
                 counterText.text = YandexGame.savesData.count.ToString();
 
                 level.text = string.Format(formLevel, YandexGame.savesData.step);
@@ -65,7 +65,6 @@ namespace Code
             };
 
             StartCoroutine(Ads());
-
 
             toggle.onValueChanged.AddListener(_ =>
             {

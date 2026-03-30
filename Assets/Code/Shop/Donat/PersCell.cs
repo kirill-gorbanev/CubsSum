@@ -24,11 +24,16 @@ namespace Code.Shop.Donat
         [SerializeField] private TMP_Text passiveTx;
         [SerializeField] private string formPassive;
         [SerializeField] public Audios audioZone;
+        [SerializeField] public Image icon;
         public int id;
 
         private void Start()
         {
-            //  costTx.text = cost.ToString();
+            var p =  YandexGame.purchases.First(e=> e.id == "pers");
+            costTx.text =p.priceValue;
+            EX.LoadImageFromUrlAsync(p.currencyImageURL, icon);
+
+
             passiveTx.text = string.Format(formCount, rangeCost.x, rangeCost.y);
 
 

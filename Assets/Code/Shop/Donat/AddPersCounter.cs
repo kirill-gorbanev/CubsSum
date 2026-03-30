@@ -1,4 +1,5 @@
-﻿using Audio;
+﻿using System.Linq;
+using Audio;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,10 +16,14 @@ namespace Code.Shop.Donat
         [SerializeField] private TMP_Text costTx;
         [SerializeField] public Audios audioZone;
         [SerializeField] public GameObject cell;
+        [SerializeField] public Image icon;
 
         private void Start()
         {
-            // costTx.text = cost.ToString();
+            var p = YandexGame.purchases.First(e => e.id == "add_pers");
+            costTx.text =p.priceValue;
+            EX.LoadImageFromUrlAsync(p.currencyImageURL, icon);
+
             Load();
 
             YandexGame.PurchaseSuccessEvent += OnPurchaseSuccessHandler;
